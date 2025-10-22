@@ -5,7 +5,7 @@ This project demonstrates end-to-end hardware design with firmware integration p
 
 ---
 
-## 📐 System Block Diagram
+## System Block Diagram
 
 ![BLE-Control Block Diagram](https://github.com/CDonohoe-Designs/BLE-Control/blob/main/Hardware/BLE_Control_BlockDiagram.png)
 
@@ -19,7 +19,7 @@ This diagram outlines the key subsystems:
 
 ---
 
-## 🔩 Hardware Overview
+## Hardware Overview
 
 - **MCU:** STM32WB55CGU6 (BLE 5.0 + Cortex-M4)
 - **Battery System:** Single-cell LiPo with charger IC
@@ -28,11 +28,11 @@ This diagram outlines the key subsystems:
 - **Debug:** USB-CDC or UART for diagnostics
 - **Interfaces:** GPIO/I²C/SPI for expansion
 
-📁 Full schematic and layout files can be found in the [`Hardware/`](https://github.com/CDonohoe-Designs/BLE-Control/tree/main/Hardware) folder.
+ Full schematic and layout files can be found in the [`Hardware/`](https://github.com/CDonohoe-Designs/BLE-Control/tree/main/Hardware) folder.
 
 ---
 
-## 🔧 Firmware Features (MVP)
+## Firmware Features (MVP)
 
 - BLE advertising under custom name: `BLE-Control`
 - UART debug output
@@ -42,7 +42,7 @@ This diagram outlines the key subsystems:
 
 ---
 
-## 📁 Repo Structure
+## Repo Structure
 
 ```
 BLE-Control/
@@ -55,7 +55,7 @@ BLE-Control/
 
 ---
 
-## 🛠️ Tools Used
+## Tools Used
 
 - **Altium Designer** (v20.2) — schematic & PCB layout  
 - **STM32CubeIDE** — BLE firmware project  
@@ -64,7 +64,7 @@ BLE-Control/
 
 ---
 
-## 🚀 Status
+## Status
 
 - [x] Block diagram complete  
 - [x] Repo structure in place  
