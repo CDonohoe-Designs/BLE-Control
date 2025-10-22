@@ -73,3 +73,15 @@ BLE-Control/
 - [ ] Report draft  
 
 ---
+## License & Reuse
+- **MIT (code):** `LICENSE_MIT`
+
+**Medical / safety disclaimer**  
+This repository is provided for engineering demonstration and education. It is **not a medical device**, is **not certified** to IEC 60601, and must **not** be used for patient diagnosis or care. Content is provided **as is**, without any warranty or liability.
+
+---
+## Contact
+**Caoilte Donohoe** — Dublin, Ireland  
+Email: caoiltedonohoe@gmail.com · LinkedIn: https://www.linkedin.com/in/caoilte-donohoe-17855613 · GitHub: https://github.com/CDonohoe-Designs
+
+---
