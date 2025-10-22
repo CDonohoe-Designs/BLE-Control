@@ -26,16 +26,6 @@ This unit powers and communicates with a miniature implant (e.g. ASIC-based stim
 - LED blink for status
 - Ready for BLE services: implant handshake, sensor push, firmware update
 
----
-## License & Reuse
-- **MIT (code):** `LICENSE_MIT`
-
-**Medical / safety disclaimer**  
-This repository is provided for engineering demonstration and education. It is **not a medical device**, is **not certified** to IEC 60601, and must **not** be used for patient diagnosis or care. Content is provided **as is**, without any warranty or liability.
-
----
-
-
 ## Repo Structure
 
 - `Hardware/`: Schematic, PCB image, Altium project (in future releases)
@@ -52,7 +42,14 @@ This repository is provided for engineering demonstration and education. It is *
   - `0x01`: Device status
   - `0x02`: Implant trigger / handshake
   - `0x03`: Battery level
- 
+---
+## License & Reuse
+- **MIT (code):** `LICENSE_MIT`
+
+**Medical / safety disclaimer**  
+This repository is provided for engineering demonstration and education. It is **not a medical device**, is **not certified** to IEC 60601, and must **not** be used for patient diagnosis or care. Content is provided **as is**, without any warranty or liability.
+
+--- 
 ---
 ## Contact
 **Caoilte Donohoe** — Dublin, Ireland  
