@@ -32,7 +32,7 @@ This diagram outlines the key subsystems:
 
 ---
 
-## Firmware Features (MVP)
+## Firmware Features
 
 - BLE advertising under custom name: `BLE-Control`
 - UART debug output
