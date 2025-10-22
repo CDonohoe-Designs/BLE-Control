@@ -35,11 +35,7 @@ This repository is provided for engineering demonstration and education. It is *
 
 ---
 
-## Contact
-**Caoilte Donohoe** — Dublin, Ireland  
-Email: caoiltedonohoe@gmail.com · LinkedIn: https://www.linkedin.com/in/caoilte-donohoe-17855613 · GitHub: https://github.com/CDonohoe-Designs
 
----
 ## Repo Structure
 
 - `Hardware/`: Schematic, PCB image, Altium project (in future releases)
@@ -56,3 +52,10 @@ Email: caoiltedonohoe@gmail.com · LinkedIn: https://www.linkedin.com/in/caoilte
   - `0x01`: Device status
   - `0x02`: Implant trigger / handshake
   - `0x03`: Battery level
+ 
+---
+## Contact
+**Caoilte Donohoe** — Dublin, Ireland  
+Email: caoiltedonohoe@gmail.com · LinkedIn: https://www.linkedin.com/in/caoilte-donohoe-17855613 · GitHub: https://github.com/CDonohoe-Designs
+
+---
