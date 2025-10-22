@@ -49,7 +49,6 @@ This unit powers and communicates with a miniature implant (e.g. ASIC-based stim
 **Medical / safety disclaimer**  
 This repository is provided for engineering demonstration and education. It is **not a medical device**, is **not certified** to IEC 60601, and must **not** be used for patient diagnosis or care. Content is provided **as is**, without any warranty or liability.
 
---- 
 ---
 ## Contact
 **Caoilte Donohoe** — Dublin, Ireland  
