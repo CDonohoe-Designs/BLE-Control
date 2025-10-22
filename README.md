@@ -30,7 +30,7 @@ This unit powers and communicates with a miniature implant (e.g. ASIC-based stim
 
 ## Repo Structure
 
-- `Hardware/`: Schematic, PCB image, Altium project (optional)
+- `Hardware/`: Schematic, PCB image, Altium project (in future releases)
 - `Firmware/`: STM32CubeIDE or Arduino code, BLE logic
 - `Report/`: PDF overview and system block diagrams
 - `Simulation/`: Optional — power budget or BLE range model
