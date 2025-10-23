@@ -1,16 +1,21 @@
-[Library]
-Type=Database
-Version=1.0
-DatabaseType=Excel
-DatabasePath=.\Libraries\Database\BLE_Control_Parts_DB.xlsx
-TableName=Parts
-KeyFieldName=PartNumber
-
-[Models]
-SchematicLibraryPathField=SchLibPath
-SchematicLibraryNameField=SchSymbolName
-PcbLibraryPathField=PcbLibPath
-PcbModelNameField=FootprintName
-
-[Parameters]
-IncludeFields=Manufacturer,MPN,Comment,Description,Height_mm,Iq_nA,Iq_uA,SizeCode,DNP,VariantTags,Supplier1,Supplier1PN,RoHS,Lifecycle,Notes
+[OutputDatabaseLinkFile]
+Version=1.1
+[DatabaseLinks]
+ConnectionString=Provider=MICROSOFT.ACE.OLEDB.12.0;Data Source=C:\Users\caoil\Git repos\BLE-Control\Hardware\Altium\Libraries\Database\BLE_Control_Parts_DB.xlsx;Extended Properties="Excel 8.0;HDR=Yes;IMEX=1"
+AddMode=3
+RemoveMode=1
+UpdateMode=2
+ViewMode=0
+LeftQuote=[
+RightQuote=]
+QuoteTableNames=1
+UseTableSchemaName=0
+DefaultColumnType=VARCHAR(255)
+LibraryDatabaseType=Microsoft Excel
+LibraryDatabasePath=C:\Users\caoil\Git repos\BLE-Control\Hardware\Altium\Libraries\Database\BLE_Control_Parts_DB.xlsx
+DatabasePathRelative=0
+TopPanelCollapsed=0
+LibrarySearchPath=
+OrcadMultiValueDelimiter=,
+SearchSubDirectories=0
+SchemaName=
