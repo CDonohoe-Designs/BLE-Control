@@ -5,7 +5,7 @@ This project demonstrates end-to-end hardware design with firmware integration p
 
 ---
 
-## System Block Diagram (Simplified, AFE to be added) 
+## System Block Diagram (Simplified) 
 
 ![BLE-Control Block Diagram](https://github.com/CDonohoe-Designs/BLE-Control/blob/main/Hardware/BLE_Control_BlockDiagram.png)
 
