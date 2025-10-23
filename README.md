@@ -1,7 +1,7 @@
 # BLE-Control — BLE-Enabled Wearable Controller
 
-**BLE-Control** is a compact, low-power BLE-enabled wearable controller designed to interface with an external device or implant via Bluetooth Low Energy.  
-This project demonstrates end-to-end hardware design with firmware integration points, suitable for medical, wearable, or embedded control applications.
+**BLE-Control** is a compact, low-power BLE-enabled wearable controller designed to interface with an external device via Bluetooth Low Energy.  
+This project demonstrates end-to-end hardware design with firmware integration points.
 
 ---
 
