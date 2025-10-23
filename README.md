@@ -1,47 +1,77 @@
 # BLE-Control — BLE-Enabled Wearable Controller
 
-A low-power BLE-enabled wearable controller inspired by Capri Medical’s “LUNA-Control” device.
-
-This unit powers and communicates with a miniature implant (e.g. ASIC-based stimulator). The system uses an STM32WB55 MCU with BLE 5.0, battery charging, power monitoring, and debug interface.
+**BLE-Control** is a compact, low-power BLE-enabled wearable controller designed to interface with an external device via Bluetooth Low Energy.  
+This project demonstrates end-to-end hardware design with firmware integration points.
 
 ---
 
-## Hardware Features
+## System Block Diagram (Simplified, AFE to be added) 
 
-- **MCU:** STM32WB55CGU6 (BLE + Cortex-M4)
-- **BLE 5.0** with custom services/advertising
-- **Battery system:** LiPo (3.7V), charge via BQ25120 or MCP73831
-- **Regulation:** 3.3 V LDO with enable pin
-- **USB-C / UART debug**
-- **Button + LED for user control**
-- **Sensor-ready I²C/SPI interface**
+![BLE-Control Block Diagram](https://github.com/CDonohoe-Designs/BLE-Control/blob/main/Hardware/BLE_Control_BlockDiagram.png)
+
+This diagram outlines the key subsystems:
+- STM32WB55 BLE MCU
+- LiPo battery and charger (e.g., BQ25120)
+- 3.3 V LDO with enable
+- USB-UART debug interface
+- Button and LED for user control
+- Optional ASIC/sensor interface
+
+---
+
+## Hardware Overview
+
+- **MCU:** STM32WB55CGU6 (BLE 5.0 + Cortex-M4)
+- **Battery System:** Single-cell LiPo with charger IC
+- **Regulation:** 3.3 V LDO with low-Iq and enable control
+- **User Interface:** Tactile button and LED
+- **Debug:** USB-CDC or UART for diagnostics
+- **Interfaces:** GPIO/I²C/SPI for expansion
+
+ Full schematic and layout files can be found in the [`Hardware/`](https://github.com/CDonohoe-Designs/BLE-Control/tree/main/Hardware) folder.
 
 ---
 
 ## Firmware Features
 
-- BLE Peripheral mode, advertising under name: `BLE-Control`
-- Low-power STOP mode with wake on button press
-- UART/USB debug output
-- LED blink for status
-- Ready for BLE services: implant handshake, sensor push, firmware update
-
-## Repo Structure
-
-- `Hardware/`: Schematic, PCB image, Altium project (in future releases)
-- `Firmware/`: STM32CubeIDE or Arduino code, BLE logic
-- `Report/`: PDF overview and system block diagrams
-- `Simulation/`: Optional — power budget or BLE range model
+- BLE advertising under custom name: `BLE-Control`
+- UART debug output
+- LED blink status
+- Button-triggered events
+- Low-power STOP/SLEEP modes (planned)
 
 ---
 
-## BLE Interface Preview
+## Repo Structure
 
-- UUID: 1234ABCD-5678-9ABC-DEF0-1234567890AB
-- Characteristics:
-  - `0x01`: Device status
-  - `0x02`: Implant trigger / handshake
-  - `0x03`: Battery level
+```
+BLE-Control/
+├── Hardware/     → Schematic, PCB, block diagram
+├── Firmware/     → STM32CubeIDE project, BLE logic
+├── Report/       → System overview PDF (WIP)
+├── README.md     → Project summary (this file)
+└── LICENSE
+```
+
+---
+
+## Tools Used
+
+- **Altium Designer** (v20.2) — schematic & PCB layout  
+- **STM32CubeIDE** — BLE firmware project  
+- **LTspice** (optional) — power simulations  
+- **GitHub Pages** — documentation hosting
+
+---
+
+## Status
+
+- [x] Block diagram complete  
+- [x] Repo structure in place  
+- [ ] Schematic WIP  
+- [ ] Firmware: BLE + LED + UART  
+- [ ] Report draft  
+
 ---
 ## License & Reuse
 - **MIT (code):** `LICENSE_MIT`
