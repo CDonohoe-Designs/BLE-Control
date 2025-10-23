@@ -1,0 +1,9 @@
+# Altium caches / temp
+__Previews/
+History/
+*.Dat
+*.Dblib-cache
+*.SchDocPreview
+*.PcbDocPreview
+# Local outputs (use /Releases for frozen)
+Hardware/Altium/Outputs/

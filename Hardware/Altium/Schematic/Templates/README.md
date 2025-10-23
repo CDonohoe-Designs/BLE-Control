@@ -1,0 +1,1 @@
+Templates placeholder for .SchDot / .PcbDot / title blocks.

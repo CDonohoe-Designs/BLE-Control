@@ -1,0 +1,16 @@
+[Library]
+Type=Database
+Version=1.0
+DatabaseType=Excel
+DatabasePath=.\Libraries\Database\BLE_Control_Parts_DB.xlsx
+TableName=Parts
+KeyFieldName=PartNumber
+
+[Models]
+SchematicLibraryPathField=SchLibPath
+SchematicLibraryNameField=SchSymbolName
+PcbLibraryPathField=PcbLibPath
+PcbModelNameField=FootprintName
+
+[Parameters]
+IncludeFields=Manufacturer,MPN,Comment,Description,Height_mm,Iq_nA,Iq_uA,SizeCode,DNP,VariantTags,Supplier1,Supplier1PN,RoHS,Lifecycle,Notes
