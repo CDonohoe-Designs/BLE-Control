@@ -1,1 +1,0 @@
-Optional: document antenna keepout room and placement rooms.

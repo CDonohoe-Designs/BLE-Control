@@ -17,5 +17,22 @@ DatabasePathRelative=0
 TopPanelCollapsed=0
 LibrarySearchPath=
 OrcadMultiValueDelimiter=,
-SearchSubDirectories=0
+SearchSubDirectories=1
 SchemaName=
+LastFocusedTable=Parts$
+[Table1]
+SchemaName=
+TableName=Parts$
+Enabled=True
+UserWhere=0
+UserWhereText=
+[FieldMap1]
+Options=FieldName=Parts$.SchSymbolName|TableNameOnly=Parts$|FieldNameOnly=SchSymbolName|FieldType=0|ParameterName=Library Ref|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap2]
+Options=FieldName=Parts$.SchLibPath|TableNameOnly=Parts$|FieldNameOnly=SchLibPath|FieldType=0|ParameterName=Library Path|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap3]
+Options=FieldName=Parts$.FootprintName|TableNameOnly=Parts$|FieldNameOnly=FootprintName|FieldType=0|ParameterName=Footprint|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap4]
+Options=FieldName=Parts$.PartNumber|TableNameOnly=Parts$|FieldNameOnly=PartNumber|FieldType=0|ParameterName=PartNumber|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap5]
+Options=FieldName=Parts$.Description|TableNameOnly=Parts$|FieldNameOnly=Description|FieldType=1|ParameterName=[Description]|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0

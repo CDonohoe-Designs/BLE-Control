@@ -1,1 +1,1 @@
-# Placeholder OutJob - open in Altium and set outputs to /Releases/<Rev>/
+# Configure outputs to .\Releases\<Rev>\ in AD25
