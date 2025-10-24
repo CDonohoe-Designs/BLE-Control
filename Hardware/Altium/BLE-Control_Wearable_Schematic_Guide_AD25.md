@@ -168,6 +168,48 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 - **Sensor decoupling:** BMI270 0.1 µF + 1 µF; SHTC3 0.1 µF; MAX17048 0.1 µF.
 - **SWD series (optional):** 22–47 Ω at SWDIO/SWCLK if needed.
 
+
+
 ---
 
-**Notes:** passives **0402** (0603 only for bulk/ESD). Mark DNP on RF match & Tag‑Connect (footprint‑only). Verify I²C addresses and thresholds in component datasheets during bring‑up.
+## Battery selection & connector (wearable)
+**Goal:** thin, serviceable, EMC‑sane power input for a small wearable.
+
+### Battery form factor
+- **Type:** single‑cell **Li‑Po pouch** (3.7 V nom, 4.2 V charge), preferably with **PCM** (protection board).
+- **Thickness target:** ≤ **3.5–4.0 mm**.
+- **Typical sizes:**  
+  • ~100 mAh → ~20×15×3.5 mm • ~150–200 mAh → ~30×20×3–4 mm • ~250–300 mAh → ~35×25×4–4.5 mm  
+- **Charge‑current rule of thumb:** start at **0.5 C** (e.g., 200 mAh → 100 mA ICHG). Go higher only if the cell datasheet allows.
+- **Runtime quick‑estimate:** `hours ≈ 0.8 × capacity_mAh / avg_current_mA` (0.8 derating for temp/aging).
+- **EMC/placement:** keep **battery metal away from the antenna keepout**, add **foam+tape** strain relief, **twist VBAT/GND leads**, leave a **service loop**.
+
+### Connector options (pick one)
+- **Direct‑solder tabs** (thinnest): large pads + strain‑relief slot/adhesive. *Non‑serviceable.*
+- **JST‑SH 1.0 mm** — PCB header **BM02B‑SRSS‑TB**, housing **SHR‑02V‑S‑B**.  
+  *Very low profile; friction latch only.*
+- **JST‑GH 1.25 mm** — PCB header **BM02B‑GHS‑TBT**, housing **GHR‑02V‑S**.  
+  *Higher profile; positive lock; robust in labs.*
+- (Alt.) **Molex PicoBlade 1.25 mm** if preferred.
+
+### Schematic tie‑in (where to wire things)
+- **Power_Batt_Charge_LDO.SchDoc**
+  - **J_BATT (2‑pin)** → `VBAT` / `GND` (clear silk polarity). Place near board edge opposite antenna.
+  - **BQ24074**: `VBUS` from USB via **polyfuse 0.5–1 A** + **TVS** to GND. `BAT` → `VBAT` with **10 µF** local cap.
+  - **ICHG/ILIM:** fit **R_ICHG** for ~**0.5 C** of chosen cell; **R_ILIM** per DS (start ~500 mA input limit).
+  - **TS (thermistor):** connect **10 k NTC** if the pack exposes it; otherwise configure per datasheet to disable or bias safely.
+  - **TPS7A02‑3V3** from `VBAT`; **TPS22910A**: `IN=VBAT`, `OUT=VDD_SENS`, `EN=SENS_EN` (MCU).
+  - **Test pads:** `TP_VBAT`, `TP_3V3`, `TP_VDD_SENS`, `TP_USB_5V`, `TP_GND`.
+- **Sensors.SchDoc**
+  - **MAX17048** (always‑on): **VDD = VBAT**, `SCL/SDA` on `I2C_SCL/SDA` (3V3 pull‑ups OK), `ALRT` → `GAUGE_INT` (optional), **0.1 µF** local.
+
+### BOM call‑outs
+- **Battery (placeholder):** `LiPo_Pouch_<capacity>mAh_<LxWxT>_PCM` (e.g., `LiPo_Pouch_200mAh_30x20x4mm_PCM`).
+- **Connector:** `JST‑SH‑2` *or* `JST‑GH‑2` (match housing/crimp pins).
+- **Protection:** **Polyfuse** 0.5–1 A (low‑R), **TVS** for `VBUS`, **10 k NTC** if used.
+
+### Decisions to lock
+1) **Connector**: JST‑SH (thinner) or JST‑GH (more secure).
+2) **Battery envelope** (max L×W×T) and **target capacity** (e.g., 150–200 mAh).
+3) **Charge current cap** (default **0.5 C**).
+
