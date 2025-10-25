@@ -82,6 +82,26 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 - Use **50 Ω CPWG** on Top; **ground fence vias** every ~2 mm; **no ground copper** under antenna per its datasheet.
 - Place an **optional u.FL test pad** (DNP) inline for conducted tests.
 
+## Pin map (v1)
+(Adjust later if routing demands; keep EXTI for INT lines.)
+
+| Function | MCU Pin (STM32WB55) | Net |
+|---|---|---|
+| I²C1 SCL | PB8 | `I2C_SCL` |
+| I²C1 SDA | PB9 | `I2C_SDA` |
+| IMU INT1 | PA0 | `BMI270_INT1` |
+| IMU INT2 | PA1 | `BMI270_INT2` |
+| Gauge ALRT (opt) | PB2 | `GAUGE_INT` |
+| Sensors rail enable | PA8 | `SENS_EN` |
+| LED | PB0 | `GPIO_LED` |
+| Button | PB1 | `BTN_IN` |
+| USB FS DM (opt) | PA11 | `USB_DM` |
+| USB FS DP (opt) | PA12 | `USB_DP` |
+| SWDIO | PA13 | `SWDIO` |
+| SWCLK | PA14 | `SWCLK` |
+| SWO (opt) | PB3 | `SWO` |
+| Reset | NRST | `NRST` |
+| RF out | RF pin | `RF_OUT` |
 
 ---
 
