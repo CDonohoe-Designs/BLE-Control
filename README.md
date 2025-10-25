@@ -56,9 +56,11 @@ BLE-Control/
 - [Wearable Schematic Guide](Docs/BLE-Control_Wearable_Schematic_Guide_AD25.md)
 
 ---
+##Datasheets
 - [TI BQ24074 – Charger & PowerPath](Docs/Datasheets/TI_BQ24074_Datasheet.pdf)
 - [TI TPS7A02-3V3 – Ultra-low-Iq LDO](Docs/Datasheets/TI_TPS7A02_Datasheet.pdf)
 - [TI TPS22910A – Load switch (active-low)](Docs/Datasheets/TI_TPS22910A_Datasheet.pdf)
+  
 ---
 ## EDA environment
 - **Altium Designer 25.x** (tested with 25.3.3 build 18)
