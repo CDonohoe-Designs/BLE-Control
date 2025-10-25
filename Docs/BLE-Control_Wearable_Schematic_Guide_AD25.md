@@ -1,5 +1,5 @@
 
-# BLE‑Control Wearable Schematic Guide (AD25, Capri‑Control style)
+# BLE‑Control Wearable Schematic Guide 
 
 Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schematic sheet and key design choices so layout and bring‑up are predictable. Target: **0402** passives (use **0603** only for bulk/ESD), **4‑layer 0.8 mm**, **TC2030‑NL** SWD, chip antenna with **DNP π‑match**.
 
