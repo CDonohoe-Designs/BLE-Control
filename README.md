@@ -50,6 +50,13 @@ BLE-Control/
 
 ---
 
+## Documentation
+- [Build Plan (AD25)](docs/BLE-Control_Build_Plan_AD25.md)
+- [One-Page Connection Checklist](docs/BLE-Control_Connection_Checklist_OnePage.md)
+- [Wearable Schematic Guide](docs/BLE-Control_Wearable_Schematic_Guide_AD25.md)
+
+---
+
 ## EDA environment
 - **Altium Designer 25.x** (tested with 25.3.3 build 18)
 - Microsoft Access Database Engine 2016 (x64) – required by Altium to read Excel‑backed **DBLib**
