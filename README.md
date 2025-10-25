@@ -122,5 +122,4 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 - [STM32WB Getting Started Series](https://www.youtube.com/playlist?list=PLnMKNibPkDnG9JRe2fbOOpVpWY7E4WbJ-)
 - [KiCad 7 STM32 Bluetooth Hardware Design (1/2 Schematic) — Phil's Lab #127](https://www.youtube.com/watch?v=nkHFoxe0mrU&t=623s)
 
-## License
-Choose a license (MIT/Apache‑2.0/BSD‑3‑Clause) and place it at the repo root.
+
