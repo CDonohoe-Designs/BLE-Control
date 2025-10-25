@@ -61,6 +61,7 @@ BLE-Control/
 - [TI TPS7A02-3V3 – Ultra-low-Iq LDO](Docs/Datasheets/TI_TPS7A02_Datasheet.pdf)
 - [TI TPS22910A – Load switch (active-low)](Docs/Datasheets/TI_TPS22910A_Datasheet.pdf)
 - [STM STM32WB55xx with BLE and ultra-low-power](Docs/Datasheets/stm32wb55ce.pdf)
+- [STM STM32WB55xx HW Ref Des App Note AN5156](Docs/Datasheets/an5165_rf_hardware_STM32WB.pdf)
   
 ---
 ## EDA environment
