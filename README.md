@@ -60,6 +60,7 @@ BLE-Control/
 - [TI BQ24074 – Charger & PowerPath](Docs/Datasheets/TI_BQ24074_Datasheet.pdf)
 - [TI TPS7A02-3V3 – Ultra-low-Iq LDO](Docs/Datasheets/TI_TPS7A02_Datasheet.pdf)
 - [TI TPS22910A – Load switch (active-low)](Docs/Datasheets/TI_TPS22910A_Datasheet.pdf)
+- [STM STM32WB55xx with BLE and ultra-low-power](Docs/Datasheets/stm32wb55ce.pdf)
   
 ---
 ## EDA environment
