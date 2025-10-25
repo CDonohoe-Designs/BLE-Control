@@ -117,6 +117,7 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 ## Links
 
 - [PCB Chip Antenna Hardware Design — Phil's Lab #139](https://www.youtube.com/watch?v=UQBMROv7Dy4)
+- [STM32WB Getting Started Series] (https://www.youtube.com/playlist?list=PLnMKNibPkDnG9JRe2fbOOpVpWY7E4WbJ-)
 
 ## License
 Choose a license (MIT/Apache‑2.0/BSD‑3‑Clause) and place it at the repo root.
