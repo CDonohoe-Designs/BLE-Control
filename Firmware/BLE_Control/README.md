@@ -13,10 +13,9 @@ This README is the **source of truth** for toolchain versions, MCU pinout, and b
 
 
 ---
-## Pinout & Configuration
-
-**The **canonical pin map** lives in **[Docs/BLE_Control_PinMap.md](Docs/BLE_Control_PinMap.md)**. 
-
+### Pinout & Configuration
+The **canonical pin map** lives in **[Docs/BLE_Control_PinMap.md](Docs/BLE_Control_PinMap.md)**.  
+This README won’t duplicate the table—update the canonical file only.
 ---
 
 ## 2) Toolchain / versions
