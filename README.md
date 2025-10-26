@@ -126,7 +126,7 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 **Wireless coprocessor (CPU2):**
 - Use **STM32CubeProgrammer → Wireless/FUS** to flash the **BLE stack** (Full/Light/Concurrent).  
 - Record the **stack version** in the Firmware README under *Toolchain / versions*.
-
+---
 
 ### Bring-Up & Test
 - **RF & PER Testing (STM32CubeMonitor-RF)** → [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](Docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
