@@ -87,8 +87,8 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 
 | Function | MCU Pin (STM32WB55) | Net |
 |---|---|---|
-| I²C1 SCL | PB8 | `I2C_SCL` |
-| I²C1 SDA | PB9 | `I2C_SDA` |
+| I²C1 SCL | PB6 | `I2C_SCL` |
+| I²C1 SDA | PB7 | `I2C_SDA` |
 | IMU INT1 | PA0 | `BMI270_INT1` |
 | IMU INT2 | PA1 | `BMI270_INT2` |
 | Gauge ALRT (opt) | PB2 | `GAUGE_INT` |
