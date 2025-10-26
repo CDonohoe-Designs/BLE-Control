@@ -105,25 +105,80 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 
 
 ---
-## Pinout & Configuration — STM32WB55 (UFQFPN48)
+## Pinout & Configuration — STM32WB55CG (UFQFPN-48)
+
+> Single source of truth for firmware–schematic interface.  
+> Net labels match the schematic; CubeIDE modes/pulls are implementation-ready.
 
 | Function | MCU Pin | Net (User Label) | CubeIDE Mode / AF | Pull / Output | Speed | Notes |
 |---|---|---|---|---|---|---|
-| I²C1 SCL | **PB6** | **I2C_SCL** | I2C1_SCL (AF) | Open-Drain, No Pull | Very High | 2.2–4.7 kΩ external pull-up. :contentReference[oaicite:3]{index=3} |
-| I²C1 SDA | **PB7** | **I2C_SDA** | I2C1_SDA (AF) | Open-Drain, No Pull | Very High | 2.2–4.7 kΩ external pull-up. :contentReference[oaicite:4]{index=4} |
-| IMU INT1 | PA0 | **BMI270_INT1** | GPIO_Input + EXTI | No Pull (or PD) | — | EXTI Rising edge. |
-| IMU INT2 | PA1 | **BMI270_INT2** | GPIO_Input + EXTI | No Pull (or PD) | — | EXTI Rising edge. |
-| Gauge ALERT (opt) | PB2 | **GAUGE_INT** | GPIO_Input + EXTI | Pull-Up (typ) | — | EXTI Falling edge if ALERT active-low. |
-| Sensors rail enable | PA8 | **SENS_EN** | GPIO_Output (PP) | No Pull (init Low) | Low | Drive High to power sensor rail. :contentReference[oaicite:5]{index=5} |
-| LED | PB0 | **GPIO_LED** | GPIO_Output (PP) | No Pull | Low | Active-high. :contentReference[oaicite:6]{index=6} |
-| Button | PB1 | **BTN_IN** | GPIO_Input + EXTI | Pull-Up | — | EXTI Falling edge. :contentReference[oaicite:7]{index=7} |
-| USB FS DM (opt) | PA11 | **USB_DM** | USB Device (FS) | — | — | Needs **HSI48 + CRS**; LSE recommended; ensure **VDDUSB** is powered. :contentReference[oaicite:8]{index=8} |
-| USB FS DP (opt) | PA12 | **USB_DP** | USB Device (FS) | — | — | As above. :contentReference[oaicite:9]{index=9} |
-| SWDIO | PA13 | **SWDIO** | Serial-Wire Debug | — | — | — :contentReference[oaicite:10]{index=10} |
-| SWCLK | PA14 | **SWCLK** | Serial-Wire Debug | — | — | — :contentReference[oaicite:11]{index=11} |
-| SWO (opt) | PB3 | **SWO** | Trace Async SW (SWO) | — | — | Enable SWV in Debug. :contentReference[oaicite:12]{index=12} |
-| Reset | NRST | **NRST** | Reset pin | — | — | Hardware line. |
-| RF out | **RF1** | **RF_OUT** | RF pin (not GPIO) | — | — | Single-ended RF I/O → matching → antenna. :contentReference[oaicite:13]{index=13} |
+| I²C1 SCL | **PB6** | **I2C_SCL** | I2C1_SCL (AF) | Open-Drain, No Pull | Very High | 2.2–4.7 kΩ external pull-up. |
+| I²C1 SDA | **PB7** | **I2C_SDA** | I2C1_SDA (AF) | Open-Drain, No Pull | Very High | 2.2–4.7 kΩ external pull-up. |
+| IMU INT1 | PA0 | **BMI270_INT1** | GPIO_Input + EXTI | No Pull (or Pull-Down) | — | EXTI **Rising** (BMI270 default active-high; adjust if needed). |
+| IMU INT2 | PA1 | **BMI270_INT2** | GPIO_Input + EXTI | No Pull (or Pull-Down) | — | EXTI **Rising**. |
+| Gauge ALERT (opt) | PB2 | **GAUGE_INT** | GPIO_Input + EXTI | **Pull-Up** (typ) | — | EXTI **Falling** if ALERT is active-low. |
+| Sensors rail enable | PA8 | **SENS_EN** | GPIO_Output (Push-Pull) | No Pull (init **Low**) | Low | Drive **High** to power sensor rail. |
+| LED | PB0 | **GPIO_LED** | GPIO_Output (Push-Pull) | No Pull | Low | Active-high. |
+| Button | PB1 | **BTN_IN** | GPIO_Input + EXTI | **Pull-Up** | — | EXTI **Falling** (press → GND). |
+| USB FS DM (opt) | PA11 | **USB_DM** | USB Device (FS) | — | — | Requires **HSI48 + CRS**; **LSE** recommended. Ensure **VDDUSB** powered. |
+| USB FS DP (opt) | PA12 | **USB_DP** | USB Device (FS) | — | — | As above. |
+| SWDIO | PA13 | **SWDIO** | Serial-Wire Debug | — | — | Keep dedicated to debug. |
+| SWCLK | PA14 | **SWCLK** | Serial-Wire Debug | — | — | — |
+| SWO (opt) | PB3 | **SWO** | Trace Async SW (SWO) | — | — | Enable **SWV** in Debug configuration. |
+| Reset | NRST | **NRST** | Reset pin | — | — | Hardware line (no Cube config). |
+| RF out | **RF1** | **RF_OUT** | RF pin (not GPIO) | — | — | **Single-ended** RF I/O → π-match → 50 Ω antenna. (UFQFPN-48 uses **RF1**, not RFP/RFN.) |
+
+---
+
+### CubeMX Setup (UFQFPN-48 specifics)
+
+1. **Part selection**
+   - Choose **STM32WB55CGUx** (UFQFPN-48) in CubeIDE.
+
+2. **Pinout**
+   - **PB6 → I2C1_SCL**, **PB7 → I2C1_SDA** (Open-Drain, no pull).
+   - **PA0/PA1/PB2** as **GPIO Input + EXTI** (edges/pulls per table).
+   - **PA8** as **GPIO Output (PP)**; initial state **Low** (you raise it when sensors should power).
+   - Enable **USB Device (FS)**; Cube assigns **PA11/PA12**.
+   - **Debug**: Serial Wire; optionally enable **Trace Async SW** for **PB3 (SWO)**.
+
+3. **Clocks & Power**
+   - **LSE 32.768 kHz** enabled (BLE timing) and **HSI48** for USB with **CRS** (best accuracy with LSE).
+   - Enable **SMPS** if your BOM stuffs the SMPS network (lower current vs LDO).
+   - Ensure **VDDUSB** domain is powered as per datasheet if USB is used.
+
+4. **NVIC**
+   - Enable EXTI IRQs for **PA0, PA1, PB1, PB2** with sensible priority (e.g., preempt 5).
+
+5. **I²C1**
+   - Timing for **100 kHz** or **400 kHz**; **Analog filter ON**, **Digital filter = 0** to start.
+
+6. **Wireless (CPU2)**
+   - Flash the appropriate **BLE wireless stack** to CPU2 using CubeProgrammer (Full/Light/Concurrent to suit app).
+   - Build a BLE example (P2P Server / Heart Rate) to validate RF + clocks.
+
+---
+
+### (Copy-me) Short Pin List — for README quick reference (UFQFPN-48)
+
+| Function | MCU Pin (STM32WB55CG) | Net |
+|---|---|---|
+| I²C1 SCL | PB6 | I2C_SCL |
+| I²C1 SDA | PB7 | I2C_SDA |
+| IMU INT1 | PA0 | BMI270_INT1 |
+| IMU INT2 | PA1 | BMI270_INT2 |
+| Gauge ALRT (opt) | PB2 | GAUGE_INT |
+| Sensors rail enable | PA8 | SENS_EN |
+| LED | PB0 | GPIO_LED |
+| Button | PB1 | BTN_IN |
+| USB FS DM (opt) | PA11 | USB_DM |
+| USB FS DP (opt) | PA12 | USB_DP |
+| SWDIO | PA13 | SWDIO |
+| SWCLK | PA14 | SWCLK |
+| SWO (opt) | PB3 | SWO |
+| Reset | NRST | NRST |
+| RF out | RF1 | RF_OUT |
+
 ---
 ### CubeIDE notes for UFQFPN48
 - In **Pinout**, set **PB6 → I2C1_SCL** and **PB7 → I2C1_SDA**.  
