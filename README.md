@@ -141,6 +141,11 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 - Bring‑up checklist & test firmware stubs (USB DFU, I²C scan, IMU wake, fuel‑gauge read).
 
 ---
+
+### Pinout & Configuration
+The **canonical pin map** lives in **[Docs/BLE_Control_PinMap.md](../../Docs/BLE_Control_PinMap.md)**.  
+CubeIDE modes/pulls follow that table; this README will not duplicate pins.
+---
 ## STM32CubeIDE Firmware (STM32WB55CG, UFQFPN-48)
 
 **Project path:** `Firmware/BLE_Control/` → **[Open Firmware README](Firmware/BLE_Control/README.md)**  
