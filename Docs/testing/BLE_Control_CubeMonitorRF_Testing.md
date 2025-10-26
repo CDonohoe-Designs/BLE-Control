@@ -12,16 +12,10 @@ This guide shows how to test your **BLE-Control** board’s radio using **STM32C
 ---
 
 ## Hardware options (Tag-Connect)
-Choose one:
 
-**A) SWD only + tiny UART pads**
+SWD only + tiny UART pads**
 - Keep your **TC2030 (6-pin)** for SWD.
 - Add a 3-pad **UART (TX, RX, GND)** test header for CubeMonRF.
-
-**B) One-connector setup (recommended)**
-- Use **TC2050 (10-pin)** footprint.
-- Cable: **TC2050-IDC-050-STDC14** → plugs straight into **STLINK-V3MINI** (STDC14).
-- You get **SWD + NRST + VCP UART** through one tag header.
 
 ---
 
@@ -45,7 +39,6 @@ Choose one:
 
 ## Board design tips (Tag-Connect)
 - **TC2030 (6-pin):** smallest SWD header; great for SWD-only workflows.
-- **TC2050 (10-pin):** gives room for **SWD + VCP UART** (+ optional BOOT0).
 - Use the **NL (no-legs)** version + retaining clip for the thinnest wearable boards.
 - Keep pads free of solder-paste; respect mechanical keep-outs from the footprint datasheet.
 
@@ -99,4 +92,4 @@ Steps:
 ---
 
 ## Repository pointers
-Suggested file location in this repo:
+- (TBD)
