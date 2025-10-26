@@ -29,38 +29,37 @@ BLE-Control/
 │     │  ├─ USB_Debug.SchDoc
 │     │  ├─ IO_Buttons_LEDs.SchDoc
 │     │  └─ Sensors.SchDoc
-│     ├─ PCB/
-│     │  └─ BLE_Control.PcbDoc
+│     ├─ PCB/BLE_Control.PcbDoc
 │     ├─ Libraries/
 │     │  ├─ Schematic/BLE_Control.SchLib
 │     │  ├─ PCB/BLE_Control.PcbLib
 │     │  ├─ DBLib/BLE_Control.DBLib
 │     │  ├─ Database/BLE_Control_Parts_DB.xlsx
-│     │  └─ Integrated/            # (LibPkg + Project Outputs/*.IntLib)
+│     │  └─ Integrated/
 │     ├─ OutputJobs/BLE_Control_Release.OutJob
-│     ├─ Outputs/                  # working outputs (temporary)
-│     └─ Releases/                 # versioned packages (Gerbers, BOM, XY, PDFs)
+│     ├─ Outputs/
+│     └─ Releases/
 │
 ├─ Firmware/
-   └─ BLE_Control/                 # STM32CubeIDE project (WB55CG, UFQFPN-48)
-      ├─ BLE_Control.ioc
-      ├─ .project  .cproject  .mxproject
-      ├─ Core/                       # (auto by Cube)
-      ├─ Drivers/                    # (auto by Cube)
-      ├─ Middlewares/                # only what you actually use
-      ├─ STM32_WPAN/                 # present if BLE enabled
-      ├─ USB_Device/                 # present if USB enabled
-      ├─ BSP/                        # your board helpers (LED, button, SENS_EN)
-      ├─ App/                        # your app code (BLE, sensors, UI)
-      ├─ Config/                     # app_conf.h, hw_conf.h, linker script
-      ├─ scripts/                    # optional post-build tools
-      └─ README.md                   # firmware readme (pin table, tool versions)
-├─ Docs/                            # (use this; or rename links to match)
+│  └─ BLE_Control/                 # STM32CubeIDE project
+│     ├─ BLE_Control.ioc
+│     ├─ .project  .cproject  .mxproject
+│     ├─ Core/
+│     ├─ Drivers/
+│     ├─ Middlewares/
+│     ├─ STM32_WPAN/
+│     ├─ USB_Device/
+│     ├─ BSP/
+│     ├─ App/
+│     ├─ Config/
+│     ├─ scripts/
+│     └─ README.md
+│
+├─ Docs/
 │  ├─ BLE-Control_Wearable_Schematic_Guide_AD25.md
 │  ├─ BLE-Control_Build_Plan_AD25.md
 │  ├─ BLE-Control_Connection_Checklist_OnePage.md
-│  ├─ testing/
-│  │  └─ BLE_Control_CubeMonitorRF_Testing.md
+│  ├─ testing/BLE_Control_CubeMonitorRF_Testing.md
 │  └─ Datasheets/
 │     ├─ TI_BQ24074_Datasheet.pdf
 │     ├─ TI_TPS7A02_Datasheet.pdf
@@ -68,7 +67,7 @@ BLE-Control/
 │     ├─ stm32wb55xx_datasheet.pdf
 │     └─ an5165_rf_hardware_STM32WB.pdf
 │
-├─ .gitattributes                   # LFS for 3D/STEP/ZIP if needed
+├─ .gitattributes
 └─ .gitignore
 
 ```
