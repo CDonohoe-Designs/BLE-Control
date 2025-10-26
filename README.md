@@ -61,6 +61,7 @@ BLE-Control/
 - [TI TPS7A02-3V3 – Ultra-low-Iq LDO](Docs/Datasheets/TI_TPS7A02_Datasheet.pdf)
 - [TI TPS22910A – Load switch (active-low)](Docs/Datasheets/TI_TPS22910A_Datasheet.pdf)
 - [STM STM32WB55xx with BLE and ultra-low-power](Docs/Datasheets/stm32wb55ce.pdf)
+- [STM STM32WB55xx HW Ref Des App Note AN5156](Docs/Datasheets/an5165_rf_hardware_STM32WB.pdf)
   
 ---
 ## EDA environment
@@ -115,11 +116,14 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 
 ---
 
-## Links
+### Bring-Up & Test
+- **RF & PER Testing (STM32CubeMonitor-RF)** → [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
+
+---
+## Links & Rescources
 
 - [PCB Chip Antenna Hardware Design — Phil's Lab #139](https://www.youtube.com/watch?v=UQBMROv7Dy4)
 - [STM32WB Getting Started Series](https://www.youtube.com/playlist?list=PLnMKNibPkDnG9JRe2fbOOpVpWY7E4WbJ-)
 - [KiCad 7 STM32 Bluetooth Hardware Design (1/2 Schematic) — Phil's Lab #127](https://www.youtube.com/watch?v=nkHFoxe0mrU&t=623s)
 
-## License
-Choose a license (MIT/Apache‑2.0/BSD‑3‑Clause) and place it at the repo root.
+
