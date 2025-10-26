@@ -103,8 +103,32 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 | Reset | NRST | `NRST` |
 | RF out | RF pin | `RF_OUT` |
 
----
 
+---
+## Pinout & Configuration — STM32WB55 (UFQFPN48)
+
+| Function | MCU Pin | Net (User Label) | CubeIDE Mode / AF | Pull / Output | Speed | Notes |
+|---|---|---|---|---|---|---|
+| I²C1 SCL | **PB6** | **I2C_SCL** | I2C1_SCL (AF) | Open-Drain, No Pull | Very High | 2.2–4.7 kΩ external pull-up. :contentReference[oaicite:3]{index=3} |
+| I²C1 SDA | **PB7** | **I2C_SDA** | I2C1_SDA (AF) | Open-Drain, No Pull | Very High | 2.2–4.7 kΩ external pull-up. :contentReference[oaicite:4]{index=4} |
+| IMU INT1 | PA0 | **BMI270_INT1** | GPIO_Input + EXTI | No Pull (or PD) | — | EXTI Rising edge. |
+| IMU INT2 | PA1 | **BMI270_INT2** | GPIO_Input + EXTI | No Pull (or PD) | — | EXTI Rising edge. |
+| Gauge ALERT (opt) | PB2 | **GAUGE_INT** | GPIO_Input + EXTI | Pull-Up (typ) | — | EXTI Falling edge if ALERT active-low. |
+| Sensors rail enable | PA8 | **SENS_EN** | GPIO_Output (PP) | No Pull (init Low) | Low | Drive High to power sensor rail. :contentReference[oaicite:5]{index=5} |
+| LED | PB0 | **GPIO_LED** | GPIO_Output (PP) | No Pull | Low | Active-high. :contentReference[oaicite:6]{index=6} |
+| Button | PB1 | **BTN_IN** | GPIO_Input + EXTI | Pull-Up | — | EXTI Falling edge. :contentReference[oaicite:7]{index=7} |
+| USB FS DM (opt) | PA11 | **USB_DM** | USB Device (FS) | — | — | Needs **HSI48 + CRS**; LSE recommended; ensure **VDDUSB** is powered. :contentReference[oaicite:8]{index=8} |
+| USB FS DP (opt) | PA12 | **USB_DP** | USB Device (FS) | — | — | As above. :contentReference[oaicite:9]{index=9} |
+| SWDIO | PA13 | **SWDIO** | Serial-Wire Debug | — | — | — :contentReference[oaicite:10]{index=10} |
+| SWCLK | PA14 | **SWCLK** | Serial-Wire Debug | — | — | — :contentReference[oaicite:11]{index=11} |
+| SWO (opt) | PB3 | **SWO** | Trace Async SW (SWO) | — | — | Enable SWV in Debug. :contentReference[oaicite:12]{index=12} |
+| Reset | NRST | **NRST** | Reset pin | — | — | Hardware line. |
+| RF out | **RF1** | **RF_OUT** | RF pin (not GPIO) | — | — | Single-ended RF I/O → matching → antenna. :contentReference[oaicite:13]{index=13} |
+---
+### CubeIDE notes for UFQFPN48
+- In **Pinout**, set **PB6 → I2C1_SCL** and **PB7 → I2C1_SDA**.  
+- Keep USB on **PA11/PA12**, SWD on **PA13/PA14**, optional **SWO on PB3**.  
+- RF path uses **RF1**: follow ST’s RF reference/matching network for WB55. :contentReference[oaicite:14]{index=14}
 ## USB_Debug.SchDoc
 **USB‑C (16‑pin) charge‑centric; optional USB‑FS data.**
 - **CC1/CC2**: **5.1 kΩ Rd** to GND (sink‑only). Route only one CC if space; tie other via 5.1 kΩ as well.
