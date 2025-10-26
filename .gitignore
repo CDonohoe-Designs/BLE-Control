@@ -1,7 +1,39 @@
+# -----------------------
+# OS / editor clutter
+# -----------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------
+# STM32CubeIDE / Eclipse
+# -----------------------
+.settings/
+.metadata/
+.recommenders/
+*.launch
+
+# -----------------------
+# Firmware builds (keep out of Git)
+# -----------------------
+Debug/
+Release/
+build/
+*.elf
+*.bin
+*.hex
+*.map
+*.o
+*.d
+*.lst
+
+# -----------------------
+# Altium Designer
+# -----------------------
 __Previews/
 History/
-*.Dat
-*.Dblib-cache
+Hardware/Altium/Outputs/              # working outputs (keep Releases/)
+Hardware/Altium/Project Outputs*/     # sometimes Altium creates this folder
 *.SchDocPreview
 *.PcbDocPreview
-Hardware/Altium/Outputs/
+*.Dat
+*.Dblib-cache

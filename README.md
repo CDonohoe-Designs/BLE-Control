@@ -29,21 +29,47 @@ BLE-Control/
 │     │  ├─ USB_Debug.SchDoc
 │     │  ├─ IO_Buttons_LEDs.SchDoc
 │     │  └─ Sensors.SchDoc
-│     ├─ PCB/
-│     │  └─ BLE_Control.PcbDoc
+│     ├─ PCB/BLE_Control.PcbDoc
 │     ├─ Libraries/
 │     │  ├─ Schematic/BLE_Control.SchLib
 │     │  ├─ PCB/BLE_Control.PcbLib
 │     │  ├─ DBLib/BLE_Control.DBLib
 │     │  ├─ Database/BLE_Control_Parts_DB.xlsx
-│     │  └─ Integrated/(LibPkg + Project Outputs/*.IntLib)
+│     │  └─ Integrated/
 │     ├─ OutputJobs/BLE_Control_Release.OutJob
-│     ├─ Outputs/         # working outputs (temporary)
-│     └─ Releases/        # versioned release packages (Gerbers, BOM, Pick&Place, PDFs)
-├─ docs/
-│  └─ BLE-Control_Wearable_Schematic_Guide_AD25.md  # per‑sheet design notes & values
-├─ .gitattributes   # LFS for 3D/STEP/ZIP
+│     ├─ Outputs/
+│     └─ Releases/
+│
+├─ Firmware/
+│  └─ BLE_Control/                 # STM32CubeIDE project
+│     ├─ BLE_Control.ioc
+│     ├─ .project  .cproject  .mxproject
+│     ├─ Core/
+│     ├─ Drivers/
+│     ├─ Middlewares/
+│     ├─ STM32_WPAN/
+│     ├─ USB_Device/
+│     ├─ BSP/
+│     ├─ App/
+│     ├─ Config/
+│     ├─ scripts/
+│     └─ README.md
+│
+├─ Docs/
+│  ├─ BLE-Control_Wearable_Schematic_Guide_AD25.md
+│  ├─ BLE-Control_Build_Plan_AD25.md
+│  ├─ BLE-Control_Connection_Checklist_OnePage.md
+│  ├─ testing/BLE_Control_CubeMonitorRF_Testing.md
+│  └─ Datasheets/
+│     ├─ TI_BQ24074_Datasheet.pdf
+│     ├─ TI_TPS7A02_Datasheet.pdf
+│     ├─ TI_TPS22910A_Datasheet.pdf
+│     ├─ stm32wb55xx_datasheet.pdf
+│     └─ an5165_rf_hardware_STM32WB.pdf
+│
+├─ .gitattributes
 └─ .gitignore
+
 ```
 
 > **Note:** Some files are placeholders until you populate libraries and compile outputs. Keep paths **relative** so the project works on any machine.
@@ -114,6 +140,18 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 - Add Draftsman templates for fab/assy drawings.
 - Bring‑up checklist & test firmware stubs (USB DFU, I²C scan, IMU wake, fuel‑gauge read).
 
+---
+## STM32CubeIDE Firmware (STM32WB55CG, UFQFPN-48)
+
+**Project path:** `Firmware/BLE_Control/` → **[Open Firmware README](Firmware/BLE_Control/README.md)**  
+**Goal:** self-contained CubeIDE project that anyone can import and build.
+
+**Toolchain (tested):** STM32CubeIDE 1.17.0 · STM32CubeWB (specify version) · STM32CubeProgrammer (specify)
+
+
+**Wireless coprocessor (CPU2):**
+- Use **STM32CubeProgrammer → Wireless/FUS** to flash the **BLE stack** (Full/Light/Concurrent).  
+- Record the **stack version** in the Firmware README under *Toolchain / versions*.
 ---
 
 ### Bring-Up & Test
