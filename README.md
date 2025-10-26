@@ -117,7 +117,7 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 ---
 
 ### Bring-Up & Test
-- **RF & PER Testing (STM32CubeMonitor-RF)** → [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
+- **RF & PER Testing (STM32CubeMonitor-RF)** → [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](Docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
 
 ---
 ## Links & Rescources
