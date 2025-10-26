@@ -42,8 +42,8 @@ BLE-Control/
 │     └─ Releases/                 # versioned packages (Gerbers, BOM, XY, PDFs)
 │
 ├─ Firmware/
-│  └─ BLE_Control/                 # STM32CubeIDE project (WB55CG, UFQFPN-48)
-│     ├─ BLE_Control.ioc
+   └─ BLE_Control/                 # STM32CubeIDE project (WB55CG, UFQFPN-48)
+      ├─ BLE_Control.ioc
       ├─ .project  .cproject  .mxproject
       ├─ Core/                       # (auto by Cube)
       ├─ Drivers/                    # (auto by Cube)
