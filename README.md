@@ -143,8 +143,9 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 ---
 
 ## Pinout & Configuration
-The **canonical pin map** lives in **[Docs/BLE_Control_PinMap.md](../../Docs/BLE_Control_PinMap.md)**.  
-CubeIDE modes/pulls follow that table; this README will not duplicate pins.
+
+**The **canonical pin map** lives in **[Docs/BLE_Control_PinMap.md](../../Docs/BLE_Control_PinMap.md)**.  
+CubeIDE modes/pulls follow that table; this README will not duplicate pins.**
 ---
 
 ## STM32CubeIDE Firmware (STM32WB55CG, UFQFPN-48)
