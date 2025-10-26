@@ -158,28 +158,6 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
    - Build a BLE example (P2P Server / Heart Rate) to validate RF + clocks.
 
 ---
-
-### (Copy-me) Short Pin List — for README quick reference (UFQFPN-48)
-
-| Function | MCU Pin (STM32WB55CG) | Net |
-|---|---|---|
-| I²C1 SCL | PB6 | I2C_SCL |
-| I²C1 SDA | PB7 | I2C_SDA |
-| IMU INT1 | PA0 | BMI270_INT1 |
-| IMU INT2 | PA1 | BMI270_INT2 |
-| Gauge ALRT (opt) | PB2 | GAUGE_INT |
-| Sensors rail enable | PA8 | SENS_EN |
-| LED | PB0 | GPIO_LED |
-| Button | PB1 | BTN_IN |
-| USB FS DM (opt) | PA11 | USB_DM |
-| USB FS DP (opt) | PA12 | USB_DP |
-| SWDIO | PA13 | SWDIO |
-| SWCLK | PA14 | SWCLK |
-| SWO (opt) | PB3 | SWO |
-| Reset | NRST | NRST |
-| RF out | RF1 | RF_OUT |
-
----
 ### CubeIDE notes for UFQFPN48
 - In **Pinout**, set **PB6 → I2C1_SCL** and **PB7 → I2C1_SDA**.  
 - Keep USB on **PA11/PA12**, SWD on **PA13/PA14**, optional **SWO on PB3**.  
