@@ -116,7 +116,7 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 
 ---
 
-## Links
+## Links & Rescources
 
 - [PCB Chip Antenna Hardware Design — Phil's Lab #139](https://www.youtube.com/watch?v=UQBMROv7Dy4)
 - [STM32WB Getting Started Series](https://www.youtube.com/playlist?list=PLnMKNibPkDnG9JRe2fbOOpVpWY7E4WbJ-)
