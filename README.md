@@ -116,6 +116,10 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 
 ---
 
+### Bring-Up & Test
+- **RF & PER Testing (STM32CubeMonitor-RF)** → [docs/testing/BLE_Control_CubeMonitorRF_Testing.md](docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
+
+---
 ## Links & Rescources
 
 - [PCB Chip Antenna Hardware Design — Phil's Lab #139](https://www.youtube.com/watch?v=UQBMROv7Dy4)
