@@ -122,29 +122,6 @@ For per‑sheet connectivity and starting values, see **`docs/BLE-Control_Wearab
 
 **Toolchain (tested):** STM32CubeIDE 1.17.0 · STM32CubeWB (specify version) · STM32CubeProgrammer (specify)
 
-**Import & build (no hardware needed):**
-1. CubeIDE → **Help → Manage embedded software packages** → install **STM32CubeWB**.
-2. **File → Open Projects from File System…** → Directory = `Firmware/BLE_Control`.
-3. **Project → Build All**.
-
-**Target & pinout (UFQFPN-48):**
-- **MCU:** STM32WB55CGUx  
-- **I²C1:** PB6 = SCL (`I2C_SCL`), PB7 = SDA (`I2C_SDA`)  
-- **EXTI:** PA0 = `BMI270_INT1` (Rising), PA1 = `BMI270_INT2` (Rising), PB1 = `BTN_IN` (Pull-Up, Falling), PB2 = `GAUGE_INT` (Pull-Up, Falling if active-low)  
-- **GPIO:** PB0 = `GPIO_LED` (out), PA8 = `SENS_EN` (out, init Low)  
-- **USB (opt):** PA11 `USB_DM`, PA12 `USB_DP` (needs **HSI48 + CRS**, LSE recommended)  
-- **RF:** **RF1** single-ended → π-match → 50 Ω antenna  
-- Full table lives here: **[Wearable Schematic Guide](Docs/BLE-Control_Wearable_Schematic_Guide_AD25.md)**
-
-**Clocks & power:**
-- Enable **LSE 32.768 kHz** (BLE timing)  
-- Enable **HSI48 + CRS** (USB FS)  
-- Use **SMPS** if the SMPS BOM is populated (else LDO)
-
-**Code generator settings (CubeMX):**
-- ✅ Copy only necessary library files  
-- ✅ Per-peripheral `.c/.h` init files  
-- ✅ Keep User Code when re-generating
 
 **Wireless coprocessor (CPU2):**
 - Use **STM32CubeProgrammer → Wireless/FUS** to flash the **BLE stack** (Full/Light/Concurrent).  
