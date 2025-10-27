@@ -1,4 +1,4 @@
-
+j
 # BLE‑Control Wearable Schematic Guide 
 
 Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schematic sheet and key design choices so layout and bring‑up are predictable. Target: **0402** passives (use **0603** only for bulk/ESD), **4‑layer 0.8 mm**, **TC2030‑NL** SWD, chip antenna with **DNP π‑match**.
@@ -138,7 +138,7 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 
 ---
 
-## EMC & layout rules (Capri‑Control style)
+## EMC & layout rules
 - **Stackup (4‑layer, 0.8 mm):** L1=signals+CPWG RF; L2=**solid GND plane**; L3=3V3/VBAT pours + slow signals; L4=signals/battery.
 - **Grounding:** one continuous ground (no splits). Stitch vias around RF trace and board edges.
 - **Loops:** keep charger input loop (VBUS→IC→GND) and LDO loops tight. Place caps **at the pins**.
