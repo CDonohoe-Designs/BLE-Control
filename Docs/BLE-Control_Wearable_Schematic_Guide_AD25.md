@@ -31,28 +31,133 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 ---
 
-## Power_Batt_Charge_LDO.SchDoc
-**Blocks:** LiPo charger **BQ24074**, load switch **TPS22910A** (sensors rail), LDO **TPS7A02‑3.3**, NTC, test pads.
+## Power_Batt_Charge_LDO.SchDoc — **TI BQ21062** (USB-C, 1-cell Li-Po, ship-mode)
 
-**Charger (BQ24074):**
-- `VBUS` from USB (through **polyfuse 0.5–1 A**), TVS to GND.
-- `BAT` → net **VBAT**. Place **10 µF** right at BAT.
-- **Charge current**: set **R_ICHG** for ~200–300 mA (use DS table). Fit footprint; tune in bring‑up.
-- **Input current limit**: set **R_ILIM** (DS formula/table). Fit footprint.
-- **TS pin**: use **10 k NTC** to GND (Beta≈3435) and bias per DS (or disable TS per DS if NTC not used).
-- LEDs for CHG/PG good are optional; if used, limit to ~1–2 mA with >1 k resistors.
+**Goal:** Replace external LDO (**TPS7A02-3V3**) and load-switch (**TPS22910A**) with **BQ21062**’s integrated **LDO / load-switch** and **power-path**. Keep USB-C sink-only, low quiescent current, and ship-mode for shelf life.
 
-**3V3 LDO (TPS7A02‑3.3):**
-- `IN` = VBAT; `OUT` = **3V3**; `EN` tied high (or MCU‑controlled if you want hard power‑down).
-- Local caps: **1 µF + 0.1 µF** at IN/OUT close to pins.
+### Block overview
+```
+USB-C 5V  ── polyfuse ── TVS ──>  VIN     BQ21062     BAT  ──>  VBAT (to cell)
+            CC1/CC2: 5.1k Rd          |             PMID  ──>  VSYS (system bus, optional)
+                                       |             LDO_OUT/LS  ──>  either 3V3 (LDO) or VDD_SENS (LoadSwitch)
+SCL/SDA ── I2C to MCU                  |             MR/INT/PG/TS  ──>  MCU GPIOs / NTC
+```
 
-**Sensor power gating (TPS22910A):**
-- `IN` = **VBAT**, `OUT` = **VDD_SENS**, `EN` = **SENS_EN** (MCU).
-- Add **0.1 µF** at IN/OUT + **1–4.7 µF** bulk on VDD_SENS.
-- Optional 0 Ω link to bypass gate during debug.
+---
 
-**Test pads:** `TP_VBAT`, `TP_3V3`, `TP_VDD_SENS`, `TP_USB_5V`, `TP_GND` (Ø1.0 mm).
+### Pin → Net map (rename pins per symbol if different)
+> Use this as your wiring checklist while editing the sheet.
 
+| BQ21062 Pin | Net Name (proposed) | Notes |
+|---|---|---|
+| **VIN** | `USB_5V_PROT` | From USB-C VBUS via **polyfuse** & **TVS**. Short input loop. |
+| **BAT** | `VBAT` | To cell (+). Place **10 µF** (min) close to BAT. |
+| **PMID / SYS** | `VSYS` | Regulated system node (power-path). You can leave un-used if you power 3V3 only from LDO. |
+| **LDO_OUT / LS_OUT** | `3V3` **or** `VDD_SENS` | Set **mode** below: LDO=3V3 rail, or LS=gated sensor rail. Input = `VINLS` (below). |
+| **VINLS** | `VSYS` (preferred) | Feed LDO/LS from `VSYS` (or `VBAT` for lowest noise / lower headroom). Keep short. |
+| **SDA / SCL** | `I2C_SDA` / `I2C_SCL` | I²C to MCU. **4.7 kΩ** pulls to 3V3 near MCU. |
+| **/PG** | `CHG_PG` (opt.) | Power-good open-drain → pull-up to 3V3 (10–100 kΩ). |
+| **/INT** | `CHG_INT` (opt.) | Interrupt open-drain → pull-up to 3V3 (10–100 kΩ). |
+| **MR / QON** | `PWR_BTN` (opt.) | Momentary push-button input / ship-wake. Add **100 nF** to GND if you need debounce. |
+| **TS** | `NTC_TS` | 10 k NTC to GND; bias per DS (or disable TS in I²C). Keep trace quiet/short. |
+| **GND / EP** | `GND` | Solid ground. Exposed pad via-stitched to L2 GND. |
+
+---
+
+### Mode selection (pick **one** and annotate the sheet)
+
+#### **Mode A — LDO = Main 3V3 rail (drop external TPS7A02)**
+- `VINLS` = `VSYS`  
+- `LDO_OUT` → **`3V3`** (feeds MCU + logic, ≤ **100 mA** total from LDO).  
+- Optional: keep `VSYS` un-routed, or use as a test pad.
+
+**Pros:** simple, quiet 3V3. **Cons:** 3V3 efficiency depends on battery voltage (linear).  
+If 3V3 load peaks >100 mA, consider Mode B with an external buck (or use a PMIC).
+
+#### **Mode B — Load-Switch = VDD_SENS (drop external TPS22910A)**
+- Keep main 3V3 from an external regulator **or** from BQ21062 LDO at 3V3 (feeding only MCU).  
+- Set internal block to **Load-Switch** and route **LS_OUT → `VDD_SENS`**, controlled via I²C.  
+- Gate sensors off in standby for µA-level system sleep.
+
+---
+
+### USB-C (sink-only) front-end
+- **CC1/CC2:** **5.1 kΩ Rd** to GND (advertises sink).  
+- **VBUS:** **polyfuse 0.5–1 A** (low-R), **TVS** to GND close to connector.  
+- **D+/D−:** not used? Leave NC, still place **ESD** footprints.  
+- **GND shell**: multiple vias; stitch to L2 plane.
+
+---
+
+### Recommended passives (starting values)
+- **BAT**: 10 µF (X5R/X7R, 6.3 V), + optional 0.1 µF.  
+- **VIN**: 4.7–10 µF close to VIN, + 0.1 µF at pin.  
+- **LDO/LS_OUT**: 1–4.7 µF at the output pin (check DS stability range).  
+- **I²C pulls**: 4.7 kΩ to 3V3 (bus length-dependent).  
+- **/PG, /INT pulls**: 10–100 kΩ to 3V3 (lower = faster edges).  
+- **TS**: 10 k NTC (β≈3435), bias per DS (or disable via I²C).  
+- **Test pads**: `TP_USB_5V`, `TP_VBAT`, `TP_VSYS`, `TP_3V3`, `TP_VDD_SENS`, `TP_SCL`, `TP_SDA`, `TP_GND`.
+
+---
+
+### Initial I²C bring-up (pseudo-regs — confirm with DS)
+> Write these early in firmware init. Names are indicative; use the datasheet’s exact register map.
+
+- **Charge Current (ICHG):** set ~**100–200 mA** (≈0.5 C for 200–400 mAh cells).  
+- **Input Limit (ILIM):** set **500 mA** for USB bring-up; lower later if needed.  
+- **LDO Voltage (Mode A):** set **3.3 V** (e.g., `VLDO = 3.3 V` code).  
+- **LS Mode (Mode B):** set block to **Load-Switch** and default **OFF** on boot; MCU enables it when needed.  
+- **TS behavior:** enable NTC or **disable TS** if no NTC fitted (development).  
+- **Ship-mode:** verify **SHIP enable** bit/command works; confirm wake via **MR** or I²C as designed.
+
+**Example (pseudocode):**
+```c
+// i2cWrite(addr, reg, val)
+i2cWrite(BQ21062_ADDR, REG_ICHG,   ICHG_150mA);
+i2cWrite(BQ21062_ADDR, REG_ILIM,   ILIM_500mA);
+
+#if MODE_LDO_3V3
+i2cWrite(BQ21062_ADDR, REG_LDOCTL, LDO_EN | LDO_V_3V3);
+#else // MODE_LS_VDDSENS
+i2cWrite(BQ21062_ADDR, REG_LSCTL,  LS_MODE | LS_DISABLE);  // start off
+#endif
+
+i2cWrite(BQ21062_ADDR, REG_TSCTL,  TS_ENABLE_OR_DISABLE);
+i2cWrite(BQ21062_ADDR, REG_SHIP,   SHIP_CFG); // configure ship / long-press behavior
+```
+
+---
+
+### Thermal sanity (linear charger rule-of-thumb)
+Dissipation ≈ **(VUSB − VBAT) × ICHG**.  
+- 5.0 V → 4.2 V @ **100 mA** → **0.08 W** (easy).  
+- 5.0 V → 4.2 V @ **300 mA** → **0.24 W** (watch copper).  
+Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for spreading.
+
+---
+
+### Layout notes (wearable/EMC)
+- L2 = **solid GND**; no ground splits.  
+- Keep **VIN→IC→GND** and **BAT→IC→GND** loops **tight**; caps **at pins**.  
+- Route **I²C** as a pair with a good return; place pulls near MCU.  
+- Keep **TS** away from RF/high-dV/dt.  
+- For **RF (2.4 GHz)**: respect antenna keepout; π-match DNP footprints in **MCU_RF.SchDoc**.
+
+---
+
+### What to remove from the old design
+- **TPS7A02-3V3** (external LDO) — replaced by BQ21062 **LDO mode** (Mode A).  
+- **TPS22910A** (sensor load switch) — replaced by BQ21062 **Load-Switch mode** (Mode B).  
+  > If you need **both**, keep LDO for 3V3 and use **Load-Switch** for `VDD_SENS`.
+
+---
+
+### Bring-up checklist
+- [ ] ST-LINK can flash; MCU boots on **3V3**.  
+- [ ] I²C talks to **BQ21062**; reads **PG/INT** as expected.  
+- [ ] **ICHG/ILIM** applied; battery charges from USB.  
+- [ ] **Mode A:** 3V3 within spec; ripple OK. **Mode B:** `VDD_SENS` toggles under MCU control.  
+- [ ] **Ship-mode** verified: battery drain in shelf is µA → nA class per DS; wake via **MR/I²C** confirmed.
 
 ---
 
