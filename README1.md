@@ -81,8 +81,7 @@ BLE-Control/
 
 ---
 ## Datasheets
-- **TI BQ25180 — Ultra-low-Iq charger w/ ship-mode (USB-C sink)**  
-  `Docs/Datasheets/TI_BQ25180_Datasheet.pdf`
+- [TI BQ25180 — Ultra-low-Iq charger w/ ship-mode (USB-C sink)](Docs/Datasheets/TI_bq25180_Datasheet.pdf)
 - [TI TPS7A02-3V3 – Ultra-low-Iq LDO](Docs/Datasheets/TI_TPS7A02_Datasheet.pdf)
 - [TI TPS22910A – Load switch (active-low)](Docs/Datasheets/TI_TPS22910A_Datasheet.pdf)
 - [STM STM32WB55xx with BLE and ultra-low-power](Docs/Datasheets/stm32wb55xx_datasheet.pdf)
