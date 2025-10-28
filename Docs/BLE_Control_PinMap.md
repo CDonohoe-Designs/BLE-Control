@@ -24,6 +24,39 @@ This file is the **only** place where pin/function/net mappings are defined. Har
 
 ### Quick copy string
 `PB6 I2C_SCL, PB7 I2C_SDA, PA0 BMI270_INT1, PA1 BMI270_INT2, PB2 GAUGE_INT, PA8 SENS_EN, PB0 GPIO_LED, PB1 BTN_IN, PA11 USB_DM, PA12 USB_DP, PA13 SWDIO, PA14 SWCLK, PB3 SWO, NRST, RF1 RF_OUT`
+## EXTI Pin Setup (CubeIDE → Pinout & Configuration)
+
+Do this for each pin by **clicking the pin on the die view** → edit in the **GPIO mode and configuration** panel.
+
+### 1) IMU INT1 — `PA0` → `BMI270_INT1`
+- **GPIO Mode:** `External Interrupt Mode with Rising edge trigger detection`
+- **GPIO Pull-up/Pull-down:** `No pull`  
+  _If your IMU rail is sometimes off via `SENS_EN`, choose **Pull-down** to avoid a floating line._
+- **User Label:** `BMI270_INT1`
+
+### 2) IMU INT2 — `PA1` → `BMI270_INT2`
+- **GPIO Mode:** `External Interrupt Mode with Rising edge trigger detection`
+- **GPIO Pull-up/Pull-down:** `No pull`  
+  _Or **Pull-down** if the line floats while sensors are unpowered._
+- **User Label:** `BMI270_INT2`
+
+### 3) Fuel Gauge ALERT — `PB2` → `GAUGE_INT`
+- **GPIO Mode:** `External Interrupt Mode with Falling edge trigger detection`
+- **GPIO Pull-up/Pull-down:** `Pull-up`  
+  _MAX17048 ALERT is open-drain, active-low; internal PU is fine to start, external PU is more robust._
+- **User Label:** `GAUGE_INT`
+
+---
+
+## NVIC (interrupt controller)
+**Path:** `System Core → NVIC`
+
+Enable these IRQs and give them a sensible priority (e.g., **5**):
+- [ ] **EXTI line0 interrupt** (for `PA0`)
+- [ ] **EXTI line1 interrupt** (for `PA1`)
+- [ ] **EXTI line2 interrupt** (for `PB2`)
+
+> CubeMX will generate the IRQ handlers in `stm32wbxx_it.c` and route them to `HAL_GPIO_EXTI_Callback()`.
 
 ## CubeMX/CubeIDE Notes
 - **LSE 32.768 kHz** enabled for BLE; **HSI48+CRS** for USB FS; enable **SMPS** only if BOM stuffed.

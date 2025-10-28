@@ -13,6 +13,10 @@ This README is the **source of truth** for toolchain versions, MCU pinout, and b
 
 
 ---
+### Pinout & Configuration
+**Canonical pin map — single source:** [Docs/BLE_Control_PinMap.md](../../Docs/BLE_Control_PinMap.md)
+
+---
 
 ## 2) Toolchain / versions
 > Fill these once on first commit so anyone can reproduce the build.
@@ -53,34 +57,7 @@ _(We track only the **version** here; binaries stay outside the repo.)_
 
 ---
 
-## 4) Pinout & Configuration — STM32WB55CG (UFQFPN-48)
-
-> Net labels match the hardware guide. Modes/pulls are CubeIDE-ready.
-
-| Function | MCU Pin | Net (User Label) | CubeIDE Mode / AF | Pull / Output | Speed | Notes |
-|---|---|---|---|---|---|---|
-| I²C1 SCL | **PB6** | **I2C_SCL** | I2C1_SCL (AF) | Open-Drain, No Pull | Very High | 2.2–4.7 kΩ ext. pull-up. |
-| I²C1 SDA | **PB7** | **I2C_SDA** | I2C1_SDA (AF) | Open-Drain, No Pull | Very High | 2.2–4.7 kΩ ext. pull-up. |
-| IMU INT1 | PA0 | **BMI270_INT1** | GPIO_Input + EXTI | No Pull (or PD) | — | EXTI **Rising** (BMI270 default active-high). |
-| IMU INT2 | PA1 | **BMI270_INT2** | GPIO_Input + EXTI | No Pull (or PD) | — | EXTI **Rising**. |
-| Gauge ALERT (opt) | PB2 | **GAUGE_INT** | GPIO_Input + EXTI | **Pull-Up** | — | EXTI **Falling** if ALERT is active-low. |
-| Sensors rail enable | PA8 | **SENS_EN** | GPIO_Output (PP) | No Pull (init **Low**) | Low | Drive **High** to power sensor rail. |
-| LED | PB0 | **GPIO_LED** | GPIO_Output (PP) | No Pull | Low | Active-high. |
-| Button | PB1 | **BTN_IN** | GPIO_Input + EXTI | **Pull-Up** | — | EXTI **Falling** (press → GND). |
-| USB FS DM (opt) | PA11 | **USB_DM** | USB Device (FS) | — | — | Needs **HSI48 + CRS**; **LSE** recommended; ensure **VDDUSB** powered. |
-| USB FS DP (opt) | PA12 | **USB_DP** | USB Device (FS) | — | — | As above. |
-| SWDIO | PA13 | **SWDIO** | Serial-Wire Debug | — | — | Keep free for debug. |
-| SWCLK | PA14 | **SWCLK** | Serial-Wire Debug | — | — | — |
-| SWO (opt) | PB3 | **SWO** | Trace Async SW (SWO) | — | — | Enable SWV in Debug config. |
-| Reset | NRST | **NRST** | Reset pin | — | — | Hardware line. |
-| RF out | **RF1** | **RF_OUT** | RF pin (not GPIO) | — | — | **Single-ended** RF I/O → π-match → 50 Ω antenna. |
-
-**Quick pin list (for README copy):**  
-`PB6 I2C_SCL, PB7 I2C_SDA, PA0 BMI270_INT1, PA1 BMI270_INT2, PB2 GAUGE_INT, PA8 SENS_EN, PB0 GPIO_LED, PB1 BTN_IN, PA11 USB_DM, PA12 USB_DP, PA13 SWDIO, PA14 SWCLK, PB3 SWO, NRST, RF1 RF_OUT`
-
----
-
-## 5) Clocks, power, and USB
+## 4) Clocks, power, and USB
 - **LSE 32.768 kHz** enabled → BLE timing & low-power accuracy.  
 - **HSI48 + CRS** for **USB FS**; LSE recommended so CRS can auto-trim.  
 - **SMPS**: enable in Cube if SMPS BOM is fitted; otherwise use LDO mode.  
@@ -88,14 +65,14 @@ _(We track only the **version** here; binaries stay outside the repo.)_
 
 ---
 
-## 6) I²C bus policy
+## 5) I²C bus policy
 - Pull-ups: **3V3 → 2.2–4.7 kΩ** on SCL/SDA (board-level).  
 - Start at **100 kHz**, then 400 kHz once sensors verified.  
 - Keep **analog filter ON**, **digital filter = 0** initially.
 
 ---
 
-## 7) Bring-up checklist (short)
+## 6) Bring-up checklist (short)
 - [ ] ST-LINK sees device; can mass-erase & program.  
 - [ ] CPU2 BLE stack version recorded in this README.  
 - [ ] LSE running (check status bit / low-power operation).  
@@ -106,7 +83,7 @@ _(We track only the **version** here; binaries stay outside the repo.)_
 
 ---
 
-## 8) Troubleshooting tips
+## 7) Troubleshooting tips
 - **Can’t connect via ST-LINK:** check VTref, NRST, power, SWDIO/SWCLK continuity.  
 - **BLE doesn’t start:** verify CPU2 stack flashed & LSE present.  
 - **USB unstable:** confirm **HSI48+CRS** and **VDDUSB** domain powered.  
@@ -114,13 +91,13 @@ _(We track only the **version** here; binaries stay outside the repo.)_
 
 ---
 
-## 9) Licensing / third-party
+## 8) Licensing / third-party
 - ST **CMSIS/HAL** inside `Drivers/` are under **BSD-3-Clause** (keep their LICENSE files).  
 - Add any middleware licenses here (e.g., FreeRTOS MIT).
 
 ---
 
-## 10) Changelog
+## 9) Changelog
 - **v0.1** — Initial commit. CubeIDE 1.17.0; UFQFPN-48 pinout PB6/PB7 I²C; RF1 single-ended; LSE + HSI48/CRS.
 
 
