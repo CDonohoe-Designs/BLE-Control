@@ -148,7 +148,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 ### What to remove from the old design
 - **TPS7A02-3V3** (external LDO) — replaced by BQ21062 **LDO mode** (Mode A).  
 - **TPS22910A** (sensor load switch) — replaced by BQ21062 **Load-Switch mode** (Mode B).  
-  > If you need **both**, keep LDO for 3V3 and use **Load-Switch** for `VDD_SENS`.
+
 
 ---
 
