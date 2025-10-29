@@ -1,9 +1,0 @@
-Manufacturer=Texas Instruments
-PartNumber=BQ21062YFPR
-PartCategory=Integrated Circuit
-PackageCategory=BGA
-PinCount=20
-Version=2.1
-Released=2020-10-01 05:03:20
-Downloaded=2025-10-28 19:43:50
-3D=Y
