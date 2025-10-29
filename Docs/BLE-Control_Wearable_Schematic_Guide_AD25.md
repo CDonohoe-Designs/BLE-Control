@@ -1,7 +1,8 @@
-
 # BLE‑Control Wearable Schematic Guide 
 
 Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schematic sheet and key design choices so layout and bring‑up are predictable. Target: **0402** passives (use **0603** only for bulk/ESD), **4‑layer 0.8 mm**, **TC2030‑NL** SWD, chip antenna with **DNP π‑match**.
+
+> Update: **USB‑C VBUS protection now specifies a PPTC: _Bourns MF‑PSMF050X‑2 (0805), I_hold = 0.5 A_**, sized for **ILIM = 500 mA**. Keep a **0 Ω DNP bypass** pad in parallel for bring‑up.
 
 
 ## Table of contents
@@ -31,16 +32,16 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 ---
 
-## Power_Batt_Charge_LDO.SchDoc — **TI BQ21062** (USB-C, 1-cell Li-Po, ship-mode)
+## Power_Batt_Charge_LDO.SchDoc — **TI BQ21062** (USB‑C, 1‑cell Li‑Po, ship‑mode)
 
-**Goal:** Replace external LDO (**TPS7A02-3V3**) and load-switch (**TPS22910A**) with **BQ21062**’s integrated **LDO / load-switch** and **power-path**. Keep USB-C sink-only, low quiescent current, and ship-mode for shelf life.
+**Goal:** Replace external LDO (**TPS7A02‑3V3**) and load‑switch (**TPS22910A**) with **BQ21062**’s integrated **LDO / load‑switch** and **power‑path**. Keep USB‑C sink‑only, low quiescent current, and ship‑mode for shelf life.
 
 ### Block overview
 ```
-USB-C 5V  ── polyfuse ── TVS ──>  VIN     BQ21062     BAT  ──>  VBAT (to cell)
-            CC1/CC2: 5.1k Rd          |             PMID  ──>  VSYS (system bus, optional)
-                                       |             LDO_OUT/LS  ──>  either 3V3 (LDO) or VDD_SENS (LoadSwitch)
-SCL/SDA ── I2C to MCU                  |             MR/INT/PG/TS  ──>  MCU GPIOs / NTC
+USB‑C 5V  ── PPTC (MF‑PSMF050X‑2, 0.5A) ── TVS ──>  VIN     BQ21062     BAT  ──>  VBAT (to cell)
+             CC1/CC2: 5.1k Rd                 |             PMID/SYS ──>  VSYS (system bus, optional)
+                                               |             LDO_OUT/LS ──>  either 3V3 (LDO) or VDD_SENS (LoadSwitch)
+SCL/SDA ── I²C to MCU                          |             MR/INT/PG/TS ──>  MCU GPIOs / NTC
 ```
 
 ---
@@ -50,17 +51,17 @@ SCL/SDA ── I2C to MCU                  |             MR/INT/PG/TS  ──>  
 
 | BQ21062 Pin | Net Name (proposed) | Notes |
 |---|---|---|
-| **VIN** | `USB_5V_PROT` | From USB-C VBUS via **polyfuse** & **TVS**. Short input loop. |
-| **BAT** | `VBAT` | To cell (+). Place **10 µF** (min) close to BAT. |
-| **PMID / SYS** | `VSYS` | Regulated system node (power-path). You can leave un-used if you power 3V3 only from LDO. |
+| **VIN** | `USB_5V_PROT` | From USB‑C VBUS via **PPTC MF‑PSMF050X‑2** & **TVS**. Keep input loop **short** and **wide**. |
+| **BAT** | `VBAT` | To cell (+). Place **10 µF** (min) close to BAT. |
+| **PMID / SYS** | `VSYS` | Regulated system node (power‑path). You can leave un‑used if you power 3V3 only from LDO. |
 | **LDO_OUT / LS_OUT** | `3V3` **or** `VDD_SENS` | Set **mode** below: LDO=3V3 rail, or LS=gated sensor rail. Input = `VINLS` (below). |
 | **VINLS** | `VSYS` (preferred) | Feed LDO/LS from `VSYS` (or `VBAT` for lowest noise / lower headroom). Keep short. |
-| **SDA / SCL** | `I2C_SDA` / `I2C_SCL` | I²C to MCU. **4.7 kΩ** pulls to 3V3 near MCU. |
-| **/PG** | `CHG_PG` (opt.) | Power-good open-drain → pull-up to 3V3 (10–100 kΩ). |
-| **/INT** | `CHG_INT` (opt.) | Interrupt open-drain → pull-up to 3V3 (10–100 kΩ). |
-| **MR / QON** | `PWR_BTN` (opt.) | Momentary push-button input / ship-wake. Add **100 nF** to GND if you need debounce. |
-| **TS** | `NTC_TS` | 10 k NTC to GND; bias per DS (or disable TS in I²C). Keep trace quiet/short. |
-| **GND / EP** | `GND` | Solid ground. Exposed pad via-stitched to L2 GND. |
+| **SDA / SCL** | `I2C_SDA` / `I2C_SCL` | I²C to MCU. **4.7 kΩ** pulls to 3V3 near MCU. |
+| **/PG** | `CHG_PG` (opt.) | Power‑good open‑drain → pull‑up to 3V3 (10–100 kΩ). |
+| **/INT** | `CHG_INT` (opt.) | Interrupt open‑drain → pull‑up to 3V3 (10–100 kΩ). |
+| **MR / QON** | `PWR_BTN` (opt.) | Momentary push‑button input / ship‑wake. Add **100 nF** to GND if you need debounce. |
+| **TS** | `NTC_TS` | 10 k NTC to GND; bias per DS (or disable TS in I²C). Keep trace quiet/short. |
+| **GND / EP** | `GND` | Solid ground. Exposed pad via‑stitched to L2 GND. |
 
 ---
 
@@ -68,47 +69,50 @@ SCL/SDA ── I2C to MCU                  |             MR/INT/PG/TS  ──>  
 
 #### **Mode A — LDO = Main 3V3 rail (drop external TPS7A02)**
 - `VINLS` = `VSYS`  
-- `LDO_OUT` → **`3V3`** (feeds MCU + logic, ≤ **100 mA** total from LDO).  
-- Optional: keep `VSYS` un-routed, or use as a test pad.
+- `LDO_OUT` → **`3V3`** (feeds MCU + logic, ≤ **100 mA** total from LDO).  
+- Optional: keep `VSYS` un‑routed, or use as a test pad.
 
 **Pros:** simple, quiet 3V3. **Cons:** 3V3 efficiency depends on battery voltage (linear).  
-If 3V3 load peaks >100 mA, consider Mode B with an external buck (or use a PMIC).
+If 3V3 load peaks >100 mA, consider Mode B with an external buck (or use a PMIC).
 
-#### **Mode B — Load-Switch = VDD_SENS (drop external TPS22910A)**
+#### **Mode B — Load‑Switch = VDD_SENS (drop external TPS22910A)**
 - Keep main 3V3 from an external regulator **or** from BQ21062 LDO at 3V3 (feeding only MCU).  
-- Set internal block to **Load-Switch** and route **LS_OUT → `VDD_SENS`**, controlled via I²C.  
-- Gate sensors off in standby for µA-level system sleep.
+- Set internal block to **Load‑Switch** and route **LS_OUT → `VDD_SENS`**, controlled via I²C.  
+- Gate sensors off in standby for µA‑level system sleep.
 
 ---
 
-### USB-C (sink-only) front-end
-- **CC1/CC2:** **5.1 kΩ Rd** to GND (advertises sink).  
-- **VBUS:** **polyfuse 0.5–1 A** (low-R), **TVS** to GND close to connector.  
+### USB‑C (sink‑only) front‑end
+- **CC1/CC2:** **5.1 kΩ Rd** to GND (advertises sink).  
+- **VBUS chain:** **PPTC: _Bourns MF‑PSMF050X‑2 (0805), I_hold 0.5 A_** → **TVS** to GND close to connector → **BQ21062 `VIN`**.  
+  - Add a **0 Ω bypass (DNP)** footprint across the PPTC for bring‑up/current‑limit debugging.  
+  - Expect ~**tens of mV** drop at 500 mA; verify headroom if you add series elements.  
 - **D+/D−:** not used? Leave NC, still place **ESD** footprints.  
 - **GND shell**: multiple vias; stitch to L2 plane.
 
 ---
 
 ### Recommended passives (starting values)
-- **BAT**: 10 µF (X5R/X7R, 6.3 V), + optional 0.1 µF.  
-- **VIN**: 4.7–10 µF close to VIN, + 0.1 µF at pin.  
-- **LDO/LS_OUT**: 1–4.7 µF at the output pin (check DS stability range).  
-- **I²C pulls**: 4.7 kΩ to 3V3 (bus length-dependent).  
-- **/PG, /INT pulls**: 10–100 kΩ to 3V3 (lower = faster edges).  
-- **TS**: 10 k NTC (β≈3435), bias per DS (or disable via I²C).  
+- **BAT**: 10 µF (X5R/X7R, 6.3 V), + optional 0.1 µF.  
+- **VIN**: 4.7–10 µF close to VIN, + 0.1 µF at pin.  
+- **LDO/LS_OUT**: 1–4.7 µF at the output pin (check DS stability range).  
+- **PPTC (VBUS):** **Bourns MF‑PSMF050X‑2, 0805, I_hold 0.5 A** (leave **0 Ω bypass DNP** in parallel).  
+- **I²C pulls**: 4.7 kΩ to 3V3 (bus length‑dependent).  
+- **/PG, /INT pulls**: 10–100 kΩ to 3V3 (lower = faster edges).  
+- **TS**: 10 k NTC (β≈3435), bias per DS (or disable via I²C).  
 - **Test pads**: `TP_USB_5V`, `TP_VBAT`, `TP_VSYS`, `TP_3V3`, `TP_VDD_SENS`, `TP_SCL`, `TP_SDA`, `TP_GND`.
 
 ---
 
-### Initial I²C bring-up (pseudo-regs — confirm with DS)
+### Initial I²C bring‑up (pseudo‑regs — confirm with DS)
 > Write these early in firmware init. Names are indicative; use the datasheet’s exact register map.
 
-- **Charge Current (ICHG):** set ~**100–200 mA** (≈0.5 C for 200–400 mAh cells).  
-- **Input Limit (ILIM):** set **500 mA** for USB bring-up; lower later if needed.  
-- **LDO Voltage (Mode A):** set **3.3 V** (e.g., `VLDO = 3.3 V` code).  
-- **LS Mode (Mode B):** set block to **Load-Switch** and default **OFF** on boot; MCU enables it when needed.  
+- **Charge Current (ICHG):** set ~**100–200 mA** (≈0.5 C for 200–400 mAh cells).  
+- **Input Limit (ILIM):** set **500 mA** for USB bring‑up; lower later if needed.  
+- **LDO Voltage (Mode A):** set **3.3 V** (e.g., `VLDO = 3.3 V` code).  
+- **LS Mode (Mode B):** set block to **Load‑Switch** and default **OFF** on boot; MCU enables it when needed.  
 - **TS behavior:** enable NTC or **disable TS** if no NTC fitted (development).  
-- **Ship-mode:** verify **SHIP enable** bit/command works; confirm wake via **MR** or I²C as designed.
+- **Ship‑mode:** verify **SHIP enable** bit/command works; confirm wake via **MR** or I²C as designed.
 
 **Example (pseudocode):**
 ```c
@@ -128,36 +132,37 @@ i2cWrite(BQ21062_ADDR, REG_SHIP,   SHIP_CFG); // configure ship / long-press beh
 
 ---
 
-### Thermal sanity (linear charger rule-of-thumb)
+### Thermal sanity (linear charger rule‑of‑thumb)
 Dissipation ≈ **(VUSB − VBAT) × ICHG**.  
-- 5.0 V → 4.2 V @ **100 mA** → **0.08 W** (easy).  
-- 5.0 V → 4.2 V @ **300 mA** → **0.24 W** (watch copper).  
+- 5.0 V → 4.2 V @ **100 mA** → **0.08 W** (easy).  
+- 5.0 V → 4.2 V @ **300 mA** → **0.24 W** (watch copper).  
 Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for spreading.
 
 ---
 
 ### Layout notes (wearable/EMC)
 - L2 = **solid GND**; no ground splits.  
-- Keep **VIN→IC→GND** and **BAT→IC→GND** loops **tight**; caps **at pins**.  
+- Keep **VIN→PPTC→TVS→IC→GND** and **BAT→IC→GND** loops **tight**; caps **at pins**.  
 - Route **I²C** as a pair with a good return; place pulls near MCU.  
-- Keep **TS** away from RF/high-dV/dt.  
-- For **RF (2.4 GHz)**: respect antenna keepout; π-match DNP footprints in **MCU_RF.SchDoc**.
+- Keep **TS** away from RF/high‑dV/dt.  
+- For **RF (2.4 GHz)**: respect antenna keepout; π‑match DNP footprints in **MCU_RF.SchDoc**.
 
 ---
 
 ### What to remove from the old design
-- **TPS7A02-3V3** (external LDO) — replaced by BQ21062 **LDO mode** (Mode A).  
-- **TPS22910A** (sensor load switch) — replaced by BQ21062 **Load-Switch mode** (Mode B).  
+- **TPS7A02‑3V3** (external LDO) — replaced by BQ21062 **LDO mode** (Mode A).  
+- **TPS22910A** (sensor load switch) — replaced by BQ21062 **Load‑Switch mode** (Mode B).  
 
 
 ---
 
-### Bring-up checklist
-- [ ] ST-LINK can flash; MCU boots on **3V3**.  
-- [ ] I²C talks to **BQ21062**; reads **PG/INT** as expected.  
-- [ ] **ICHG/ILIM** applied; battery charges from USB.  
-- [ ] **Mode A:** 3V3 within spec; ripple OK. **Mode B:** `VDD_SENS` toggles under MCU control.  
-- [ ] **Ship-mode** verified: battery drain in shelf is µA → nA class per DS; wake via **MR/I²C** confirmed.
+### Bring‑up checklist
+- ❑ ST‑LINK can flash; MCU boots on **3V3**.  
+- ❑ I²C talks to **BQ21062**; reads **PG/INT** as expected.  
+- ❑ **ICHG/ILIM** applied; battery charges from USB.  
+- ❑ **Mode A:** 3V3 within spec; ripple OK. **Mode B:** `VDD_SENS` toggles under MCU control.  
+- ❑ **VBUS drop** across PPTC at **500 mA** < **150 mV** (typical) — sanity check with load.  
+- ❑ **Ship‑mode** verified: battery drain in shelf is µA → nA class per DS; wake via **MR/I²C** confirmed.
 
 ---
 
@@ -191,7 +196,7 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 ## USB_Debug.SchDoc
 **USB‑C (16‑pin) charge‑centric; optional USB‑FS data.**
 - **CC1/CC2**: **5.1 kΩ Rd** to GND (sink‑only). Route only one CC if space; tie other via 5.1 kΩ as well.
-- **VBUS** → BQ24074 `VBUS` via **polyfuse**; add **TVS** to GND.
+- **VBUS** → **PPTC (MF‑PSMF050X‑2)** → **TVS** → **BQ21062 `VIN`**.
 - **D+ / D−**: to MCU USB‑FS if you need DFU/CDC; otherwise leave NC but keep ESD footprint.
 - **ESD**: low‑cap arrays on D+/D−, CC pins; single‑line TVS on VBUS.
 - Keep D+/D− short, matched, and away from RF; if routed, target ~90 Ω diff (FS tolerates laxity, but keep symmetry).
@@ -237,7 +242,7 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 
 ## Testpoints_Assembly.SchDoc
 - **Test pads:** `TP_VBAT`, `TP_3V3`, `TP_VDD_SENS`, `TP_USB_5V`, `TP_SWDIO`, `TP_SWCLK`, `TP_GND`.
-- **DNP jumpers** (0 Ω) where useful for bring‑up: in series with I²C lines, across TPS22910A (bypass), and current‑sense access in rails.
+- **DNP jumpers** (0 Ω) where useful for bring‑up: in series with I²C lines, across the **PPTC** (bypass), and current‑sense access in rails.
 - **Assembly notes:** Mark **antenna keepout**, Tag‑Connect footprint **DNL**, RF π‑match **DNP** by default.
 
 
@@ -246,7 +251,7 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 ## EMC & layout rules
 - **Stackup (4‑layer, 0.8 mm):** L1=signals+CPWG RF; L2=**solid GND plane**; L3=3V3/VBAT pours + slow signals; L4=signals/battery.
 - **Grounding:** one continuous ground (no splits). Stitch vias around RF trace and board edges.
-- **Loops:** keep charger input loop (VBUS→IC→GND) and LDO loops tight. Place caps **at the pins**.
+- **Loops:** keep **charger input loop (VBUS→PPTC→TVS→IC→GND)** and **LDO loops** tight. Place caps **at the pins**.
 - **Decoupling order:** pad → 0.1 µF → via to GND (short); bulk cap slightly farther.
 - **ESD/Surge:** TVS on `VBUS`; ESD arrays on CC and D+/D−; optional **CMC (DNP)** on D+/D− if data used.
 - **RF:** antenna clearance per DS; 50 Ω CPWG; via fence 1.5–2 mm pitch; π‑match DNP until tuned.
@@ -262,15 +267,13 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 - **I²C pull‑ups:** 4.7 kΩ → 3V3 (0402).
 - **LED series:** 1 kΩ (0402).
 - **Reset:** 10 kΩ to 3V3 + 100 nF to GND.
-- **TPS7A02 caps:** 1 µF + 0.1 µF at IN/OUT.
-- **BQ24074 caps:** 10 µF at VBUS and BAT.
+- **BQ21062 caps:** 10 µF at `VIN` and `BAT` (check DS), plus local 0.1 µF at pins.
 - **RF π‑match (0402):** C1/L1/C2 = **DNP** initially.
 - **HSE/LSE loads:** 12 pF each (tune to crystal CL).
 - **USB CC:** 5.1 kΩ on CC1/CC2 to GND (sink‑only).
-- **Polyfuse (VBUS):** 0.5–1 A hold, low‑R.
+- **PPTC (VBUS):** **Bourns MF‑PSMF050X‑2** (0805, **I_hold 0.5 A**), leave **0 Ω bypass DNP**.
 - **Sensor decoupling:** BMI270 0.1 µF + 1 µF; SHTC3 0.1 µF; MAX17048 0.1 µF.
 - **SWD series (optional):** 22–47 Ω at SWDIO/SWCLK if needed.
-
 
 
 ---
@@ -298,10 +301,10 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 ### Schematic tie‑in (where to wire things)
 - **Power_Batt_Charge_LDO.SchDoc**
   - **J_BATT (2‑pin)** → `VBAT` / `GND` (clear silk polarity). Place near board edge opposite antenna.
-  - **BQ24074**: `VBUS` from USB via **polyfuse 0.5–1 A** + **TVS** to GND. `BAT` → `VBAT` with **10 µF** local cap.
-  - **ICHG/ILIM:** fit **R_ICHG** for ~**0.5 C** of chosen cell; **R_ILIM** per DS (start ~500 mA input limit).
+  - **BQ21062**: `VIN` from USB via **PPTC 0.5 A (MF‑PSMF050X‑2)** + **TVS** to GND. `BAT` → `VBAT` with **10 µF** local cap.
+  - **ICHG/ILIM:** program ~**0.5 C** of chosen cell; **ILIM = 500 mA** (USB cap).
   - **TS (thermistor):** connect **10 k NTC** if the pack exposes it; otherwise configure per datasheet to disable or bias safely.
-  - **TPS7A02‑3V3** from `VBAT`; **TPS22910A**: `IN=VBAT`, `OUT=VDD_SENS`, `EN=SENS_EN` (MCU).
+  - **VDD_SENS** (if used): gate sensors with internal **LS_OUT**.
   - **Test pads:** `TP_VBAT`, `TP_3V3`, `TP_VDD_SENS`, `TP_USB_5V`, `TP_GND`.
 - **Sensors.SchDoc**
   - **MAX17048** (always‑on): **VDD = VBAT**, `SCL/SDA` on `I2C_SCL/SDA` (3V3 pull‑ups OK), `ALRT` → `GAUGE_INT` (optional), **0.1 µF** local.
@@ -309,10 +312,9 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 ### BOM call‑outs
 - **Battery (placeholder):** `LiPo_Pouch_<capacity>mAh_<LxWxT>_PCM` (e.g., `LiPo_Pouch_200mAh_30x20x4mm_PCM`).
 - **Connector:** `JST‑SH‑2` *or* `JST‑GH‑2` (match housing/crimp pins).
-- **Protection:** **Polyfuse** 0.5–1 A (low‑R), **TVS** for `VBUS`, **10 k NTC** if used.
+- **Protection:** **PPTC** **MF‑PSMF050X‑2** (0805, 0.5 A hold), **TVS** for `VBUS`, **10 k NTC** if used.
 
 ### Decisions to lock
 1) **Connector**: JST‑SH (thinner) or JST‑GH (more secure).
 2) **Battery envelope** (max L×W×T) and **target capacity** (e.g., 150–200 mAh).
 3) **Charge current cap** (default **0.5 C**).
-
