@@ -1,0 +1,6 @@
+Record=TopLevelDocument|FileName=IO_Buttons_LEDs.SchDoc|SheetNumber=5
+Record=NoMainPathDocument|SourceDocument=IO_Buttons_LEDs.SchDoc|FileName=MCU_RF.SchDoc|SheetNumber=3
+Record=NoMainPathDocument|SourceDocument=IO_Buttons_LEDs.SchDoc|FileName=Power_Batt_Charge_LDO.SchDoc|SheetNumber=2
+Record=NoMainPathDocument|SourceDocument=IO_Buttons_LEDs.SchDoc|FileName=Sensors.SchDoc|SheetNumber=6
+Record=NoMainPathDocument|SourceDocument=IO_Buttons_LEDs.SchDoc|FileName=TopLevel.SchDoc|SheetNumber=1
+Record=NoMainPathDocument|SourceDocument=IO_Buttons_LEDs.SchDoc|FileName=USB_Debug.SchDoc|SheetNumber=4
