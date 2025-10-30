@@ -86,6 +86,7 @@ BLE-Control/
 - [TI TPS22910A – Load switch (active-low)](Docs/Datasheets/TI_TPS22910A_Datasheet.pdf)
 - [STM STM32WB55xx with BLE and ultra-low-power](Docs/Datasheets/stm32wb55xx_datasheet.pdf)
 - [STM STM32WB55xx HW Ref Des App Note AN5156](Docs/Datasheets/an5165_rf_hardware_STM32WB.pdf)
+- [TI BQ21062 Datasheet (local copy)](../Datasheets/TI_BQ21062_Datasheet.pdf)
 
 ---
 ## EDA environment
