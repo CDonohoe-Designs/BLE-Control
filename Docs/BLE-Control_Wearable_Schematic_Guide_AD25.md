@@ -6,10 +6,10 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 
 ## Table of contents
+## Table of contents
 - TopLevel.SchDoc
-- Power_Batt_Charge_LDO.SchDoc
+- Power_Charge_USB.SchDoc
 - MCU_RF.SchDoc
-- USB_Debug.SchDoc
 - IO_Buttons_LEDs.SchDoc
 - Sensors.SchDoc (BMI270, MAX17048, SHTC3)
 - Testpoints_Assembly.SchDoc
@@ -22,7 +22,7 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 ## TopLevel.SchDoc
 **Purpose:** hierarchy & net connectivity only (no real circuitry).  
 **What to include:**
-- Sheet symbols for: Power_Batt_Charge_LDO, MCU_RF, USB_Debug, IO_Buttons_LEDs, Sensors, Testpoints_Assembly.
+- Sheet symbols for: Power_Charge_USB, MCU_RF, IO_Buttons_LEDs, Sensors, Testpoints_Assembly.
 - Global power/net flags: `VBAT`, `3V3`, `VDD_SENS`, `USB_5V`, `GND`.
 - Bus labels: `I2C_SCL`, `I2C_SDA`, `BMI270_INT1`, `BMI270_INT2`, `GAUGE_INT` (optional), `SHTC3_INT` (optional), `SENS_EN`.
 - RF net labels: `RF_OUT` (from MCU) → `ANT_IN` (to antenna).
@@ -32,7 +32,7 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 ---
 
-## Power_Batt_Charge_LDO.SchDoc — **TI BQ21062** (USB‑C, 1‑cell Li‑Po, ship‑mode)
+## Power_Charge_USB.SchDoc — **TI BQ21062** (USB‑C charge, 1‑cell Li‑Po, ship‑mode)
 
 **Goal:** Replace external LDO (**TPS7A02‑3V3**) and load‑switch (**TPS22910A**) with **BQ21062**’s integrated **LDO / load‑switch** and **power‑path**. Keep USB‑C sink‑only, low quiescent current, and ship‑mode for shelf life.
 
@@ -193,19 +193,6 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 - Place an **optional u.FL test pad** (DNP) inline for conducted tests.
 
 
-## USB_Debug.SchDoc
-**USB‑C (16‑pin) charge‑centric; optional USB‑FS data.**
-- **CC1/CC2**: **5.1 kΩ Rd** to GND (sink‑only). Route only one CC if space; tie other via 5.1 kΩ as well.
-- **VBUS** → **PPTC (MF‑PSMF050X‑2)** → **TVS** → **BQ21062 `VIN`**.
-- **D+ / D−**: to MCU USB‑FS if you need DFU/CDC; otherwise leave NC but keep ESD footprint.
-- **ESD**: low‑cap arrays on D+/D−, CC pins; single‑line TVS on VBUS.
-- Keep D+/D− short, matched, and away from RF; if routed, target ~90 Ω diff (FS tolerates laxity, but keep symmetry).
-
-**Tag‑Connect (TC2030‑NL):**
-- Place the **no‑legs** footprint; mark “DNL” in BOM. No solder paste; NPTH guide holes.
-
-
----
 
 ## IO_Buttons_LEDs.SchDoc
 - **User button** → GPIO (`BTN_IN`) to GND; use MCU pull‑up or fit **10 k** pull‑down + **RC 100 Ω/100 nF** if hardware debounce desired.
@@ -299,7 +286,7 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 - (Alt.) **Molex PicoBlade 1.25 mm** if preferred.
 
 ### Schematic tie‑in (where to wire things)
-- **Power_Batt_Charge_LDO.SchDoc**
+- **Power_Charge_USB.SchDoc**
   - **J_BATT (2‑pin)** → `VBAT` / `GND` (clear silk polarity). Place near board edge opposite antenna.
   - **BQ21062**: `VIN` from USB via **PPTC 0.5 A (MF‑PSMF050X‑2)** + **TVS** to GND. `BAT` → `VBAT` with **10 µF** local cap.
   - **ICHG/ILIM:** program ~**0.5 C** of chosen cell; **ILIM = 500 mA** (USB cap).
