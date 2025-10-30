@@ -1,39 +1,95 @@
-# -----------------------
-# OS / editor clutter
-# -----------------------
-.DS_Store
+###############################################################################
+# OS junk
+###############################################################################
+# Windows
 Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+# macOS
+.DS_Store
+.AppleDouble
+.Spotlight-V100
+.Trashes
+# Editors/IDEs
+.vscode/
+.idea/
+*.code-workspace
 
-# -----------------------
-# STM32CubeIDE / Eclipse
-# -----------------------
-.settings/
-.metadata/
-.recommenders/
-*.launch
+###############################################################################
+# Altium Designer (AD25)
+###############################################################################
+# Per-project generated folders
+**/Project Outputs*/
+**/Project Logs*/
+**/Simulation Logs*/
+**/__Previews__/
+**/History/
+Hardware/Altium/Outputs/
+Hardware/Altium/Releases/
 
-# -----------------------
-# Firmware builds (keep out of Git)
-# -----------------------
-Debug/
-Release/
-build/
-*.elf
-*.bin
-*.hex
-*.map
-*.o
-*.d
-*.lst
+# Compiled/derived libraries (keep LibPkg + source SchLib/PcbLib in git)
+*.IntLib
 
-# -----------------------
-# Altium Designer
-# -----------------------
-__Previews/
-History/
-Hardware/Altium/Outputs/              # working outputs (keep Releases/)
-Hardware/Altium/Project Outputs*/     # sometimes Altium creates this folder
-*.SchDocPreview
-*.PcbDocPreview
-*.Dat
-*.Dblib-cache
+# Draftsman/temporary exports (usually land under Outputs/Releases anyway)
+# Uncomment if you see these spill elsewhere:
+# *.PDF
+# *.DXF
+# *.DWG
+# *.STEP
+# *.STP
+# *.IGS
+# *.IDF
+# *.zip
+
+# If you intentionally want to keep a compiled .IntLib, un-ignore a path like:
+# !Hardware/Altium/Libraries/Integrated/Keep/*.IntLib
+
+###############################################################################
+# STM32CubeIDE / build artifacts
+###############################################################################
+# Build dirs
+Firmware/**/Debug/
+Firmware/**/Release/
+Firmware/**/build/
+
+# Tooling metadata
+Firmware/**/.settings/
+Firmware/**/.externalToolBuilders/
+# Local launch/debug configs (keep project files like .project/.cproject/.ioc)
+Firmware/**/*.launch
+Firmware/**/.mxproject.user
+
+# Binaries / maps
+**/*.elf
+**/*.axf
+**/*.bin
+**/*.hex
+**/*.map
+**/*.lst
+**/*.list
+
+###############################################################################
+# Python / notebooks (if you use analysis scripts)
+###############################################################################
+**/__pycache__/
+**/*.pyc
+**/.venv/
+**/venv/
+**/.ipynb_checkpoints/
+
+###############################################################################
+# Generated artifacts inside Outputs/Releases only
+###############################################################################
+# Keep CSV/XLSX design sources elsewhere (e.g., Libraries/Database) tracked.
+Hardware/Altium/Outputs/**/*.csv
+Hardware/Altium/Releases/**/*.csv
+Hardware/Altium/Outputs/**/*.xlsx
+Hardware/Altium/Releases/**/*.xlsx
+Hardware/Altium/Outputs/**/*.zip
+Hardware/Altium/Releases/**/*.zip
+
+###############################################################################
+# Misc logs
+###############################################################################
+*.log
+
