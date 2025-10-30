@@ -87,6 +87,8 @@ BLE-Control/
 - [STM STM32WB55xx with BLE and ultra-low-power](Docs/Datasheets/stm32wb55xx_datasheet.pdf)
 - [STM STM32WB55xx HW Ref Des App Note AN5156](Docs/Datasheets/an5165_rf_hardware_STM32WB.pdf)
 - [TI BQ21062 Datasheet (local copy)](Docs/Datasheets/TI_BQ21062_Datasheet.pdf)
+- [TI BQ21061EVM User’s Guide (SLUUC59) — Reference for BQ21062](https://www.ti.com/lit/ug/sluuc59/sluuc59.pdf)
+
 
 ---
 ## EDA environment
