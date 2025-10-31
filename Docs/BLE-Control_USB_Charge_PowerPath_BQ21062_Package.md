@@ -23,7 +23,7 @@
 ## 1) Schematic Recipe (ready‑to‑implement)
 
 ### Core connections (minimum viable charger + power‑path)
-- **IN (from protected VBUS)** → **4.7–10 µF, 25 V X7R** at **IN–GND**. Prefer 0603 for DC‑bias margin.
+- **IN (from protected VBUS)** → **10 µF, 25 V X7R** at **IN–GND**. Prefer 0603 for DC‑bias margin.
 - **PMID (regulated system output)** → **22 µF, 10 V X7R** close to **PMID–GND**. This node feeds your 3V3 LDO/buck.
 - **BAT** → battery +; add **≥ 1 µF** X7R at **BAT–GND** near IC; route to battery connector; include **TS** (thermistor) path.
 - **VDD** (internal logic LDO) → **2.2 µF** to GND (mandatory).
@@ -88,7 +88,7 @@
 | **U2** | 1 | 2‑line ESD | ESD for CC/D± | [ST **USBLC6‑2SC6**](https://www.st.com/resource/en/datasheet/usblc6-2.pdf) | SOT‑23‑6 | Place at connector |
 | **FB1** | 1 | 120 Ω @100 MHz | EMI bead *(optional)* | — | 0402 | Between TVS and BQ21062 IN |
 | **R1, R2** | 2 | 5.1 kΩ 1% | USB‑C **Rd** (CC1/CC2→GND) | — | 0402 | Advertise UFP/sink |
-| **C1** | 1 | 4.7–10 µF, 25 V X7R | IN bulk | GRM188R61E106KA73 | 0603 | Right at **IN–GND** |
+| **C1** | 1 | 10 µF, 25 V X7R | IN bulk | GRM188R61E106KA73 | 0603 | Right at **IN–GND** |
 | **C2** | 1 | 22 µF, 10 V X7R | PMID bulk | GRM21BR61A226ME51 | 0805/0603 | As close as possible |
 | **C3** | 1 | 1 µF, 10 V X7R | BAT decoupling | GRM155R71A105KE11 | 0402 | Near **BAT–GND** |
 | **C4** | 1 | 2.2 µF, 10 V X7R | VDD decoupling | GRM155R71A225KE15 | 0402 | Mandatory |
