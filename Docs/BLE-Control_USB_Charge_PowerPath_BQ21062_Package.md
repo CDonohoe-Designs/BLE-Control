@@ -88,20 +88,20 @@
 | **U2** | 1 | 2‑line ESD | ESD for CC/D± | [ST **USBLC6‑2SC6**](https://www.st.com/resource/en/datasheet/usblc6-2.pdf) | SOT‑23‑6 | Place at connector |
 | **FB1** | 1 | 120 Ω @100 MHz | EMI bead *(optional)* | — | 0402 | Between TVS and BQ21062 IN |
 | **R1, R2** | 2 | 5.1 kΩ 1% | USB‑C **Rd** (CC1/CC2→GND) | — | 0402 | Advertise UFP/sink |
-| **C1** | 1 | 4.7–10 µF, 25 V X7R | IN bulk | — | 0603 | Right at **IN–GND** |
-| **C2** | 1 | 22 µF, 10 V X7R | PMID bulk | — | 0805/0603 | As close as possible |
-| **C3** | 1 | 1 µF, 10 V X7R | BAT decoupling | — | 0402 | Near **BAT–GND** |
-| **C4** | 1 | 2.2 µF, 10 V X7R | VDD decoupling | — | 0402 | Mandatory |
+| **C1** | 1 | 4.7–10 µF, 25 V X7R | IN bulk | GRM188R61E106KA73 | 0603 | Right at **IN–GND** |
+| **C2** | 1 | 22 µF, 10 V X7R | PMID bulk | GRM21BR61A226ME51 | 0805/0603 | As close as possible |
+| **C3** | 1 | 1 µF, 10 V X7R | BAT decoupling | GRM155R71A105KE11 | 0402 | Near **BAT–GND** |
+| **C4** | 1 | 2.2 µF, 10 V X7R | VDD decoupling | GRM155R71A225KE15 | 0402 | Mandatory |
 | **C5** | 1 | 1–2.2 µF X7R | VINLS decoupling | — | 0402 | Near **VINLS** |
 | **C6** | 1 | 2.2 µF X7R | LS/LDO output | — | 0402 | Near **LS/LDO** |
-| **R3** | 1 | 10 kΩ | I²C pull‑up SCL→VIO | — | 0402 | If not shared bus |
-| **R4** | 1 | 10 kΩ | I²C pull‑up SDA→VIO | — | 0402 | — |
-| **R5** | 1 | 100 kΩ | LP pull‑up to VIO | — | 0402 | I²C on battery‑only |
-| **R6** | 1 | 100 kΩ | PG pull‑up to VIO | — | 0402 | Open‑drain |
-| **R7** | 1 | 100 kΩ | INT pull‑up to VIO | — | 0402 | Open‑drain |
-| **SW1** | 1 | Momentary NO | MR pushbutton to GND | — | SMD tact | ESD protect trace |
+| **R3** | 1 | 10 kΩ | I²C pull‑up SCL→VIO | RC0402FR‑0710KL | 0402 | If not shared bus |
+| **R4** | 1 | 10 kΩ | I²C pull‑up SDA→VIO | RC0402FR‑0710KL | 0402 | — |
+| **R5** | 1 | 100 kΩ | LP pull‑up to VIO | RC0402FR‑07100KL | 0402 | I²C on battery‑only |
+| **R6** | 1 | 100 kΩ | PG pull‑up to VIO | RC0402FR‑07100KL | 0402 | Open‑drain |
+| **R7** | 1 | 100 kΩ | INT pull‑up to VIO | RC0402FR‑07100KL | 0402 | Open‑drain |
+| **SW1** | 1 | Momentary NO | MR pushbutton to GND | EVQ‑PUA02K | SMD tact | ESD protect trace |
 | **TH1** | 1 | 10 kΩ NTC | Battery thermistor | *Murata NCP15XH103F03RC* | 0402 | To **TS** (see R8) |
-| **R8** | 1 | 10 kΩ | TS pull‑down (or divider) | — | 0402 | 10 k∥10 k for 25 °C; or 5 k spoof |
+| **R8** | 1 | 10 kΩ | TS pull‑down (or divider) | RC0402FR‑0710KL | 0402 | 10 k∥10 k for 25 °C; or 5 k spoof |
 | **U3** | 1 | 3.3 V LDO | System LDO from PMID → +3V3 | [TI **TPS7A02‑3.3**](https://www.ti.com/lit/ds/symlink/tps7a02.pdf) | SOT‑23‑5 / X2SON | Place close to load; add in/out caps |
 | **C7, C8** | 2 | 1–4.7 µF X7R | TPS7A02 IN/OUT decoupling | — | 0402 | Check datasheet minimums |
 | **TPx** | 5 | — | Test pads | — | — | TP_VBUS, TP_PMID, TP_BAT, TP_3V3, TP_GND |
