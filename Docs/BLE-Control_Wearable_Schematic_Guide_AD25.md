@@ -6,7 +6,6 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 
 ## Table of contents
-## Table of contents
 - TopLevel.SchDoc
 - Power_Charge_USB.SchDoc
 - MCU_RF.SchDoc
@@ -34,78 +33,118 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 ## Power_Charge_USB.SchDoc — **TI BQ21062** (USB‑C charge, 1‑cell Li‑Po, ship‑mode)
 
-**Goal:** Replace external LDO (**TPS7A02‑3V3**) and load‑switch (**TPS22910A**) with **BQ21062**’s integrated **LDO / load‑switch** and **power‑path**. Keep USB‑C sink‑only, low quiescent current, and ship‑mode for shelf life.
+## Power architecture
 
-### Block overview
 ```
-USB‑C 5V  ── PPTC (MF‑PSMF050X‑2, 0.5A) ── TVS ──>  VIN     BQ21062     BAT  ──>  VBAT (to cell)
-             CC1/CC2: 5.1k Rd                 |             PMID/SYS ──>  VSYS (system bus, optional)
-                                               |             LDO_OUT/LS ──>  either 3V3 (LDO) or VDD_SENS (LoadSwitch)
-SCL/SDA ── I²C to MCU                          |             MR/INT/PG/TS ──>  MCU GPIOs / NTC
+USB‑C VBUS
+   │
+ [PPTC]  — resettable fuse (0.5 A hold)
+   │
+ [TVS]   — SMF5.0A to GND at connector
+   │
+ [FB1]*  — optional ferrite bead (DNP default)
+   │
+  IN  →  BQ21061  →  PMID ──────────────┐
+             │                          │
+            BAT ↔ Li‑ion (NTC to TS)     ├─ VINLS = PMID
+             │                          │
+            VDD (decouple only)          │
+            VIO → LS/LDO (= system 3V) ──┴─→ +3V_SYS (MCU & sensors)
 ```
+
+- **With USB present:** PMID is sourced from USB and the battery charges; **LS/LDO** drives +3V_SYS.  
+- **With USB removed:** PMID tracks **BAT** via the power‑path; **LS/LDO** continues to power +3V_SYS from the battery.  
+- **Ship/ship‑hold** (if used) disconnects BAT from PMID; wake via **MR** or USB.
+
+> \*FB1 is optional; keep footprint and DNP by default. Fit if noise/EMI requires it.
 
 ---
 
-### Pin → Net map (rename pins per symbol if different)
-> Use this as your wiring checklist while editing the sheet.
+## USB‑C (charge‑only) rules
+- Receptacle: **GCT USB4105‑GF‑A** or similar.  
+- **CC1/CC2:** 5.1 kΩ **Rd** to GND (advertise sink/UFP).  
+- **D+ / D‑:** not connected (leave pads for ESD array if you want symmetry).  
+- **Protection:**  
+  - **TVS (SMF5.0A)** from **VBUS→GND**, placed at connector with short, wide trace and 2–3 GND vias.  
+  - **PPTC** in series with VBUS (0.5 A hold typical).  
+  - **ESD array** (**USBLC6‑2SC6**) protecting CC and (optionally) D± pads.  
+- **Optional EMI bead:** **FB1 ~120 Ω @ 100 MHz** between protection and charger **IN** (DNP by default).
 
-| BQ21062 Pin | Net Name (proposed) | Notes |
+**Placement order (recommended):** `J1 VBUS → TVS → PPTC → (FB1 opt) → BQ21061 IN` with **CIN** close to IN.
+
+---
+
+## I/O & I²C logic domain
+- **VIO:** tie to **LS/LDO** (your +3V_SYS). **VIO max = 3.6 V**.  
+- **LP:** **pull‑up to VIO (~100 kΩ)** → keeps **I²C accessible on battery‑only**.  
+- **SCL/SDA pull‑ups:** **only on MCU board** (≈10 kΩ to VIO).  
+- **PG/INT** (open‑drain): pull‑ups to **VIO** (≈100 kΩ).  
+- **VDD:** **decouple only** (2.2–4.7 µF to GND). Do **not** power anything from VDD.
+
+---
+
+## Pin wiring summary (charger side)
+
+| BQ21061 Pin | Connects to | Notes |
 |---|---|---|
-| **VIN** | `USB_5V_PROT` | From USB‑C VBUS via **PPTC MF‑PSMF050X‑2** & **TVS**. Keep input loop **short** and **wide**. |
-| **BAT** | `VBAT` | To cell (+). Place **10 µF** (min) close to BAT. |
-| **PMID / SYS** | `VSYS` | Regulated system node (power‑path). You can leave un‑used if you power 3V3 only from LDO. |
-| **LDO_OUT / LS_OUT** | `3V3` **or** `VDD_SENS` | Set **mode** below: LDO=3V3 rail, or LS=gated sensor rail. Input = `VINLS` (below). |
-| **VINLS** | `VSYS` (preferred) | Feed LDO/LS from `VSYS` (or `VBAT` for lowest noise / lower headroom). Keep short. |
-| **SDA / SCL** | `I2C_SDA` / `I2C_SCL` | I²C to MCU. **4.7 kΩ** pulls to 3V3 near MCU. |
-| **/PG** | `CHG_PG` (opt.) | Power‑good open‑drain → pull‑up to 3V3 (10–100 kΩ). |
-| **/INT** | `CHG_INT` (opt.) | Interrupt open‑drain → pull‑up to 3V3 (10–100 kΩ). |
-| **MR / QON** | `PWR_BTN` (opt.) | Momentary push‑button input / ship‑wake. Add **100 nF** to GND if you need debounce. |
-| **TS** | `NTC_TS` | 10 k NTC to GND; bias per DS (or disable TS in I²C). Keep trace quiet/short. |
-| **GND / EP** | `GND` | Solid ground. Exposed pad via‑stitched to L2 GND. |
+| **IN** | USB VBUS (after PPTC/TVS/FB1*) | Place **CIN 4.7–10 µF** close |
+| **PMID** | System power‑path node | **22–47 µF** bulk near PMID |
+| **BAT** | Li‑ion cell + | **1 µF** near BAT; **TS** to NTC |
+| **VINLS** | **PMID** | Provide **≥1 µF** (match or exceed CLDO) |
+| **LS/LDO** | **+3V_SYS → MCU & sensors** | **2.2 µF** near pin (system rail) |
+| **VIO** | **+3V_SYS (LS/LDO)** | I/O reference for I²C/LP/CE/PG/INT |
+| **LP** | **Pull‑up to VIO (~100 kΩ)** | I²C alive on battery |
+| **SCL/SDA** | MCU I²C | **Pull‑ups on MCU only** (10 kΩ → VIO) |
+| **PG/INT** | MCU GPIO (open‑drain) | Pull‑ups to VIO (~100 kΩ) |
+| **MR** | Momentary NO to GND | Wakes from ship; ESD protect trace |
+| **TS** | NTC divider | 10 kΩ NTC typical; see datasheet tables |
+| **VDD** | Decouple to GND | 2.2–4.7 µF; don’t load |
+| **CE** | MCU or default | Leave NC for charge‑enabled default, or drive from MCU |
+
+\*FB1 is optional; keep footprint; DNP by default.
 
 ---
 
-### Mode selection (pick **one** and annotate the sheet)
-
-#### **Mode A — LDO = Main 3V3 rail (drop external TPS7A02)**
-- `VINLS` = `VSYS`  
-- `LDO_OUT` → **`3V3`** (feeds MCU + logic, ≤ **100 mA** total from LDO).  
-- Optional: keep `VSYS` un‑routed, or use as a test pad.
-
-**Pros:** simple, quiet 3V3. **Cons:** 3V3 efficiency depends on battery voltage (linear).  
-If 3V3 load peaks >100 mA, consider Mode B with an external buck (or use a PMIC).
-
-#### **Mode B — Load‑Switch = VDD_SENS (drop external TPS22910A)**
-- Keep main 3V3 from an external regulator **or** from BQ21062 LDO at 3V3 (feeding only MCU).  
-- Set internal block to **Load‑Switch** and route **LS_OUT → `VDD_SENS`**, controlled via I²C.  
-- Gate sensors off in standby for µA‑level system sleep.
+## Schematic checklist
+- **Connector J1** (USB‑C, UFP) with **R1/R2 = 5.1 kΩ** to GND on CC1/CC2.  
+- **Protection**: **TVS (SMF5.0A)** at VBUS, **PPTC** in series, **USBLC6‑2SC6** for ESD.  
+- **CIN** at IN (**≥4.7–10 µF**), **CPMID** (**22–47 µF**), **CVDD** (**2.2–4.7 µF**), **CINLS** (**≥1 µF**), **CLDO** (**2.2 µF**).  
+- **LP pull‑up** (100 kΩ → VIO), **PG/INT pull‑ups** (100 kΩ → VIO).  
+- **I²C pull‑ups only on MCU** (10 kΩ → VIO).  
+- **Test pads**: TP_VBUS, TP_PMID, TP_BAT, TP_3V_SYS, TP_GND.
 
 ---
 
-### USB‑C (sink‑only) front‑end
-- **CC1/CC2:** **5.1 kΩ Rd** to GND (advertises sink).  
-- **VBUS chain:** **PPTC: _Bourns MF‑PSMF050X‑2 (0805), I_hold 0.5 A_** → **TVS** to GND close to connector → **BQ21062 `VIN`**.  
-  - Add a **0 Ω bypass (DNP)** footprint across the PPTC for bring‑up/current‑limit debugging.  
-  - Expect ~**tens of mV** drop at 500 mA; verify headroom if you add series elements.  
-- **D+/D−:** not used? Leave NC, still place **ESD** footprints.  
-- **GND shell**: multiple vias; stitch to L2 plane.
+## Bring‑up plan
+1. **No battery, no USB:** confirm no unintended rails.  
+2. **Battery only:** verify **+3V_SYS (LS/LDO)** comes up; **I²C responds** (LP high).  
+3. **USB only (no batt):** PMID from USB, **+3V_SYS present**, PG asserted.  
+4. **Battery + USB:** charge current follows config; INT/PG behaviour as expected.  
+5. **Glitch/EMI checks:** probe **VBUS/PMID/3V_SYS** during BLE TX; stuff **FB1** if needed.
 
 ---
 
-### Recommended passives (starting values)
-- **BAT**: 10 µF (X5R/X7R, 6.3 V), + optional 0.1 µF.  
-- **VIN**: 4.7–10 µF close to VIN, + 0.1 µF at pin.  
-- **LDO/LS_OUT**: 1–4.7 µF at the output pin (check DS stability range).  
-- **PPTC (VBUS):** **Bourns MF‑PSMF050X‑2, 0805, I_hold 0.5 A** (leave **0 Ω bypass DNP** in parallel).  
-- **I²C pulls**: 4.7 kΩ to 3V3 (bus length‑dependent).  
-- **/PG, /INT pulls**: 10–100 kΩ to 3V3 (lower = faster edges).  
-- **TS**: 10 k NTC (β≈3435), bias per DS (or disable via I²C).  
-- **Test pads**: `TP_USB_5V`, `TP_VBAT`, `TP_VSYS`, `TP_3V3`, `TP_VDD_SENS`, `TP_SCL`, `TP_SDA`, `TP_GND`.
+## BOM highlights (key parts)
+- **Charger:** TI **BQ21061** — 1‑cell Li‑ion, power‑path + LS/LDO  
+- **USB‑C receptacle:** **GCT USB4105‑GF‑A**  
+- **TVS (VBUS):** **Littelfuse SMF5.0A** (SOD‑123FL)  
+- **ESD array (CC/D±):** **ST USBLC6‑2SC6**  
+- **PPTC:** **Bourns MF‑PSMF050X‑2** (0805) or **MF‑MSMF050/16** (1206, alt)  
+- **Ferrite bead (opt):** ~**120 Ω @ 100 MHz** (0402/0603), low RDC, ≥1 A
+
+---
+
+## Datasheets / refs
+- TI **BQ21061** — 1‑cell charger w/ power‑path + LS/LDO: <https://www.ti.com/lit/gpn/BQ21061>  
+- GCT **USB4105‑GF‑A** — USB‑C receptacle: <https://gct.co/connector/usb4105>  
+- Littelfuse **SMF5.0A** — 5 V TVS (SMAF): <https://www.littelfuse.com/products/overvoltage-protection/tvs-diodes/surface-mount/smf/smf5-0a>  
+- ST **USBLC6‑2SC6** — 2‑line ESD array: <https://www.st.com/resource/en/datasheet/usblc6-2.pdf>  
+- Bourns **MF‑PSMF050X‑2** — PPTC 0805: <https://www.bourns.com/docs/product-datasheets/mfpsmf.pdf>  
+- Bourns **MF‑MSMF050/16** — PPTC 1206: <https://www.bourns.com/docs/product-datasheets/mf-msmf.pdf>
 
 ---
 
 ### Initial I²C bring‑up (pseudo‑regs — confirm with DS)
-> Write these early in firmware init. Names are indicative; use the datasheet’s exact register map.
 
 - **Charge Current (ICHG):** set ~**100–200 mA** (≈0.5 C for 200–400 mAh cells).  
 - **Input Limit (ILIM):** set **500 mA** for USB bring‑up; lower later if needed.  
