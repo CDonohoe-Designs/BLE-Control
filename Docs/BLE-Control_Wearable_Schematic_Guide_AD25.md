@@ -145,8 +145,6 @@ USB‑C VBUS
 
 ---
 
----
-
 ### Initial I²C bring‑up (pseudo‑regs — confirm with DS)
 
 - **Charge Current (ICHG):** set ~**100–200 mA** (≈0.5 C for 200–400 mAh cells).  
