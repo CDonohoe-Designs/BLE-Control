@@ -6,7 +6,6 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 
 ## Table of contents
-## Table of contents
 - TopLevel.SchDoc
 - Power_Charge_USB.SchDoc
 - MCU_RF.SchDoc
