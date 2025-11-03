@@ -10,7 +10,6 @@
 - **TI BQ21061** — sibling device (internal LDO option discussed below): [Product page](https://www.ti.com/product/BQ21061) · [Datasheet PDF](https://www.ti.com/lit/gpn/bq21061)
 - **TI TPS7A02‑3.3 V** — 200 mA, ultra‑low‑IQ LDO: [Product page](https://www.ti.com/product/TPS7A02) · [Datasheet PDF](https://www.ti.com/lit/ds/symlink/tps7a02.pdf)
 - **GCT USB4105‑GF‑A** — USB‑C receptacle (16‑pin, top‑mount): [Product page](https://gct.co/connector/usb4105)
-- **ST USBLC6‑2SC6** — 2‑line, very‑low‑C ESD for USB/CC: [Datasheet PDF](https://www.st.com/resource/en/datasheet/usblc6-2.pdf)
 - **Littelfuse SMF5.0A** — 5 V TVS, SOD‑123FL: [Product page](https://www.littelfuse.com/products/overvoltage-protection/tvs-diodes/surface-mount/smf/smf5-0a)
 - **Bourns MF‑PSMF050X‑2** — 0.5 A‑hold PPTC, 0805: [Datasheet PDF](https://www.bourns.com/docs/product-datasheets/mfpsmf.pdf)
 - **Bourns MF‑MSMF050/16** — 0.5 A‑hold PPTC, 1206 (alt): [Datasheet PDF](https://www.bourns.com/docs/product-datasheets/mf-msmf.pdf)
