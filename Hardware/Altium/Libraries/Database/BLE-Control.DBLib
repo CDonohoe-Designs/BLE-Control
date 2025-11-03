@@ -1,0 +1,60 @@
+[OutputDatabaseLinkFile]
+Version=1.1
+[DatabaseLinks]
+ConnectionString=Provider=MICROSOFT.ACE.OLEDB.12.0;Data Source=C:\Users\caoil\Git repos\BLE-Control\Hardware\Altium\Libraries\Database\BLE-Control_DBLib_Parts.xlsx;Extended Properties="Excel 8.0;HDR=Yes;IMEX=1"
+AddMode=3
+RemoveMode=1
+UpdateMode=2
+ViewMode=1
+LeftQuote=[
+RightQuote=]
+QuoteTableNames=1
+UseTableSchemaName=0
+DefaultColumnType=VARCHAR(255)
+LibraryDatabaseType=Microsoft Excel
+LibraryDatabasePath=C:\Users\caoil\Git repos\BLE-Control\Hardware\Altium\Libraries\Database\BLE-Control_DBLib_Parts.xlsx
+DatabasePathRelative=1
+TopPanelCollapsed=0
+LibrarySearchPath=C:\Users\caoil\Git repos\BLE-Control\Hardware\Altium\Libraries\Source\BLE-Control.SchLib;C:\Users\caoil\Git repos\BLE-Control\Hardware\Altium\Libraries\Source\BLE-Control.PcbLib
+OrcadMultiValueDelimiter=,
+SearchSubDirectories=1
+SchemaName=
+LastFocusedTable=Parts$
+[Table1]
+SchemaName=
+TableName=Notes$
+Enabled=False
+UserWhere=0
+UserWhereText=
+BrowserOrder_Sorting=
+BrowserOrder_Grouping=
+BrowserOrder_Visible=Setup in Altium AD25 (Database Library)0=939
+[Table2]
+SchemaName=
+TableName=Parts$
+Enabled=True
+UserWhere=0
+UserWhereText=[DBKey] = '{DBKey}'
+BrowserOrder_Sorting=
+BrowserOrder_Grouping=
+BrowserOrder_Visible=DBKey0=134|Category0=81|Component0=128|Description0=292|Value0=123|Package0=197|Voltage0=72|Current0=72|Manufacturer0=123|MPN0=158|DatasheetURL0=620|SymbolLib0=291|SymbolRef0=136|FootprintLib0=292|FootprintRef0=186|Comment0=291|Fitted0=60
+[FieldMap1]
+Options=FieldName=Notes$.Setup in Altium AD25 (Database Library)|TableNameOnly=Notes$|FieldNameOnly=Setup in Altium AD25 (Database Library)|FieldType=0|ParameterName=Setup in Altium AD25 (Database Library)|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap2]
+Options=FieldName=Parts$.DBKey|TableNameOnly=Parts$|FieldNameOnly=DBKey|FieldType=0|ParameterName=DBKey|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap3]
+Options=FieldName=Parts$.Description|TableNameOnly=Parts$|FieldNameOnly=Description|FieldType=1|ParameterName=Description|VisibleOnAdd=True|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap4]
+Options=FieldName=Parts$.Value|TableNameOnly=Parts$|FieldNameOnly=Value|FieldType=1|ParameterName=Value|VisibleOnAdd=True|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap5]
+Options=FieldName=Parts$.DatasheetURL|TableNameOnly=Parts$|FieldNameOnly=DatasheetURL|FieldType=1|ParameterName=ComponentLink1URL|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap6]
+Options=FieldName=Parts$.SymbolLib|TableNameOnly=Parts$|FieldNameOnly=SymbolLib|FieldType=1|ParameterName=SymbolLib|VisibleOnAdd=False|AddMode=1|RemoveMode=0|UpdateMode=0
+[FieldMap7]
+Options=FieldName=Parts$.SymbolRef|TableNameOnly=Parts$|FieldNameOnly=SymbolRef|FieldType=1|ParameterName=[Library Ref]|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap8]
+Options=FieldName=Parts$.FootprintLib|TableNameOnly=Parts$|FieldNameOnly=FootprintLib|FieldType=1|ParameterName=FootprintLib|VisibleOnAdd=False|AddMode=1|RemoveMode=0|UpdateMode=0
+[FieldMap9]
+Options=FieldName=Parts$.FootprintRef|TableNameOnly=Parts$|FieldNameOnly=FootprintRef|FieldType=1|ParameterName=Footprint|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap10]
+Options=FieldName=Parts$.Comment|TableNameOnly=Parts$|FieldNameOnly=Comment|FieldType=1|ParameterName=Comment|VisibleOnAdd=True|AddMode=0|RemoveMode=0|UpdateMode=0
