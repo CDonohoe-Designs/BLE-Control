@@ -47,7 +47,7 @@ SCL/SDA ── I²C to MCU                          |             MR/INT/PG/TS �
 ---
 
 ### Pin → Net map (rename pins per symbol if different)
-> Use this as your wiring checklist while editing the sheet.
+
 
 | BQ21062 Pin | Net Name (proposed) | Notes |
 |---|---|---|
