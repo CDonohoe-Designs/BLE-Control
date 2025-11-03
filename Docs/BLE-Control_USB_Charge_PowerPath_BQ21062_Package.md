@@ -85,7 +85,6 @@
 | **F1** | 1 | 0.5 A hold | PPTC resettable fuse | [Bourns **MF‑PSMF050X‑2**](https://www.bourns.com/docs/product-datasheets/mfpsmf.pdf) | 0805 | Choose one of F1/F1’ |
 | **F1’** | 1 | 0.5 A hold | PPTC resettable fuse | [Bourns **MF‑MSMF050/16**](https://www.bourns.com/docs/product-datasheets/mf-msmf.pdf) | 1206 | Alt footprint; **DNP** if F1 fitted |
 | **D1** | 1 | 5 V TVS | VBUS surge/ESD | [Littelfuse **SMF5.0A**](https://www.littelfuse.com/products/overvoltage-protection/tvs-diodes/surface-mount/smf/smf5-0a) | SOD‑123FL (SMAF) | Close to J1 VBUS |
-| **U2** | 1 | 2‑line ESD | ESD for CC/D± | [ST **USBLC6‑2SC6**](https://www.st.com/resource/en/datasheet/usblc6-2.pdf) | SOT‑23‑6 | Place at connector |
 | **FB1** | 1 | 120 Ω @100 MHz | EMI bead *(optional)* | — | 0402 | Between TVS and BQ21062 IN |
 | **R1, R2** | 2 | 5.1 kΩ 1% | USB‑C **Rd** (CC1/CC2→GND) | — | 0402 | Advertise UFP/sink |
 | **C1** | 1 | 10 µF, 25 V X7R | IN bulk | GRM188R61E106KA73 | 0603 | Right at **IN–GND** |
