@@ -15,7 +15,6 @@
 - **Bourns MF‑MSMF050/16** — 0.5 A‑hold PPTC, 1206 (alt): [Datasheet PDF](https://www.bourns.com/docs/product-datasheets/mf-msmf.pdf)
 - **Murata NCP15XH103F03RC** — 10 kΩ NTC, 0402: (Search on Murata site)  
 
-> *Note:* Passive capacitors/resistors intentionally **not** linked per your preference. Use your AVL/DBLib for final selections.
 
 ---
 
@@ -188,8 +187,3 @@ BTN_MR (Input)
 - **Ultra‑low standby IQ** without depending on charger state
 
 ---
-
-## 6) Notes for README integration
-- Place at: `docs/Power/USB_Charge_PowerPath_BQ21062.md`  
-- Cross‑link from README: “See **USB Charge & Power‑Path (BQ21062)** for schematic, BOM, and bring‑up.”
-- Keep **datasheet PDFs** in `docs/Datasheets/` if you want to vendor‑pin versions; otherwise link out as above.
