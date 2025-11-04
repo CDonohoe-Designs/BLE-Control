@@ -339,6 +339,7 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 - **Battery (placeholder):** `LiPo_Pouch_<capacity>mAh_<LxWxT>_PCM` (e.g., `LiPo_Pouch_200mAh_30x20x4mm_PCM`).
 - **Connector:** `JST‑SH‑2` *or* `JST‑GH‑2` (match housing/crimp pins).
 - **Protection:** **PPTC** **MF‑PSMF050X‑2** (0805, 0.5 A hold), **TVS** for `VBUS`, **10 k NTC** if used.
+- **EMI bead:** **Murata BLM15AG121SN1D** (0402, 120 Ω @ 100 MHz) — footprint present, **DNP** default.
 
 ### Decisions to lock
 1) **Connector**: JST‑SH (thinner) or JST‑GH (more secure).

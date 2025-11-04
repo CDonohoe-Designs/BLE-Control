@@ -7,7 +7,7 @@ It targets excellent battery life, a compact form factor, and strong EMC hygiene
 
 ## Highlights
 - **MCU:** STM32WB55CGU6 (BLE 5.0 + Cortex-M4)
-- **Power:** Single-cell Li-Po, **TI BQ21062** integrated LDO / load‑switch and power‑path ultra-low-Iq charger with **ship-mode** (USB-C sink)
+- **Power:** Single-cell Li-Po, **TI BQ21061** integrated LDO / load‑switch and power‑path ultra-low-Iq charger with **ship-mode** (USB-C sink)
 - **Sensors:** **BMI270** (6-axis IMU), **MAX17048** (fuel gauge, always-on), **SHTC3** (temp+RH, switched)
 - **Debug:** **Tag-Connect TC2030-NL** (solderless) for SWD
 - **I/O:** 1× tactile button, 1× status LED, expansion pads (I²C/SPI/3V3/GND)
