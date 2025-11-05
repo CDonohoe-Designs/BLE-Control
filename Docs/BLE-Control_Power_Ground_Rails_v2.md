@@ -40,7 +40,7 @@
 - **`VREF+`**: simplest is **tie to `VDDA`** with **100 nF + 1 µF** at the pin. Leave pads for an external reference later if desired.
 
 ### USB domain
-- **`VDDUSB`**: if MCU USB FS isn’t used, **tie to `VDD`** (keeps PA11/PA12 usable) and add local 100 nF.  
+- **`VDDUSB`**: MCU USB FS isn’t used, so I **tie to `VDD`** (keeps PA11/PA12 usable) and add local 100 nF.  
   If used, supply **3.0–3.6 V** with local decoupling and handle ESD/CC in the USB sheet.
 
 ### Backup domain
