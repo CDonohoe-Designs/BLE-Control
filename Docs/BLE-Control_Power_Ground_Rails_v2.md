@@ -11,8 +11,8 @@
 ## 1) VDDSMPS vs VDD — what & why (STM32WBxx)
 - **`VDD`** = external 3.3 V rail for I/O and most internal domains. In this design it is **`+3V3_SYS`**.
 - **`VDDSMPS`** = external 3.3 V **input to the MCU’s internal buck (SMPS)** which generates the core voltage.  
-  Keeping a **separate pin** lets you place **tight local decoupling** (e.g., **4.7 µF + 0.1 µF**) and keep the **SMPS high-di/dt loop compact**, reducing noise on the broader VDD network.
-- In most designs (including this one), **`VDD`, `VDDRF`, and `VDDSMPS` are tied to the same external rail (`+3V3_SYS`)**, but have **different decoupling** and roles.
+  Keeping a **separate pin** lets me place **tight local decoupling** (e.g., **4.7 µF + 0.1 µF**) and keep the **SMPS high-di/dt loop compact**, reducing noise on the broader VDD network.
+- **`VDD`, `VDDRF`, and `VDDSMPS` are tied to the same external rail (`+3V3_SYS`)**, but have **different decoupling** and roles.
 
 ---
 
