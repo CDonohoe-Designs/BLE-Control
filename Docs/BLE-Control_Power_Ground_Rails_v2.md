@@ -5,8 +5,7 @@
 ## 0) Context from `Power_Charge_USB.SchDoc` (naming & nets)
 - USB-C receptacle (**USB4105-GF-A**), PPTC (**MF-PSMF050X-2**), TVS (**SMF5.0A**), ferrite (**BLM15AG121**), charger **BQ21062YFPR**.
 - Key nets exported to the rest of the design: **`VBAT`** (battery), **`PMID`** (charger mid node), **`+3V3_SYS`** (system 3.3 V rail).
-- The BQ21062 has a **local pin called VDD** (IC1-D1). To avoid confusion with the MCU’s VDD rail, **rename this local net to `BQ_VDD`** (or `CHG_VDD`). Reserve **`VDD`** on the MCU side for the 3.3 V rail.
-
+- The BQ21062 has a **local pin called BQ_VDD** (IC1-D1).
 ---
 
 ## 1) VDDSMPS vs VDD — what & why (STM32WBxx)
