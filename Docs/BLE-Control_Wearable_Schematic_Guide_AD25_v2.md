@@ -12,7 +12,7 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 - IO_Buttons_LEDs.SchDoc
 - Sensors.SchDoc (BMI270, MAX17048, SHTC3)
 - Testpoints_Assembly.SchDoc
-- EMC & layout rules (wearable/Capri‑Control style)
+- EMC & layout rules (wearable)
 - Values cheat‑sheet (start points)
 
 
