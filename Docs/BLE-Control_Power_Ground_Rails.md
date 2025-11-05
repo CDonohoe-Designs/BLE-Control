@@ -1,7 +1,5 @@
 # BLE‑Control — Power & Ground (STM32WBxx, AD25)
 
-> **Cut‑and‑paste ready** section for your repo/`BLE-Control_Wearable_Schematic_Guide_AD25.md` and for the `MCU_RF.SchDoc` header.  
-> Assumes main regulated rail from the charger/LDO sheet is **`+3V3_SYS`** (rename to match your sheet if needed).
 
 ---
 
@@ -105,4 +103,4 @@
 ---
 
 ### Drop‑in Text (for your schematic header)
-> **Power/Ground Rules:** `VDD = VDDRF = VDDSMPS = +3V3_SYS`. If SMPS is unused initially, short `VDDSMPS/VLXSMPS/VFBSMPS → VDD` (BYPASS). `VDDA` decouple to `VSSA` (100 nF + 1 µF); `VREF+` → `VDDA`. Single solid **GND plane** with via‑in‑pad on **EPAD** and tight SMPS loop. `VBAT` ≤ 3.6 V (net‑tie to `VDD` or 3.0–3.3 V backup). Parameter sets: RF=50 Ω, HSE/LSE no‑vias/keepout, SMPS_HOT widened.
+> **Power/Ground Rules:** `VDD = VDDRF = VDDSMPS = +3V3_SYS`. short `VDDSMPS/VLXSMPS/VFBSMPS → VDD` (BYPASS). `VDDA` decouple to `VSSA` (100 nF + 1 µF); `VREF+` → `VDDA`. Single solid **GND plane** with via‑in‑pad on **EPAD** and tight SMPS loop. `VBAT` ≤ 3.6 V (net‑tie to `VDD` or 3.0–3.3 V backup). Parameter sets: RF=50 Ω, HSE/LSE no‑vias/keepout, SMPS_HOT widened.
