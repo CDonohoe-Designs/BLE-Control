@@ -1,8 +1,5 @@
 # BLE-Control — Power & Ground (STM32WBxx, AD25)
 
-> **Cut-and-paste ready** section for your repo/`BLE-Control_Wearable_Schematic_Guide_AD25.md` and for the `MCU_RF.SchDoc` header.  
-> Assumes main regulated rail from the charger/LDO sheet is **`+3V3_SYS`**.
-
 ---
 
 ## 0) Context from `Power_Charge_USB.SchDoc` (naming & nets)
