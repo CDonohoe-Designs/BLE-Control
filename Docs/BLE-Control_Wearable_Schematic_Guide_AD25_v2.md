@@ -283,7 +283,7 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 - Use **50 Ω CPWG** on Top; **ground fence vias** every ~2 mm; **no ground copper** under antenna per its datasheet.
 - Place an **optional u.FL test pad** (DNP) inline for conducted tests.
 
-
+---
 
 ## IO_Buttons_LEDs.SchDoc
 - **User button** → GPIO (`BTN_IN`) to GND; use MCU pull‑up or fit **10 k** pull‑down + **RC 100 Ω/100 nF** if hardware debounce desired.
