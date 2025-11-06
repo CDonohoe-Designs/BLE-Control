@@ -71,29 +71,31 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 ---
 
 ## Documentation
-- **Wearable Schematic Guide:** `Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v2.md`  
-- **Power & Ground Rules (STM32WBxx):** `Docs/BLE-Control_Power_Ground_Rules.md`  
-- **Build Plan (AD25):** `Docs/BLE-Control_Build_Plan_AD25.md`  
-- **One-Page Connection Checklist:** `Docs/BLE-Control_Connection_Checklist_OnePage.md`  
-- **Grouped BOM:** `Docs/BOM/BLE-Control_BOM_Grouped.md`
+- **Wearable Schematic Guide:** [Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v2.md](Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v2.md)  
+- **Power & Ground Rules (STM32WBxx):** [Docs/BLE-Control_Power_Ground_Rules.md](Docs/BLE-Control_Power_Ground_Rules.md)  
+- **Build Plan (AD25):** [Docs/BLE-Control_Build_Plan_AD25.md](Docs/BLE-Control_Build_Plan_AD25.md)  
+- **One-Page Connection Checklist:** [Docs/BLE-Control_Connection_Checklist_OnePage.md](Docs/BLE-Control_Connection_Checklist_OnePage.md)  
+- **Grouped BOM:** [Docs/BOM/BLE-Control_BOM_Grouped.md](Docs/BOM/BLE-Control_BOM_Grouped.md)  
+- **CubeMonitor-RF test flow:** [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](Docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
 
 ---
 
 ## Datasheets & Notes
-- **TI BQ25180 — Ultra-low-Iq charger w/ ship-mode (USB-C sink):** `Docs/Datasheets/TI_BQ25180_Datasheet.pdf`  
-- **TI TPS7A02-3V3 — Ultra-low-Iq LDO:** `Docs/Datasheets/TI_TPS7A02_Datasheet.pdf`  
-- **TI TPS22910A — Load switch (active-low):** `Docs/Datasheets/TI_TPS22910A_Datasheet.pdf`  
-- **STM32WB55xx Datasheet:** `Docs/Datasheets/stm32wb55xx_datasheet.pdf`  
-- **AN5165 — STM32WB RF hardware guidelines:** `Docs/Datasheets/AN5165_RF_Hardware_STM32WB.pdf`
+- **TI BQ25180 — Ultra-low-Iq charger (USB-C sink):** [Docs/Datasheets/TI_BQ25180_Datasheet.pdf](Docs/Datasheets/TI_BQ25180_Datasheet.pdf)  
+- **TI TPS7A02-3V3 — Ultra-low-Iq LDO:** [Docs/Datasheets/TI_TPS7A02_Datasheet.pdf](Docs/Datasheets/TI_TPS7A02_Datasheet.pdf)  
+- **TI TPS22910A — Load switch (active-low):** [Docs/Datasheets/TI_TPS22910A_Datasheet.pdf](Docs/Datasheets/TI_TPS22910A_Datasheet.pdf)  
+- **STM32WB55xx Datasheet:** [Docs/Datasheets/stm32wb55xx_datasheet.pdf](Docs/Datasheets/stm32wb55xx_datasheet.pdf)  
+- **AN5165 — STM32WB RF hardware guidelines:** [Docs/Datasheets/AN5165_RF_Hardware_STM32WB.pdf](Docs/Datasheets/AN5165_RF_Hardware_STM32WB.pdf)  
+- **BQ21061 EVM User Guide (SLUUC59) — reference for BQ21062 alt:** https://www.ti.com/lit/ug/sluuc59/sluuc59.pdf
 
 ---
 
 ## Quick start (Altium AD25)
-1. Open `Hardware/Altium/BLE_Control.PrjPcb`.
+1. Open **`Hardware/Altium/BLE_Control.PrjPcb`**.
 2. **Libraries**
    - **Integrated:** compile `Libraries/Integrated/*.LibPkg` → install via **Components → (gear) File-based Libraries**.
    - **Database:** open `Libraries/DBLib/BLE_Control.DBLib` (status **Connected**). Map to **Library Ref / Library Path / Footprint**; DB at `Libraries/Database/BLE_Control_Parts_DB.xlsx`.
-3. Place parts on `Schematic/*.SchDoc`. Validate → proceed to PCB (`BLE_Control.PcbDoc`).
+3. Place parts on `Schematic/*.SchDoc`. **Project → Validate** → proceed to `BLE_Control.PcbDoc`.
 
 ---
 
@@ -151,7 +153,7 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 ---
 
 ## BOM & releases
-- **Grouped BOM:** includes **L1 = 10 µH** (main SMPS), **L1A = 10 nH (DNP)** series helper, **CC-line ESD**, **USB shield R//C**, **button ESD + 100 Ω**, **RF ESD (DNP)**  
+- **Grouped BOM:** includes **L1 = 10 µH** (main SMPS), **L1A = 10 nH (DNP)** series helper, **CC-line ESD**, **USB shield R//C**, **button ESD + 100 Ω**, **RF ESD (DNP)** → [Docs/BOM/BLE-Control_BOM_Grouped.md](Docs/BOM/BLE-Control_BOM_Grouped.md)  
 - **Releases:** OutJob produces PDFs, fab/assy, XY, and BOM packages
 
 **Inductor picks** (as used/documented)
@@ -173,7 +175,7 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 2. **MCU in LDO/BYPASS:** 0 Ω short the SMPS nodes; flash minimal firmware over SWD; heartbeat LED + SWV  
 3. **Peripherals one-by-one:** I²C pull-ups ok; IMU/ALERT/INT lines; fuel gauge read; button interrupt  
 4. **Enable SMPS:** populate **L1 (10 µH)** (+ optional **10 nH**), remove 0 Ω shorts; confirm stability & current draw  
-5. **RF phase:** π-match DNP → populate after VNA/tune; verify PER with **STM32CubeMonitor-RF**
+5. **RF phase:** π-match DNP → populate after VNA/tune; verify PER with **STM32CubeMonitor-RF** ([guide](Docs/testing/BLE_Control_CubeMonitorRF_Testing.md))
 
 ---
 
@@ -196,7 +198,7 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 ---
 
 ## Links & resources
-- **AN5165 — STM32WB RF hardware guidelines:** `Docs/Datasheets/AN5165_RF_Hardware_STM32WB.pdf`  
+- **AN5165 — STM32WB RF hardware guidelines:** [Docs/Datasheets/AN5165_RF_Hardware_STM32WB.pdf](Docs/Datasheets/AN5165_RF_Hardware_STM32WB.pdf)  
 - **Phil’s Lab #139 — PCB Chip Antenna Hardware Design:** https://www.youtube.com/watch?v=UQBMROv7Dy4  
 - **STM32WB Getting Started playlist:** https://www.youtube.com/playlist?list=PLnMKNibPkDnG9JRe2fbOOpVpWY7E4WbJ-  
 
@@ -208,3 +210,4 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 - Fixed **TC2030** mapping (Cortex/SWD)
 - Baked in **medical-minded ESD/EMC** practices and risk-control notes
 - Linked **AN5165** and **Grouped BOM**; added bring-up & tuning checklists
+
