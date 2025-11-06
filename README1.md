@@ -5,6 +5,33 @@
 This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1** (basic safety & essential performance) and **IEC 60601-1-2 Ed.4** (EMC, **Class A** – professional healthcare environment) practices, with documentation patterns influenced by **ISO 13485** (QMS) and **ISO 14971** (risk management). It is a Work in Progress 
 > *Not a claim of compliance; design-for-compliance focus only.*
 
+## Table of contents
+- [EDA environment](#eda-environment)
+- [Highlights](#highlights)
+- [Medical-minded protection & EMC (Class A focus)](#medical-minded-protection--emc-class-a-focus)
+- [How this repo aligns with medical standards (plain-English)](#how-this-repo-aligns-with-medical-standards-plain-english)
+  - [IEC 60601-1 — Basic safety & essential performance](#iec-60601-1--basic-safety--essential-performance)
+  - [IEC 60601-1-2 (Ed.4) — EMC (Class A)](#iec-60601-1-2-ed4--emc-class-a)
+  - [ISO 13485 — Quality system (how I organize the work)](#iso-13485--quality-system-how-i-organize-the-work)
+  - [ISO 14971 — Risk management](#iso-14971--risk-management)
+- [Documentation](#documentation)
+- [Datasheets & Notes](#datasheets--notes)
+- [Quick start (Altium AD25)](#quick-start-altium-ad25)
+- [Schematic partition (what lives where)](#schematic-partition-what-lives-where)
+- [Power & ground rules (STM32WBxx)](#power--ground-rules-stm32wbxx)
+  - [Rails](#rails)
+  - [On-chip SMPS cell](#on-chip-smps-cell)
+  - [Layout essentials](#layout-essentials)
+- [Debug (TC2030 — Cortex/SWD)](#debug-tc2030--cortexswd)
+  - [Handy hook table](#handy-hook-table)
+- [BOM & releases](#bom--releases)
+- [STM32CubeIDE Firmware (STM32WB55CG, UFQFPN-48)](#stm32cubeide-firmware-stm32wb55cg-ufqfpn-48)
+- [Bring-up sequence (what I do first)](#bring-up-sequence-what-i-do-first)
+- [Antenna tune checklist (π-match)](#antenna-tune-checklist-π-match)
+- [Lightweight risk log (template I keep)](#lightweight-risk-log-template-i-keep)
+- [Links & resources](#links--resources)
+- [Change summary](#change-summary)
+
 ---
 ## EDA environment
 - **Altium Designer 25.3.3 build 18**
