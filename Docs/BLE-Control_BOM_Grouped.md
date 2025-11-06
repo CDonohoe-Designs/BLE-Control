@@ -1,5 +1,7 @@
 # BLE-Control — BOM (Grouped)
 
+**ToDo** Change the ref designators on the Schematic to reflect my current ones as shown below
+
 - [MCU-RF](#mcu-rf)
 - [Power_Charge_USB](#power_charge_usb)
 - [Sensor](#sensor)
