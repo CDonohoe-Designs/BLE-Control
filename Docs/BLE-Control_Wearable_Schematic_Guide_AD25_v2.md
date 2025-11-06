@@ -12,7 +12,7 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 - IO_Buttons_LEDs.SchDoc
 - Sensors.SchDoc (BMI270, MAX17048, SHTC3)
 - Testpoints_Assembly.SchDoc
-- EMC & layout rules (wearable/Capri‑Control style)
+- EMC & layout rules (wearable)
 - Values cheat‑sheet (start points)
 
 
@@ -248,6 +248,49 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 | *(local)* `BQ_VDD`      | —                            | Charger‑IC local net only; don’t reuse as MCU `VDD`. |
 | `GND`                   | `VSS`, `VSSRF/EPAD`, `VSSSMPS`, `VSSA` | One plane; EPAD via‑in‑pad; compact SMPS loop. |
 
+## Schematic How-To (AD25)
+
+1. **Power Ports:** Place global `+3V3_SYS`, `+3V3_ANA` (if used), and `GND` power ports.  
+2. **SMPS Cell:** Draw the block with `L1`, optional `L2=10 nH` in series, `Cbulk 4.7 µF` on `VFBSMPS`, and `Cvdsmps 4.7 µF + 100 nF` on `VDDSMPS`.  
+   - Add **0 Ω links** labelled “BYPASS” to short `VDDSMPS/VLXSMPS/VFBSMPS` to `VDD` when not using SMPS.  
+3. **Decouplers:** One **100 nF per `VDDx`**, plus bulk **4.7–10 µF** per side of the MCU.  
+4. **Analog Node:** `VDDA` to `+3V3_ANA` via bead **or** straight to `+3V3_SYS`; **`VREF+` → `VDDA`**. Place **100 nF + 1 µF** to `VSSA`.  
+5. **USB Node:** `VDDUSB` → `VDD` (if unused) with 100 nF; otherwise to a 3.0–3.6 V rail with local caps.  
+6. **VBAT:** Net-tie to `VDD` + 100 nF **or** bring in 3.0–3.3 V backup with 100 nF; label “Max 3.6 V”.  
+7. **Ground Pins:** Expose **`VSSRF/EPAD`** pin on the symbol and annotate: “via array to GND, keepout under HSE/RF”.  
+8. **Naming hygiene:** Keep the charger’s local **`BQ_VDD`** distinct from MCU **`VDD`** to avoid ERC/DRC confusion.
+
+## TC2030 (SWD) Hook Table — STM32WB55
+
+> Cable: **TC2030-CTX (Cortex/SWD)** style mapping  
+> Grid (top view): top row **1-2-3**, bottom row **4-5-6**
+
+| TC2030 Pad | Signal  | Altium Net (suggested) | STM32WB55 Signal Pin | Required? | Notes |
+|---:|---|---|---|:---:|---|
+| 1 | VTref (3V3 sense) | +3V3_SYS | — | ✅ | Sense only; **probe does not power target**. Tie to board 3V3 near MCU. |
+| 2 | SWDIO | SWDIO | **PA13** | ✅ | Keep short; no series R. Testpoint optional. |
+| 3 | GND | GND | — | ✅ | Solid plane; add a stitching via next to pad. |
+| 4 | SWCLK | SWCLK | **PA14** | ✅ | Keep short; no series R. Testpoint optional. |
+| 5 | nRESET | NRST | **NRST** | ✅ | Optional 10 kΩ → 3V3 + 100 nF → GND near pin. |
+| 6 | SWO (trace) | SWO | **PB3 (TRACESWO)** | ◻️ | Optional but handy for SWV `printf`. Leave NC if unused. |
+
+### Companion “bring-up” hooks
+| Function | Altium Net | STM32WB55 Pin | Parts | Notes |
+|---|---|---|---|---|
+| Boot mode | BOOT0 | BOOT0 | 100 kΩ pulldown | Keep default low; add a pad to pull high for system bootloader if ever needed. |
+| 3V3 rail sense | +3V3_SYS | — | — | Feed VTref from here (TC2030 pad 1). |
+| Ground | GND | — | — | Add a nearby exposed GND pad if you like grabbing with a clip. |
+
+### Layout quick-rules (AD25)
+- Use the **TC2030-NL (no-legs)** footprint; **3 NPTH alignment holes**, **no paste** on the 6 pads.
+- Place near a **board edge**; avoid the **antenna/RF keepout**.
+- Keep **SWDIO/SWCLK/NRST** traces **short, direct, single-via** if possible.
+- Do **not** route SWD under the crystal island or the RF feed/match.
+- Power the board from its own rail; the probe reads **VTref** to know it’s a 3V3 target.
+
+> If you’re ever forced to use a **10-pin Cortex** header instead, the relevant pins are: **1=VTref, 2=SWDIO, 3=GND, 4=SWCLK, 6=SWO, 10=NRST**. The TC2030-CTX cable maps these onto the 2×3 pad grid above.
+
+
 ### Quick ERC/DFM checks
 - `VDD = VDDRF = VDDSMPS = +3V3_SYS` (ERC shows one source).
 - BYPASS links in place (option to defer SMPS bring‑up).
@@ -283,7 +326,7 @@ Reset series resistors (22–47 Ω) on SWDIO/SWCLK are optional if you see rin
 - Use **50 Ω CPWG** on Top; **ground fence vias** every ~2 mm; **no ground copper** under antenna per its datasheet.
 - Place an **optional u.FL test pad** (DNP) inline for conducted tests.
 
-
+---
 
 ## IO_Buttons_LEDs.SchDoc
 - **User button** → GPIO (`BTN_IN`) to GND; use MCU pull‑up or fit **10 k** pull‑down + **RC 100 Ω/100 nF** if hardware debounce desired.

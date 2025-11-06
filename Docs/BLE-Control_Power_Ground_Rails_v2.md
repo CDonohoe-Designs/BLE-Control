@@ -5,15 +5,14 @@
 ## 0) Context from `Power_Charge_USB.SchDoc` (naming & nets)
 - USB-C receptacle (**USB4105-GF-A**), PPTC (**MF-PSMF050X-2**), TVS (**SMF5.0A**), ferrite (**BLM15AG121**), charger **BQ21062YFPR**.
 - Key nets exported to the rest of the design: **`VBAT`** (battery), **`PMID`** (charger mid node), **`+3V3_SYS`** (system 3.3 V rail).
-- The BQ21062 has a **local pin called VDD** (IC1-D1). To avoid confusion with the MCU’s VDD rail, **rename this local net to `BQ_VDD`** (or `CHG_VDD`). Reserve **`VDD`** on the MCU side for the 3.3 V rail.
-
+- The BQ21062 has a **local pin called BQ_VDD** (IC1-D1).
 ---
 
 ## 1) VDDSMPS vs VDD — what & why (STM32WBxx)
 - **`VDD`** = external 3.3 V rail for I/O and most internal domains. In this design it is **`+3V3_SYS`**.
 - **`VDDSMPS`** = external 3.3 V **input to the MCU’s internal buck (SMPS)** which generates the core voltage.  
-  Keeping a **separate pin** lets you place **tight local decoupling** (e.g., **4.7 µF + 0.1 µF**) and keep the **SMPS high-di/dt loop compact**, reducing noise on the broader VDD network.
-- In most designs (including this one), **`VDD`, `VDDRF`, and `VDDSMPS` are tied to the same external rail (`+3V3_SYS`)**, but have **different decoupling** and roles.
+  Keeping a **separate pin** lets me place **tight local decoupling** (e.g., **4.7 µF + 0.1 µF**) and keep the **SMPS high-di/dt loop compact**, reducing noise on the broader VDD network.
+- **`VDD`, `VDDRF`, and `VDDSMPS` are tied to the same external rail (`+3V3_SYS`)**, but have **different decoupling** and roles.
 
 ---
 
@@ -41,7 +40,7 @@
 - **`VREF+`**: simplest is **tie to `VDDA`** with **100 nF + 1 µF** at the pin. Leave pads for an external reference later if desired.
 
 ### USB domain
-- **`VDDUSB`**: if MCU USB FS isn’t used, **tie to `VDD`** (keeps PA11/PA12 usable) and add local 100 nF.  
+- **`VDDUSB`**: MCU USB FS isn’t used, so I **tie to `VDD`** (keeps PA11/PA12 usable) and add local 100 nF.  
   If used, supply **3.0–3.6 V** with local decoupling and handle ESD/CC in the USB sheet.
 
 ### Backup domain
