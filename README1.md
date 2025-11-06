@@ -121,15 +121,6 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 
 ---
 
-## Quick start (Altium AD25)
-1. Open **`Hardware/Altium/BLE_Control.PrjPcb`**.
-2. **Libraries**
-   - **Integrated:** compile `Libraries/Integrated/*.LibPkg` → install via **Components → (gear) File-based Libraries**.
-   - **Database:** open `Libraries/DBLib/BLE_Control.DBLib` (status **Connected**). Map to **Library Ref / Library Path / Footprint**; DB at `Libraries/Database/BLE_Control_Parts_DB.xlsx`.
-3. Place parts on `Schematic/*.SchDoc`. **Project → Validate** → proceed to `BLE_Control.PcbDoc`.
-
----
-
 ## Schematic partition (what lives where)
 - **Power_Charge_USB.SchDoc** — **BQ25180** charger (USB-C sink, ship-mode), **TPS22910A** sensor rail (**VDD_SENS**), **TPS7A02-3V3**, thermistor input, **USB shield R//C bleed**, **CC ESD**  
 - **MCU_RF.SchDoc** — **STM32WB55**, HSE 32 MHz & LSE 32.768 kHz, **on-chip SMPS cell** (L1=10 µH + optional 10 nH), decoupling, **RF π-match (DNP)**, **optional RF ESD (DNP)**, SWD pins  
