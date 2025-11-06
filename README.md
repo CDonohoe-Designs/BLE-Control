@@ -106,7 +106,7 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 - **Power & Ground Rules (STM32WBxx):** [Docs/BLE-Control_Power_Ground_Rules.md](Docs/BLE-Control_Power_Ground_Rules.md)  
 - **Build Plan (AD25):** [Docs/BLE-Control_Build_Plan_AD25.md](Docs/BLE-Control_Build_Plan_AD25.md)  
 - **One-Page Connection Checklist:** [Docs/BLE-Control_Connection_Checklist_OnePage.md](Docs/BLE-Control_Connection_Checklist_OnePage.md)  
-- **Grouped BOM:** [Docs/BOM/BLE-Control_BOM_Grouped.md](Docs/BOM/BLE-Control_BOM_Grouped.md)  
+- **Grouped BOM:** [Docs/BOM/BLE-Control_BOM_Grouped.md](Docs/BLE-Control_BOM_Grouped.md)  
 - **CubeMonitor-RF test flow:** [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](Docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
 
 ---
