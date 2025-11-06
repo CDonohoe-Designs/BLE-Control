@@ -5,10 +5,13 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 > *Not a claim of compliance; design-for-compliance focus only.*
 
 ---
+## EDA environment
+- **Altium Designer 25.x** (tested with 25.3.3 build 18)
+---
 
 ## Highlights
 - **MCU:** STM32WB55CGU6 (BLE 5.0 + Cortex-M4)
-- **Power:** Single-cell Li-Po, **TI BQ25180** ultra-low-Iq charger (USB-C sink) with **ship-mode** + **TPS7A02-3V3** LDO + **TPS22910A** gated sensor rail
+- **Power:** Single-cell Li-Po, **TI BQ25180** ultra-low-Iq charger (USB-C sink) with **ship-mode** +  **TPS22910A** gated sensor rail
 - **Sensors:** **BMI270** (6-axis IMU), **MAX17048** (fuel gauge, always-on), **SHTC3** (temp+RH, switched)
 - **RF:** 2.4 GHz **chip antenna** with **π-match (DNP)** and optional **RF ESD (DNP)**
 - **Debug:** **Tag-Connect TC2030-NL** (Cortex/SWD) — I don’t need USB D+/D− for programming
