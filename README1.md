@@ -167,10 +167,15 @@ USB-C receptacle, **5.1 kΩ Rd** on CC1/CC2 (sink-only), ESD, optional USB-FS pa
 
 ---
 
-## Firmware (STM32CubeIDE)
-- **Project:** `Firmware/BLE_Control/` (CubeIDE 1.17.0)  
-- **Wireless coprocessor (CPU2):** flash BLE stack via **STM32CubeProgrammer → Wireless/FUS**; record stack version in the firmware README  
-- **Bring-up stubs:** I²C scan, IMU wake, fuel-gauge read, BLE advertisement, SWV logging on **PB3**
+## STM32CubeIDE Firmware (STM32WB55CG, UFQFPN-48)
+**Project path:** `Firmware/BLE_Control/` → **[Open Firmware README](Firmware/BLE_Control/README.md)**  
+**Goal:** self-contained CubeIDE project that anyone can import and build.
+
+**Toolchain (tested):** STM32CubeIDE 1.17.0 · STM32CubeWB (specify version) · STM32CubeProgrammer (specify)
+
+**Wireless coprocessor (CPU2):**
+- Use **STM32CubeProgrammer → Wireless/FUS** to flash the **BLE stack** (Full/Light/Concurrent).  
+- Record the **stack version** in the Firmware README under *Toolchain / versions*.
 
 ---
 
