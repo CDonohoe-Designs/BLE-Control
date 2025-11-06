@@ -104,9 +104,9 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 ---
 
 ## Schematic partition (what lives where)
-- **Power_Batt_Charge_LDO.SchDoc** — **BQ25180** charger (USB-C sink, ship-mode), **TPS22910A** sensor rail (**VDD_SENS**), **TPS7A02-3V3**, thermistor input, **USB shield R//C bleed**, **CC ESD**  
+- **Power_Charge_USB.SchDoc** — **BQ25180** charger (USB-C sink, ship-mode), **TPS22910A** sensor rail (**VDD_SENS**), **TPS7A02-3V3**, thermistor input, **USB shield R//C bleed**, **CC ESD**  
 - **MCU_RF.SchDoc** — **STM32WB55**, HSE 32 MHz & LSE 32.768 kHz, **on-chip SMPS cell** (L1=10 µH + optional 10 nH), decoupling, **RF π-match (DNP)**, **optional RF ESD (DNP)**, SWD pins  
-- **USB_Debug.SchDoc** — USB-C receptacle, **5.1 kΩ Rd** on CC1/CC2 (sink-only), ESD, optional USB-FS path, **Tag-Connect TC2030-NL** (Cortex/SWD)  
+- USB-C receptacle, **5.1 kΩ Rd** on CC1/CC2 (sink-only), ESD, optional USB-FS path, **Tag-Connect TC2030-NL** (Cortex/SWD)  
 - **IO_Buttons_LEDs.SchDoc** — Button (ESD + 100 Ω series), status LED  
 - **Sensors.SchDoc** — **BMI270** (INT1/2→EXTI), **MAX17048** (always-on @ VBAT), **SHTC3** (on **VDD_SENS**), I²C pull-ups
 
@@ -117,7 +117,7 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 ### Rails
 - **`VDD = VDDRF = VDDSMPS = +3V3_SYS`** (single 3V3 domain)
 - **Analog:** `VDDA` via bead to `+3V3_ANA` (or direct to `+3V3_SYS`) with **0.1 µF + 1 µF** to **VSSA**; `VREF+` = `VDDA`
-- **VBAT (MCU backup):** **Do not** tie to Li-ion (3.0–4.2 V). Use **3.0–3.3 V** backup or **net-tie to +3V3_SYS** with **100 nF**.  
+- **VBAT (MCU backup):** **I have not ** tied to Li-ion (3.0–4.2 V). **Net-tie to +3V3_SYS** with **100 nF**.  
   Naming hygiene: **`VBAT_MCU`** (pin) vs **`+BATT`** (pack)
 
 ### On-chip SMPS cell
