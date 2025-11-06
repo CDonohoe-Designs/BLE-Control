@@ -8,19 +8,11 @@ This is a concise plan to finish the first schematic set, wire consistently, and
 ## 1) Create schematic sheets
 Create these under `Hardware/Altium/Schematic/` (names matter):
 - `TopLevel.SchDoc`
-- `Power_Batt_Charge_LDO.SchDoc`
+- `Power_Charge_USB.SchDoc`
 - `MCU_RF.SchDoc`
-- `USB_Debug.SchDoc`
 - `IO_Buttons_LEDs.SchDoc`
 - `Sensors.SchDoc`
 - `Testpoints_Assembly.SchDoc`
-
-In **TopLevel**, place **Sheet Symbols** for each child sheet and route ports with these nets:
-- **Power:** `VBAT`, `3V3`, `VDD_SENS`, `USB_5V`, `GND`
-- **I²C:** `I2C_SCL`, `I2C_SDA`
-- **Control/IRQs:** `SENS_EN`, `BMI270_INT1`, `BMI270_INT2`, `GAUGE_INT`(opt), `SHTC3_INT`(opt)
-- **RF:** `RF_OUT` → `ANT_IN`
-- **SWD:** `SWDIO`, `SWCLK`, `NRST`, `SWO`(opt), `VTREF`, `GND`
 
 ---
 
@@ -33,7 +25,6 @@ In **TopLevel**, place **Sheet Symbols** for each child sheet and route ports wi
 | I²C1 SDA | PB9 | `I2C_SDA` |
 | IMU INT1 | PA0 | `BMI270_INT1` |
 | IMU INT2 | PA1 | `BMI270_INT2` |
-| Gauge ALRT (opt) | PB2 | `GAUGE_INT` |
 | Sensors rail enable | PA8 | `SENS_EN` |
 | LED | PB0 | `GPIO_LED` |
 | Button | PB1 | `BTN_IN` |
