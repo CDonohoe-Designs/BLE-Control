@@ -118,7 +118,7 @@ USB-C receptacle, **5.1 kΩ Rd** on CC1/CC2 (sink-only), ESD, optional USB-FS pa
 - **`VDD = VDDRF = VDDSMPS = +3V3_SYS`** (single 3V3 domain)
 - **Analog:** `VDDA` via bead to `+3V3_ANA` (or direct to `+3V3_SYS`) with **0.1 µF + 1 µF** to **VSSA**; `VREF+` = `VDDA`
 - **VBAT (MCU backup):** **I have not ** tied to Li-ion (3.0–4.2 V). **Net-tie to +3V3_SYS** with **100 nF**.  
-  Naming hygiene: **`VBAT_MCU`** (pin) vs **`+BATT`** (pack)
+  Naming hygiene: **`VBAT_MCU`** (pin) vs **`VBATT`** (pack)
 
 ### On-chip SMPS cell
 - **Path:** `+3V3_SYS → L1 (10 µH for 4 MHz; 2.2 µH for 8 MHz) → [optional 10 nH] → VLXSMPS`
