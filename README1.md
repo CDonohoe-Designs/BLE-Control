@@ -1,7 +1,8 @@
-# BLE-Control — Wearable BLE Control Board (Altium AD25)
+# BLE-Control — Wearable BLE Control Board (Altium AD25) 
+
 
 **BLE-Control** is a small, low-power wearable control board **I built** around the **STM32WB55** (BLE 5 + Cortex-M4).  
-This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1** (basic safety & essential performance) and **IEC 60601-1-2 Ed.4** (EMC, **Class A** – professional healthcare environment) practices, with documentation patterns influenced by **ISO 13485** (QMS) and **ISO 14971** (risk management).  
+This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1** (basic safety & essential performance) and **IEC 60601-1-2 Ed.4** (EMC, **Class A** – professional healthcare environment) practices, with documentation patterns influenced by **ISO 13485** (QMS) and **ISO 14971** (risk management). It is a Work in Progress 
 > *Not a claim of compliance; design-for-compliance focus only.*
 
 ---
