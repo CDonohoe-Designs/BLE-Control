@@ -152,7 +152,7 @@ USB-C receptacle, **5.1 kΩ Rd** on CC1/CC2 (sink-only), ESD, optional USB-FS pa
 | 3 | GND | GND | — | ✅ | Stitching via next to pad |
 | 4 | SWCLK | SWCLK | PA14 | ✅ | Short trace; no series R |
 | 5 | nRESET | NRST | NRST | ✅ | 10 k→3V3 + 100 nF→GND optional |
-| 6 | SWO | SWO | PB3 | ◻️ | Optional SWV printf/trace |
+| 6 | SWO | SWO | PB3 | ✅ | Optional SWV printf/trace |
 
 ---
 
