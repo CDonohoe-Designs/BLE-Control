@@ -41,7 +41,7 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 - **MCU:** STM32WB55CGU6 (BLE 5.0 + Cortex-M4)
 - **Power:** Single-cell Li-Po, **TI BQ25180** ultra-low-Iq charger (USB-C sink) with **ship-mode** +  **TPS22910A** gated sensor rail
 - **Sensors:** **BMI270** (6-axis IMU), **MAX17048** (fuel gauge, always-on), **SHTC3** (temp+RH, switched)
-- **RF:** 2.4 GHz **chip antenna** with **π-match (DNP)** and optional **RF ESD (DNP)**
+- **RF:** 2.4 GHz **chip antenna** with **π-match ** with **LPF DLF162500LT-5028A1** and optional **RF ESD**
 - **Debug:** **Tag-Connect TC2030-NL** (Cortex/SWD) — I don’t need USB D+/D− for programming
 - **I/O:** 1× tactile button, 1× status LED, expansion pads (I²C/SPI/3V3/GND)
 - **Form factor:** 4-layer, 0.8 mm PCB, **0402 passives** (0603 only for bulk/ESD)
@@ -106,7 +106,7 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 - **Power & Ground Rules (STM32WBxx):** [Docs/BLE-Control_Power_Ground_Rules.md](Docs/BLE-Control_Power_Ground_Rules.md)  
 - **Build Plan (AD25):** [Docs/BLE-Control_Build_Plan_AD25.md](Docs/BLE-Control_Build_Plan_AD25.md)  
 - **One-Page Connection Checklist:** [Docs/BLE-Control_Connection_Checklist_OnePage.md](Docs/BLE-Control_Connection_Checklist_OnePage.md)  
-- **Grouped BOM:** [Docs/BOM/BLE-Control_BOM_Grouped.md](Docs/BOM/BLE-Control_BOM_Grouped.md)  
+- **Grouped BOM:** [Docs/BOM/BLE-Control_BOM_Grouped.md](Docs/BLE-Control_BOM_Grouped.md)  
 - **CubeMonitor-RF test flow:** [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](Docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
 
 ---
@@ -143,7 +143,6 @@ USB-C receptacle, **5.1 kΩ Rd** on CC1/CC2 (sink-only), ESD, optional USB-FS pa
 
 ### Rails
 - **`VDD = VDDRF = VDDSMPS = +3V3_SYS`** (single 3V3 domain)
-- **Analog:** `VDDA` via bead to `+3V3_ANA` (or direct to `+3V3_SYS`) with **0.1 µF + 1 µF** to **VSSA**; `VREF+` = `VDDA`
 - **VBAT (MCU backup):** **I have not ** tied to Li-ion (3.0–4.2 V). **Net-tie to +3V3_SYS** with **100 nF**.  
   Naming hygiene: **`VBAT_MCU`** (pin) vs **`VBATT`** (pack)
 
