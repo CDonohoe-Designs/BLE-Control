@@ -183,7 +183,7 @@ USB-C receptacle, **5.1 kΩ Rd** on CC1/CC2 (sink-only), ESD, optional USB-FS pa
 ---
 
 ## BOM & releases
-- **Grouped BOM:** includes **L1 = 10 µH** (main SMPS), **L1A = 10 nH (DNP)** series helper, **CC-line ESD**, **USB shield R//C**, **button ESD + 100 Ω**, **RF ESD (DNP)** → [Docs/BOM/BLE-Control_BOM_Grouped.md](Docs/BOM/BLE-Control_BOM_Grouped.md)  
+- **Grouped BOM:** includes **L1 = 10 µH** (main SMPS), **L1A = 10 nH (DNP)** series helper, **CC-line ESD**, **USB shield R//C**, **button ESD + 100 Ω**, **RF ESD (DNP)** → [Docs/BOM/BLE-Control_BoM_Grouped.md](Docs/BoM/BLE-Control_BOM_Grouped.md)  
 - **Releases:** OutJob produces PDFs, fab/assy, XY, and BOM packages
 
 **Inductor picks** (as used/documented)
