@@ -196,7 +196,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-### Bring‑up checklist
+## <a id="bringup_checklist"></a>Bring-up checklist
 - ❑ ST‑LINK can flash; MCU boots on **3V3**.  
 - ❑ I²C talks to **BQ21062**; reads **PG/INT** as expected.  
 - ❑ **ICHG/ILIM** applied; battery charges from USB.  
