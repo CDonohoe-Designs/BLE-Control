@@ -206,7 +206,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## MCU_RF.SchDoc
+## <a id="mcu_rf"></a>MCU_RF.SchDoc
 
 ## Power & Ground — STM32WBxx (ties to `Power_Charge_USB.SchDoc`)
 
@@ -304,7 +304,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## Sensor_IO_Buttons_LED.SchDoc — Sensors + User I/O (single sheet)
+## <a id="sensor_io_buttons_led"></a>Sensor_IO_Buttons_LED.SchDoc — Sensors + User I/O (single sheet)
 
 **Purpose:** Combine the sensors (BMI270, BME280 or SHTC3/LPS22HH option) with the user button and status LED, plus **skin temperature (digital)**.  
 **Power domain:** `VDD_SENS` (switched) for sensors; LED may use `+3V3_SYS` (preferred, to avoid rail bounce).
@@ -377,7 +377,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## Testpoints_Assembly.SchDoc
+## <a id="testpoints_assembly"></a>Testpoints_Assembly.SchDoc
 - **Test pads:** `TP_VBAT`, `TP_3V3_SYS`, `TP_VDD_SENS`, `TP_USB_5V`, `TP_SWDIO`, `TP_SWCLK`, `TP_GND`, `TP_SKIN`.
 - **DNP jumpers** (0 Ω) where useful for bring‑up: in series with I²C lines, across the **PPTC** (bypass), and current‑sense access in rails.
 - **Assembly notes:** Mark **antenna keepout**, Tag‑Connect footprint **DNL**, RF π‑match **DNP** by default.
@@ -385,7 +385,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## EMC & layout rules
+## <a id="emc_rules"></a>EMC & layout rules (wearable)
 - **Stackup (4‑layer, 0.8 mm):** L1=signals+CPWG RF; L2=**solid GND plane**; L3=+3V3/VBAT pours + slow signals; L4=signals/battery.
 - **Grounding:** one continuous ground (no splits). Stitch vias around RF trace and board edges.
 - **Loops:** keep **charger input loop (VBUS→PPTC→TVS→IC→GND)** and **LDO loops** tight. Place caps **at the pins**.
@@ -400,7 +400,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## Values cheat‑sheet (start points)
+## <a id="values_cheatsheet"></a>Values cheat-sheet (start points)
 - **I²C pull‑ups:** **2.2 kΩ → VDD_SENS** (0402).  
 - **I²C series (DNP):** **33 Ω** near MCU on SCL/SDA.  
 - **LED series:** 1 kΩ (0402).  
@@ -417,7 +417,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## Battery selection & connector (wearable)
+## <a id="battery"></a>Battery selection & connector (wearable)
 **Goal:** thin, serviceable, EMC‑sane power input for a small wearable.
 
 ### Battery form factor
