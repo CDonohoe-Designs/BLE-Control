@@ -101,7 +101,7 @@ GenerateClassCluster=0
 DocumentUniqueId=ZYBXLLLW
 
 [Document4]
-DocumentPath=Schematic\IO_Buttons_LEDs.SchDoc
+DocumentPath=Schematic\Sensor_IO_Buttons_LED.SchDoc
 AnnotationEnabled=0
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -118,23 +118,6 @@ GenerateClassCluster=0
 DocumentUniqueId=EUBYUXTB
 
 [Document5]
-DocumentPath=Schematic\Sensors.SchDoc
-AnnotationEnabled=0
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=4
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=VRBQJAAP
-
-[Document6]
 DocumentPath=PCB\BLE-Control.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -151,7 +134,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=DMAKMBJV
 
-[Document7]
+[Document6]
 DocumentPath=Libraries\Source\BLE-Control.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -168,7 +151,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=QILENUKS
 
-[Document8]
+[Document7]
 DocumentPath=Libraries\Source\BLE-Control.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -185,7 +168,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=UGJRSGQE
 
-[Document9]
+[Document8]
 DocumentPath=Libraries\Database\BLE-Control.DBLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -202,7 +185,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document10]
+[Document9]
 DocumentPath=BLE-Control.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -219,7 +202,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document11]
+[Document10]
 DocumentPath=BLE-Control.Annotation
 AnnotationEnabled=1
 AnnotateStartValue=1
