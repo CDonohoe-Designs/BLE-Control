@@ -35,7 +35,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 
 ---
 ## Documentation
-- **Wearable Schematic Guide (v4):** [Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v4.md](Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v4.md)
+- **Wearable Schematic Guide (v4):** [BLE-Control_Wearable_Schematic_Guide_AD25_v4.md](BLE-Control_Wearable_Schematic_Guide_AD25_v4.md)
 - **Grouped BOM (v4):** [Docs/BLE-Control_BOM_Grouped_v4.md](Docs/BLE-Control_BOM_Grouped_v4.md)
 - **Power & Ground Rules (STM32WBxx):** [Docs/BLE-Control_Power_Ground_Rails.md](Docs/BLE-Control_Power_Ground_Rails.md)
 - **Build Plan (AD25):** [Docs/BLE-Control_Build_Plan_AD25.md](Docs/BLE-Control_Build_Plan_AD25.md)
