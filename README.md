@@ -41,7 +41,7 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 - **MCU:** STM32WB55CGU6 (BLE 5.0 + Cortex-M4)
 - **Power:** Single-cell Li-Po, **TI BQ25180** ultra-low-Iq charger (USB-C sink) with **ship-mode** +  **TPS22910A** gated sensor rail
 - **Sensors:** **BMI270** (6-axis IMU), **MAX17048** (fuel gauge, always-on), **SHTC3** (temp+RH, switched)
-- **RF:** 2.4 GHz **chip antenna** with **π-match (DNP)** and optional **RF ESD (DNP)**
+- **RF:** 2.4 GHz **chip antenna** with **π-match ** with **LPF DLF162500LT-5028A1** and optional **RF ESD**
 - **Debug:** **Tag-Connect TC2030-NL** (Cortex/SWD) — I don’t need USB D+/D− for programming
 - **I/O:** 1× tactile button, 1× status LED, expansion pads (I²C/SPI/3V3/GND)
 - **Form factor:** 4-layer, 0.8 mm PCB, **0402 passives** (0603 only for bulk/ESD)
