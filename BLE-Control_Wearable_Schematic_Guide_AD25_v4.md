@@ -4,16 +4,17 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 > Update: **USB‑C VBUS protection now specifies a PPTC: _Bourns MF‑PSMF050X‑2 (0805), I_hold = 0.5 A_**, sized for **ILIM = 500 mA**. Keep a **0 Ω DNP bypass** pad in parallel for bring‑up.
 
-
 ## Table of contents
-- TopLevel.SchDoc
-- Power_Charge_USB.SchDoc
-- MCU_RF.SchDoc
-- Sensor_IO_Buttons_LED.SchDoc
-- Testpoints_Assembly.SchDoc
-- EMC & layout rules (wearable)
-- Values cheat‑sheet (start points)
-
+- **[TopLevel.SchDoc](#toplevel)** — [`Hardware/Altium/TopLevel.SchDoc`](Hardware/Altium/TopLevel.SchDoc)
+- **[Power_Charge_USB.SchDoc](#power_charge_usb)** — [`Hardware/Altium/Power_Charge_USB.SchDoc`](Hardware/Altium/Power_Charge_USB.SchDoc)
+- **[MCU_RF.SchDoc](#mcu_rf)** — [`Hardware/Altium/MCU_RF.SchDoc`](Hardware/Altium/MCU_RF.SchDoc)
+- **[Sensor_IO_Buttons_LED.SchDoc](#sensor_io_buttons_led)** — [`Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc`](Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc)
+- **[Testpoints_Assembly.SchDoc](#testpoints_assembly)** — [`Hardware/Altium/Testpoints_Assembly.SchDoc`](Hardware/Altium/Testpoints_Assembly.SchDoc)
+- **[EMC & layout rules (wearable)](#emc--layout-rules)**
+- **[Values cheat-sheet (start points)](#values-cheat-sheet-start-points)**
+- **[Battery selection & connector](#battery-selection--connector-wearable)**
+- **[TC2030 (SWD) hook table](#tc2030-swd-hook-table--stm32wb55)**
+- **[Bring-up checklist](#bring-up-checklist)**
 
 ---
 
