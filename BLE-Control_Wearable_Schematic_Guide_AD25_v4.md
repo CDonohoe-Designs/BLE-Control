@@ -32,7 +32,7 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 ---
 
-## Power_Charge_USB.SchDoc — **TI BQ21062** (USB‑C charge, 1‑cell Li‑Po, ship‑mode)
+## <a id="power_charge_usb"></a>Power_Charge_USB.SchDoc — TI BQ21062 (USB-C charge, 1-cell Li-Po, ship-mode)
 
 ## Power architecture
 
