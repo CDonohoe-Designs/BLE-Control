@@ -10,15 +10,16 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 - **[MCU_RF.SchDoc](#mcu_rf)** — [`Hardware/Altium/MCU_RF.SchDoc`](Hardware/Altium/MCU_RF.SchDoc)
 - **[Sensor_IO_Buttons_LED.SchDoc](#sensor_io_buttons_led)** — [`Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc`](Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc)
 - **[Testpoints_Assembly.SchDoc](#testpoints_assembly)** — [`Hardware/Altium/Testpoints_Assembly.SchDoc`](Hardware/Altium/Testpoints_Assembly.SchDoc)
-- **[EMC & layout rules (wearable)](#emc--layout-rules)**
-- **[Values cheat-sheet (start points)](#values-cheat-sheet-start-points)**
-- **[Battery selection & connector](#battery-selection--connector-wearable)**
-- **[TC2030 (SWD) hook table](#tc2030-swd-hook-table--stm32wb55)**
-- **[Bring-up checklist](#bring-up-checklist)**
+- **[EMC & layout rules (wearable)](#emc_rules)**
+- **[Values cheat-sheet (start points)](#values_cheatsheet)**
+- **[Battery selection & connector](#battery)**
+- **[TC2030 (SWD) hook table](#tc2030)**
+- **[Bring-up checklist](#bringup_checklist)**
+
 
 ---
 
-## TopLevel.SchDoc
+## <a id="toplevel"></a>TopLevel.SchDoc
 **Purpose:** hierarchy & net connectivity only (no real circuitry).  
 **What to include:**
 - Sheet symbols for: Power_Charge_USB, MCU_RF, Sensor_IO_Buttons_LED, Testpoints_Assembly.
