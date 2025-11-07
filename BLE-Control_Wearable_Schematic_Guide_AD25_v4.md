@@ -261,7 +261,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 7. **Ground Pins:** Expose **`VSSRF/EPAD`** pin on the symbol and annotate: “via array to GND, keepout under HSE/RF”.  
 8. **Naming hygiene:** Keep the charger’s local **`BQ_VDD`** distinct from MCU **`VDD`** to avoid ERC/DRC confusion.
 
-## TC2030 (SWD) Hook Table — STM32WB55
+## <a id="tc2030"></a>TC2030 (SWD) hook table — STM32WB55
 
 > Cable: **TC2030-CTX (Cortex/SWD)** style mapping  
 > Grid (top view): top row **1-2-3**, bottom row **4-5-6**
