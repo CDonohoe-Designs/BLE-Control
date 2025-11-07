@@ -102,7 +102,7 @@ This is a **portfolio/showcase design I intentionally aligned** to **IEC 60601-1
 ---
 
 ## Documentation
-- **Wearable Schematic Guide:** [Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v2.md](Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v2.md)  
+- **Wearable Schematic Guide:** [Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v2.md](BLE-Control_Wearable_Schematic_Guide_AD25_v2.md)  
 - **Power & Ground Rules (STM32WBxx):** [Docs/BLE-Control_Power_Ground_Rules.md](Docs/BLE-Control_Power_Ground_Rules.md)  
 - **Build Plan (AD25):** [Docs/BLE-Control_Build_Plan_AD25.md](Docs/BLE-Control_Build_Plan_AD25.md)  
 - **One-Page Connection Checklist:** [Docs/BLE-Control_Connection_Checklist_OnePage.md](Docs/BLE-Control_Connection_Checklist_OnePage.md)  
