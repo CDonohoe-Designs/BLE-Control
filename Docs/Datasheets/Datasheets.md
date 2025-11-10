@@ -73,20 +73,27 @@ Below are manufacturer datasheets (and official product pages where helpful) gro
 
 ## Sensor
 
-- **6-axis IMU — BMI270 (Bosch Sensortec)**  
-  Product page (docs): https://www.bosch-sensortec.com/products/motion-sensors/imus/bmi270/
+### Bosch BMI270 (IMU)
+- **Datasheet:** https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi270-ds000.pdf
+- **Shuttle Board 3.0 (schematic/overview):** https://docs.rs-online.com/32e4/A700000008845135.pdf
+- **Handling / Soldering / Mounting Guide:** https://www.mouser.com/pdfDocs/BST-BMI270-HS000.pdf
 
-- **Environmental sensor options**  
-  – **BME280 (Bosch)** datasheet: https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf  
-  – **SHTC3 (Sensirion)** datasheet: https://sensirion.com/media/documents/33C9B43E/637C3B76/Sensirion_Datasheet_SHTC3.pdf  
-  – **LPS22HHTR (ST, barometer)** datasheet: https://www.st.com/resource/en/datasheet/lps22hh.pdf
+### Sensirion SHTC3 (Temp/RH)
+- **Datasheet:** https://sensirion.com/media/documents/643F9C8E/63A5A436/Datasheet_SHTC3.pdf
+- **Eval Kit – SEK-SHTC3-Sensors:** https://www.mouser.com/ProductDetail/Sensirion/SEK-SHTC3-Sensors
+- **SensorBridge Technical Guide:** https://sensirion.com/media/documents/7F4762CB/642D8327/SEK-SensorBridge_Technical_Guide_D1.pdf
+- **Design-in Guide (SHT/STS family):** https://sensirion.com/media/documents/FC5BED84/61644655/Sensirion_Temperature_Sensors_Design_Guide_V1.pdf
 
 ---
 
 ## Sensor — Skin Temperature (Digital)
 
-- **TMP117x (TI, ±0.1 °C)**  
-  Product page / datasheet: https://www.ti.com/product/TMP117
+### Texas Instruments TMP117 (±0.1 °C)
+- **Datasheet:** https://www.ti.com/lit/gpn/TMP117
+- **EVM User Guide (schematic/BOM):** https://www.ti.com/lit/ug/snou161/snou161.pdf
+- **Reference Design – TIDA-060034 (hearables ear temp flex):** https://www.ti.com/tool/TIDA-060034
+- **App Note – Precise Temp Measurements (TMP116/117):** https://www.ti.com/lit/pdf/snoa986
+
 
 - **Variant — MAX30208 (Analog Devices / Maxim, ±0.1 °C)**  
   Product page / datasheet: https://www.analog.com/en/products/max30208.html
