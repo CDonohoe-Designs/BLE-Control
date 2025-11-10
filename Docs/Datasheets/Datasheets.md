@@ -99,7 +99,7 @@ Below are manufacturer datasheets (and official product pages where helpful) gro
   Datasheet: https://www.mouser.com/datasheet/2/143/19-217-GHC-YR1S2-3T-1663276.pdf
 
 - **Tact switch — KMR221GLFS (C&K)**  
-  Product page / datasheet: https://www.ckswitches.com/products/switches/product-details/Tactile/KMR/#
+  Product page / datasheet: https://www.ckswitches.com/products/switches/product-details/Tactile/KMR2/KMR221GLFS/
 
 ---
 
