@@ -1,0 +1,9 @@
+Manufacturer=Sensirion
+PartNumber=SHTC3
+PartCategory=Integrated Circuit
+PackageCategory=Other
+PinCount=5
+Version=1.3
+Released=2018-04-11 09:43:20
+Downloaded=2025-11-07 22:36:44
+3D=Y

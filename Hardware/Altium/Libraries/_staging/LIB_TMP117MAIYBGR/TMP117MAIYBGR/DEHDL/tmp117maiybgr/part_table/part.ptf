@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'TMP117MAIYBGR'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Texas Instruments", "TMP117MAIYBGR" (!) = "", "BGA6C40P2X3_95X149X50", "BGA", "595-TMP117MAIYBGR", "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/TMP117MAIYBGR?qs=vLWxofP3U2wReoA4ATB%2Fjg%3D%3D", "+/-0.1C accurate digital temperature sensor with integrated NV memory", "http://www.ti.com/lit/gpn/TMP117", "0.5 mm"
+END_PART
+
+END.

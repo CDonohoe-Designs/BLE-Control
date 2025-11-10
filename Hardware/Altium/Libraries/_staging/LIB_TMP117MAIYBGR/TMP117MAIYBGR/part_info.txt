@@ -1,0 +1,9 @@
+Manufacturer=Texas Instruments
+PartNumber=TMP117MAIYBGR
+PartCategory=Integrated Circuit
+PackageCategory=BGA
+PinCount=6
+Version=3.1
+Released=2019-11-04 03:07:22
+Downloaded=2025-11-07 22:49:21
+3D=Y
