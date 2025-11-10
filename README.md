@@ -121,7 +121,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 
 ## Datasheets & Notes
 
-[Datasheets & Notes → Docs/Datasheets](Docs/Datasheets/README.md)
+[Datasheets & Notes → Docs/Datasheets](Docs/Datasheets/Datasheets.md)
 - **TI BQ21062 — 1-cell charger (power-path + LS/LDO):** https://www.ti.com/lit/gpn/bq21062  
 - **STM32WB55xx Datasheet:** include under `docs/datasheets/`  
 - **AN5165 — STM32WB RF hardware guidelines:** include under `docs/datasheets/`  
