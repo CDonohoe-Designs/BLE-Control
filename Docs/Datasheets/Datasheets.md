@@ -20,13 +20,12 @@ Below are manufacturer datasheets (and official product pages where helpful) gro
   Datasheet: https://www.johansontechnology.com/docs/1129/2450AT18A100E-AEC_tCZ7Fpd.pdf
 
 - **u.FL RF test jack — U.FL-R-SMT-1(10) (Hirose)**  
-  Series catalog (includes U.FL-R-SMT-1 variants): https://www.hirose.com/en/product/document?clcode=&documentid=ed_U.FL_CAT&documenttype=Catalog&lang=en&productname=&series=U.FL
+  Series catalog: https://www.hirose.com/en/product/document?clcode=&documentid=ed_U.FL_CAT&documenttype=Catalog&lang=en&productname=&series=U.FL
 
 - **RF ESD diode — PESD5V0S1UL (Nexperia, SOD882)**  
-  Datasheet: https://assets.nexperia.com/documents/data-sheet/PESD5V0S1UL.pdf  
-  Product page: https://www.nexperia.com/product/PESD5V0S1UL
+  Datasheet: https://assets.nexperia.com/documents/data-sheet/PESD5V0S1UL.pdf
 
-- **HSE crystal — NX3225SA-32 MHz-STD-CSR-3 (NDK 3.2×2.5 mm)**  
+- **HSE crystal — NX3225SA-32MHz-STD-CSR-3 (NDK 3.2×2.5 mm)**  
   Series datasheet: https://www.ndk.com/images/products/catalog/c_NX3225SA_e.pdf
 
 - **LSE crystal — ABS07-32.768KHZ-7-T (Abracon 3.2×1.5 mm)**  
@@ -59,14 +58,13 @@ Below are manufacturer datasheets (and official product pages where helpful) gro
   Product page: https://product.tdk.com/en/search/emc/emc/cmf_cmc/info?part_no=ACM2012D-900-2P-T00
 
 - **VBUS TVS — SMF5.0A (Littelfuse, SOD-123FL)**  
-  Product page: https://www.littelfuse.com/products/overvoltage-protection/tvs-diodes/surface-mount/smf/smf5-0a  
-  Series datasheet: https://www.littelfuse.com/assetdocs/tvs-diodes-smf-datasheet?assetguid=7eb8a5b6-bdd0-4561-8f19-0c3cc6f9b2af
+  Product page: https://www.littelfuse.com/products/overvoltage-protection/tvs-diodes/surface-mount/smf/smf5-0a
 
 - **Polyfuse — MF-MSMF050/16 (Bourns, 1206)**  
-  Series datasheet (MF-MSMF): https://www.bourns.com/docs/product-datasheets/mf-msmf.pdf
+  Series datasheet: https://www.bourns.com/docs/product-datasheets/mf-msmf.pdf
 
 - **JST Li-Po connector — BM02B-GHS-TBT (GH series, 1.25 mm)**  
-  GH series catalog (specs + footprints): https://www.jst-mfg.com/product/pdf/eng/eGH.pdf
+  GH series catalog: https://www.jst-mfg.com/product/pdf/eng/eGH.pdf
 
 - **Charger NTC — NCP15XH103F03RC (Murata 10 k, 0402)**  
   Product page: https://www.murata.com/en-eu/products/productdetail?partno=NCP15XH103F03RC
@@ -98,7 +96,22 @@ Below are manufacturer datasheets (and official product pages where helpful) gro
 ## IO_Buttons_LED
 
 - **Green LED — 19-217/GHC-YR1S2/3T (Everlight, 0603/1608)**  
-  Datasheet (hosted by Mouser): https://www.mouser.com/datasheet/2/143/19-217-GHC-YR1S2-3T-1663276.pdf
+  Datasheet: https://www.mouser.com/datasheet/2/143/19-217-GHC-YR1S2-3T-1663276.pdf
 
 - **Tact switch — KMR221GLFS (C&K)**  
   Product page / datasheet: https://www.ckswitches.com/products/switches/product-details/Tactile/KMR/#
+
+---
+
+## Key Application Notes & Guides
+
+- **ST AN6044 — Ultralow power system design guidelines & STEVAL-ASTRA1B power management characterization**  
+  PDF: https://www.st.com/resource/en/application_note/an6044-ultralow-power-system-design-guidelines-and-stevalastra1b-power-management-characterization-stmicroelectronics.pdf
+
+- **ST AN5156 — Introduction to security for STM32 MCUs**  
+  PDF: https://www.st.com/resource/en/application_note/an5156-introduction-to-security-for-stm32-mcus-stmicroelectronics.pdf
+
+- **BQ21061EVM — Evaluation Module User’s Guide (TI)**  
+  Official PDF: https://www.ti.com/lit/ug/sluuc59/sluuc59.pdf  
+  **Repo copy (your Docs/Datasheets):** https://github.com/CDonohoe-Designs/BLE-Control/blob/main/Docs/Datasheets/BQ21061EVM%20Evaluation%20Module%20User's%20Guide.pdf
+
