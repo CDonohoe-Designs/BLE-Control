@@ -4,20 +4,22 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 > Update: **USB‑C VBUS protection now specifies a PPTC: _Bourns MF‑PSMF050X‑2 (0805), I_hold = 0.5 A_**, sized for **ILIM = 500 mA**. Keep a **0 Ω DNP bypass** pad in parallel for bring‑up.
 
-
 ## Table of contents
-- TopLevel.SchDoc
-- Power_Charge_USB.SchDoc
-- MCU_RF.SchDoc
-- Sensor_IO_Buttons_LED.SchDoc
-- Testpoints_Assembly.SchDoc
-- EMC & layout rules (wearable)
-- Values cheat‑sheet (start points)
+- **[TopLevel.SchDoc](#toplevel)** — [`Hardware/Altium/TopLevel.SchDoc`](Hardware/Altium/TopLevel.SchDoc)
+- **[Power_Charge_USB.SchDoc](#power_charge_usb)** — [`Hardware/Altium/Power_Charge_USB.SchDoc`](Hardware/Altium/Power_Charge_USB.SchDoc)
+- **[MCU_RF.SchDoc](#mcu_rf)** — [`Hardware/Altium/MCU_RF.SchDoc`](Hardware/Altium/MCU_RF.SchDoc)
+- **[Sensor_IO_Buttons_LED.SchDoc](#sensor_io_buttons_led)** — [`Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc`](Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc)
+- **[Testpoints_Assembly.SchDoc](#testpoints_assembly)** — [`Hardware/Altium/Testpoints_Assembly.SchDoc`](Hardware/Altium/Testpoints_Assembly.SchDoc)
+- **[EMC & layout rules (wearable)](#emc_rules)**
+- **[Values cheat-sheet (start points)](#values_cheatsheet)**
+- **[Battery selection & connector](#battery)**
+- **[TC2030 (SWD) hook table](#tc2030)**
+- **[Bring-up checklist](#bringup_checklist)**
 
 
 ---
 
-## TopLevel.SchDoc
+## <a id="toplevel"></a>TopLevel.SchDoc
 **Purpose:** hierarchy & net connectivity only (no real circuitry).  
 **What to include:**
 - Sheet symbols for: Power_Charge_USB, MCU_RF, Sensor_IO_Buttons_LED, Testpoints_Assembly.
@@ -30,7 +32,7 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 ---
 
-## Power_Charge_USB.SchDoc — **TI BQ21062** (USB‑C charge, 1‑cell Li‑Po, ship‑mode)
+## <a id="power_charge_usb"></a>Power_Charge_USB.SchDoc — TI BQ21062 (USB-C charge, 1-cell Li-Po, ship-mode)
 
 ## Power architecture
 
@@ -194,7 +196,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-### Bring‑up checklist
+## <a id="bringup_checklist"></a>Bring-up checklist
 - ❑ ST‑LINK can flash; MCU boots on **3V3**.  
 - ❑ I²C talks to **BQ21062**; reads **PG/INT** as expected.  
 - ❑ **ICHG/ILIM** applied; battery charges from USB.  
@@ -204,7 +206,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## MCU_RF.SchDoc
+## <a id="mcu_rf"></a>MCU_RF.SchDoc
 
 ## Power & Ground — STM32WBxx (ties to `Power_Charge_USB.SchDoc`)
 
@@ -259,7 +261,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 7. **Ground Pins:** Expose **`VSSRF/EPAD`** pin on the symbol and annotate: “via array to GND, keepout under HSE/RF”.  
 8. **Naming hygiene:** Keep the charger’s local **`BQ_VDD`** distinct from MCU **`VDD`** to avoid ERC/DRC confusion.
 
-## TC2030 (SWD) Hook Table — STM32WB55
+## <a id="tc2030"></a>TC2030 (SWD) hook table — STM32WB55
 
 > Cable: **TC2030-CTX (Cortex/SWD)** style mapping  
 > Grid (top view): top row **1-2-3**, bottom row **4-5-6**
@@ -302,7 +304,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## Sensor_IO_Buttons_LED.SchDoc — Sensors + User I/O (single sheet)
+## <a id="sensor_io_buttons_led"></a>Sensor_IO_Buttons_LED.SchDoc — Sensors + User I/O (single sheet)
 
 **Purpose:** Combine the sensors (BMI270, BME280 or SHTC3/LPS22HH option) with the user button and status LED, plus **skin temperature (digital)**.  
 **Power domain:** `VDD_SENS` (switched) for sensors; LED may use `+3V3_SYS` (preferred, to avoid rail bounce).
@@ -375,7 +377,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## Testpoints_Assembly.SchDoc
+## <a id="testpoints_assembly"></a>Testpoints_Assembly.SchDoc
 - **Test pads:** `TP_VBAT`, `TP_3V3_SYS`, `TP_VDD_SENS`, `TP_USB_5V`, `TP_SWDIO`, `TP_SWCLK`, `TP_GND`, `TP_SKIN`.
 - **DNP jumpers** (0 Ω) where useful for bring‑up: in series with I²C lines, across the **PPTC** (bypass), and current‑sense access in rails.
 - **Assembly notes:** Mark **antenna keepout**, Tag‑Connect footprint **DNL**, RF π‑match **DNP** by default.
@@ -383,7 +385,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## EMC & layout rules
+## <a id="emc_rules"></a>EMC & layout rules (wearable)
 - **Stackup (4‑layer, 0.8 mm):** L1=signals+CPWG RF; L2=**solid GND plane**; L3=+3V3/VBAT pours + slow signals; L4=signals/battery.
 - **Grounding:** one continuous ground (no splits). Stitch vias around RF trace and board edges.
 - **Loops:** keep **charger input loop (VBUS→PPTC→TVS→IC→GND)** and **LDO loops** tight. Place caps **at the pins**.
@@ -398,7 +400,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## Values cheat‑sheet (start points)
+## <a id="values_cheatsheet"></a>Values cheat-sheet (start points)
 - **I²C pull‑ups:** **2.2 kΩ → VDD_SENS** (0402).  
 - **I²C series (DNP):** **33 Ω** near MCU on SCL/SDA.  
 - **LED series:** 1 kΩ (0402).  
@@ -415,7 +417,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-## Battery selection & connector (wearable)
+## <a id="battery"></a>Battery selection & connector (wearable)
 **Goal:** thin, serviceable, EMC‑sane power input for a small wearable.
 
 ### Battery form factor

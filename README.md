@@ -37,7 +37,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 ## Documentation
 - **Wearable Schematic Guide (v4):** [BLE-Control_Wearable_Schematic_Guide_AD25_v4.md](BLE-Control_Wearable_Schematic_Guide_AD25_v4.md)
 - **Grouped BOM (v4):** [Docs/BoM/BLE-Control_BOM_Grouped_v4.md](Docs/BoM/BLE-Control_BOM_Grouped_v4.md)
-- **Power & Ground Rules (STM32WBxx):** [Docs/BLE-Control_Power_Ground_Rails.md](Docs/BLE-Control_Power_Ground_Rails.md)
+- **Power & Ground Rules (STM32WBxx):** [Docs/BLE-Control_Power_Ground_Rails_v2.md](Docs/BLE-Control_Power_Ground_Rails_v2.md)
 - **Build Plan (AD25):** [Docs/BLE-Control_Build_Plan_AD25.md](Docs/BLE-Control_Build_Plan_AD25.md)
 - **CubeMonitor-RF test flow:** [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](Docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
 ---
@@ -115,7 +115,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 - **Build Plan (AD25):** `docs/BLE-Control_Build_Plan_AD25.md`  
 - **CubeMonitor-RF test flow:** `docs/testing/BLE_Control_CubeMonitorRF_Testing.md`
 
-*(Adjust paths to match your repo; files above reflect the current v4 docs you generated.)*
+
 
 ---
 
@@ -124,6 +124,24 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 - **STM32WB55xx Datasheet:** include under `docs/datasheets/`  
 - **AN5165 — STM32WB RF hardware guidelines:** include under `docs/datasheets/`  
 - **BQ21061/62 EVM User Guide (SLUUC59):** https://www.ti.com/lit/ug/sluuc59/sluuc59.pdf
+
+### Bosch BMI270 (IMU)
+- **Datasheet:** https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi270-ds000.pdf
+- **Shuttle Board 3.0 (schematic/overview):** https://docs.rs-online.com/32e4/A700000008845135.pdf
+- **Handling / Soldering / Mounting Guide:** https://www.mouser.com/pdfDocs/BST-BMI270-HS000.pdf
+
+### Sensirion SHTC3 (Temp/RH)
+- **Datasheet:** https://sensirion.com/media/documents/643F9C8E/63A5A436/Datasheet_SHTC3.pdf
+- **Eval Kit – SEK-SHTC3-Sensors:** https://www.mouser.com/ProductDetail/Sensirion/SEK-SHTC3-Sensors
+- **SensorBridge Technical Guide:** https://sensirion.com/media/documents/7F4762CB/642D8327/SEK-SensorBridge_Technical_Guide_D1.pdf
+- **Design-in Guide (SHT/STS family):** https://sensirion.com/media/documents/FC5BED84/61644655/Sensirion_Temperature_Sensors_Design_Guide_V1.pdf
+
+### Texas Instruments TMP117 (±0.1 °C)
+- **Datasheet:** https://www.ti.com/lit/gpn/TMP117
+- **EVM User Guide (schematic/BOM):** https://www.ti.com/lit/ug/snou161/snou161.pdf
+- **Reference Design – TIDA-060034 (hearables ear temp flex):** https://www.ti.com/tool/TIDA-060034
+- **App Note – Precise Temp Measurements (TMP116/117):** https://www.ti.com/lit/pdf/snoa986
+
 
 ---
 
