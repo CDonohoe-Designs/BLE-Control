@@ -115,7 +115,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 - **Build Plan (AD25):** `docs/BLE-Control_Build_Plan_AD25.md`  
 - **CubeMonitor-RF test flow:** `docs/testing/BLE_Control_CubeMonitorRF_Testing.md`
 
-*(Adjust paths to match your repo; files above reflect the current v4 docs you generated.)*
+
 
 ---
 
@@ -124,7 +124,6 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 - **STM32WB55xx Datasheet:** include under `docs/datasheets/`  
 - **AN5165 — STM32WB RF hardware guidelines:** include under `docs/datasheets/`  
 - **BQ21061/62 EVM User Guide (SLUUC59):** https://www.ti.com/lit/ug/sluuc59/sluuc59.pdf
-- ## Key Datasheets & Reference Designs
 
 ### Bosch BMI270 (IMU)
 - **Datasheet:** https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi270-ds000.pdf
