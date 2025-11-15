@@ -105,7 +105,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 ---
 
 ## Datasheets & Notes
-See **`docs/Datasheets/`**.
+See [Datasheets & Notes → Docs/Datasheets](Docs/Datasheets/Datasheets.md)
 
 ---
 
