@@ -140,7 +140,7 @@ See [Datasheets & Notes → Docs/Datasheets](Docs/Datasheets/Datasheets.md)
 
 ## Debug (TC2030 — Cortex/SWD)
 
-Pads (top view `1 2 3 / 4 5 6`): **1=VTref**, **2=SWDIO (PA13)**, **3=GND**, **4=SWCLK (PA14)**, **5=NRST**, **6=SWO (PB3, opt)**
+Pads (top view `1 2 3 / 4 5 6`): **1=VTref**, **2=SWDIO (PA13)**, **3=GND**, **4=SWCLK (PA14)**, **5=NRST**, **6=SWO (PB3)**
 
 ### Handy hook table
 | Pad | Signal | Net | WB55 Pin | Req | Notes |
