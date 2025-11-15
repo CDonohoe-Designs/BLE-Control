@@ -17,7 +17,6 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
   - [ISO 14971 — Risk management](#iso-14971--risk-management)
 - [Documentation](#documentation)
 - [Datasheets & Notes](#datasheets--notes)
-- [Quick start (Altium AD25)](#quick-start-altium-ad25)
 - [Schematic partition (what lives where)](#schematic-partition-what-lives-where)
 - [Power & ground rules (STM32WBxx)](#power--ground-rules-stm32wbxx)
   - [Rails](#rails)
@@ -106,15 +105,6 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 
 ## Datasheets & Notes
 See [Datasheets & Notes → Docs/Datasheets](Docs/Datasheets/Datasheets.md)
-
----
-
-## Quick start (Altium AD25)
-1. Open **`Hardware/Altium/BLE_Control.PrjPcb`**.  
-2. **Libraries**  
-   - Integrated: compile `Libraries/Integrated/*.LibPkg`, add via **Components → gear → File-based Libraries**.  
-   - DB: connect `Libraries/DBLib/BLE_Control.DBLib` → `Libraries/Database/BLE_Control_Parts_DB.xlsx`.  
-3. Place parts on `Schematic/*.SchDoc` → **Project → Validate** → open `BLE_Control.PcbDoc`.
 
 ---
 
