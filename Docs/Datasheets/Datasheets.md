@@ -25,6 +25,9 @@ Below are manufacturer datasheets (and official product pages where helpful) gro
 - **RF ESD diode — PESD5V0S1UL (Nexperia, SOD882)**  
   Datasheet: https://assets.nexperia.com/documents/data-sheet/PESD5V0S1UL.pdf
 
+- **Low Pass Filter -  TDK DLF162500LT-5028A1 (0603 LTCC low-pass filter for the 2.4 GHz band)**
+  Datasheet: https://product.tdk.com/en/search/rf/rf/filter/info?part_no=DLF162500LT-5028A1
+
 - **HSE crystal — NX3225SA-32MHz-STD-CSR-3 (NDK 3.2×2.5 mm)**  
   Series datasheet: https://www.ndk.com/images/products/catalog/c_NX3225SA_e.pdf
 
