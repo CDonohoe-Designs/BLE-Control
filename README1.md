@@ -94,12 +94,12 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 ---
 
 ## Documentation
-- **Wearable Schematic Guide (v4):** [docs/BLE-Control_Wearable_Schematic_Guide_AD25_v4.md](docs/BLE-Control_Wearable_Schematic_Guide_AD25_v4.md)
-- **Grouped BOM (v4):** [docs/BOM/BLE-Control_BOM_Grouped_v4.md](docs/BOM/BLE-Control_BOM_Grouped_v4.md)
-- **Power & Ground Rules (STM32WBxx):** [docs/BLE-Control_Power_Ground_Rails_v2.md](docs/BLE-Control_Power_Ground_Rails_v2.md)
-- **Build Plan (AD25):** [docs/BLE-Control_Build_Plan_AD25.md](docs/BLE-Control_Build_Plan_AD25.md)
-- **CubeMonitor-RF test flow:** [docs/testing/BLE_Control_CubeMonitorRF_Testing.md](docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
-- **Battery pack docs:** [docs/Battery/](docs/Battery/) _(spec, RFQ template, incoming inspection)_
+- **Wearable Schematic Guide (v4):** [Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v4.md](Docs/BLE-Control_Wearable_Schematic_Guide_AD25_v4.md)
+- **Grouped BOM (v4):** [Docs/BOM/BLE-Control_BOM_Grouped_v4.md](Docs/BOM/BLE-Control_BOM_Grouped_v4.md)
+- **Power & Ground Rules (STM32WBxx):** [Docs/BLE-Control_Power_Ground_Rails_v2.md](Docs/BLE-Control_Power_Ground_Rails_v2.md)
+- **Build Plan (AD25):** [Docs/BLE-Control_Build_Plan_AD25.md](Docs/BLE-Control_Build_Plan_AD25.md)
+- **CubeMonitor-RF test flow:** [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](Docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
+- **Battery pack docs:** [Docs/Battery/](Docs/Battery/) _(spec, RFQ template, incoming inspection)_
 
 
 ---
