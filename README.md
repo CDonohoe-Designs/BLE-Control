@@ -47,7 +47,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
   - **Aux:** **LSLDO** (from BQ21061) kept **separate** with ≥2.2 µF; **not** tied to `+3V3_SYS`
   - **Sensors rail:** **TPS22910A** load-switch creates **`3V3_SENS`** (gated by `SENS_EN`)
   - **USB-C front end:** PPTC (**MF-PSMF050X-2**), **VBUS TVS**, low-C **CC ESD**, shield **1 MΩ // 1 nF (C0G)**
-- **Battery:** 1-cell Li-Po, **3-wire with 10 k NTC** (JST-GH-3); requires **IEC 62133-2**, **UN 38.3** (see [docs/Battery/](docs/Battery/))
+- **Battery:** 1-cell Li-Po, **3-wire with 10 k NTC** (JST-GH-3); requires **IEC 62133-2**, **UN 38.3** (see [Docs/Battery/](docs/Battery/))
 - **RF:** 2.4 GHz chip antenna, **π-match (DNP)**, CPWG 50 Ω, via-fence; RF ESD pad (DNP)
 - **Sensors (on `3V3_SENS`):** **BMI270** (IMU), **TMP117** (skin temp, default) **SHTC3** (Ambient Temp)
 - **Debug:** **Tag-Connect TC2030-NL** (Cortex/SWD) — programming independent of USB data
