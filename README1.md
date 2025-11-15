@@ -36,7 +36,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 ---
 
 ## EDA environment
-- **Altium Designer 25.x (AD25)**
+- **Altium Designer 25.3.3 (AD25)**
 
 ---
 
