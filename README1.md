@@ -114,7 +114,7 @@ See [Datasheets & Notes → Docs/Datasheets](Docs/Datasheets/Datasheets.md)
 - **MCU_RF.SchDoc**  
   **STM32WB55**, HSE 32 MHz & LSE 32.768 kHz, on-chip SMPS cell (L1=10 µH + 10 nH DNP), RF feed with **π-match (DNP)**, **TC2030 SWD**.
 - **Sensor_IO_Buttons_LED.SchDoc**  
-  **TPS22910A** → **`3V3_SENS`** (from `+3V3_SYS`, gated by `SENS_EN`), **BMI270**, **TMP117** (default), button (ESD + 100 Ω), status LED (active-low), I²C pulls to **`3V3_SENS`**, test pads.
+  **TPS22910A** → **`3V3_SENS`** (from `+3V3_SYS`, gated by `SENS_EN`), **BMI270**, **TMP117** (default)**SHTC3**, button (ESD + 100 Ω), status LED (active-low), I²C pulls to **`3V3_SENS`**, test pads.
 
 ---
 
@@ -124,7 +124,6 @@ See [Datasheets & Notes → Docs/Datasheets](Docs/Datasheets/Datasheets.md)
 - **`+3V3_SYS`** = **main system rail** from **TPS7A02-3.3**  
 - **`3V3_SENS`** = switched sensor rail from **TPS22910A** (local label; not exported)  
 - **`LSLDO`** = auxiliary rail (local node, ≥2.2 µF to GND), **not** tied to `+3V3_SYS`  
-- **`VIO (BQ21061)`** = **`+3V3_SYS`**  
 - **`VDDA`**: tie to `+3V3_SYS` with **0.1 µF + 1 µF** to **VSSA**
 
 ### On-chip SMPS cell
