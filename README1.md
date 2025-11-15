@@ -85,7 +85,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 - ESD entry control (VBUS TVS, CC ESD, D+/- option), shield bleed, plane discipline  
 - Tight SMPS loops, crystal “islands”, RF via-fence and π-match
 
-### ISO-13485--quality-system-how-i-organize-the-work
+### Quality system (how I organize the work)
 - Structured docs, BOM/MPNs, OutJobs/releases, linked datasheets/app notes
 
 ### ISO 14971 — Risk management
