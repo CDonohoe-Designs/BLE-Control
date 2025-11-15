@@ -17,7 +17,6 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
   - [ISO 14971 — Risk management](#iso-14971--risk-management)
 - [Documentation](#documentation)
 - [Datasheets & Notes](#datasheets--notes)
-- [Quick start (Altium AD25)](#quick-start-altium-ad25)
 - [Schematic partition (what lives where)](#schematic-partition-what-lives-where)
 - [Power & ground rules (STM32WBxx)](#power--ground-rules-stm32wbxx)
   - [Rails](#rails)
@@ -36,7 +35,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 ---
 
 ## EDA environment
-- **Altium Designer 25.x (AD25)**
+- **Altium Designer 25.3.3 (AD25)**
 
 ---
 
@@ -44,21 +43,21 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 - **MCU:** STM32WB55CGU6 (BLE 5.0 + Cortex-M4, QFN-48)
 - **Power:**
   - **Charger/power-path:** **TI BQ21061** (USB-C sink) — **TS** to pack **10 k NTC**, **INT** open-drain to MCU
-  - **Main 3V3:** **TPS7A02-3.3** (VIN = **PMID** preferred, alt = **VBAT_PROT**) → **`+3V3_SYS`**
+  - **Main 3V3:** **TPS7A02-3.3** (VIN = **PMID** ) → **`+3V3_SYS`**
   - **Aux:** **LSLDO** (from BQ21061) kept **separate** with ≥2.2 µF; **not** tied to `+3V3_SYS`
   - **Sensors rail:** **TPS22910A** load-switch creates **`3V3_SENS`** (gated by `SENS_EN`)
   - **USB-C front end:** PPTC (**MF-PSMF050X-2**), **VBUS TVS**, low-C **CC ESD**, shield **1 MΩ // 1 nF (C0G)**
-- **Battery:** 1-cell Li-Po, **3-wire with 10 k NTC** (JST-GH-3); requires **IEC 62133-2**, **UN 38.3** (see `docs/Battery/`)
+- **Battery:** 1-cell Li-Po, **3-wire with 10 k NTC** (JST-GH-3); requires **IEC 62133-2**, **UN 38.3** (see [docs/Battery/](docs/Battery/))
 - **RF:** 2.4 GHz chip antenna, **π-match (DNP)**, CPWG 50 Ω, via-fence; RF ESD pad (DNP)
-- **Sensors (on `3V3_SENS`):** **BMI270** (IMU), **TMP117** (skin temp, default) *(alt path SHTC3 + LPS22HH)*
+- **Sensors (on `3V3_SENS`):** **BMI270** (IMU), **TMP117** (skin temp, default) **SHTC3** (Ambient Temp)
 - **Debug:** **Tag-Connect TC2030-NL** (Cortex/SWD) — programming independent of USB data
 - **I/O:** 1× tactile button (ESD + 100 Ω series), 1× status LED (active-low)
 - **Key nets (flat project):** `+3V3_SYS`, `3V3_SENS`, `USB_FS_P/N`, `I2C_SCL/SDA`, `I2C_CHG_SCL/SDA`, `BQ_INT`, `CE_MCU`, `SENS_EN`, `LED_STAT_N`
 
 **MCU pin highlights (QFN-48):**
-- **`BQ_INT → PA8`** (EXTI, falling-edge, pull-up to 3V3 on board)
-- **I²C (charger bus)**: **I2C1** on **PB8 (SCL)** / **PB9 (SDA)**
-- **I²C (sensors bus)**: **I2C3** on **PC0 (SCL)** / **PC1 (SDA)** *(or alt pins as routed)*
+- **`BQ_INT → PA10`** (EXTI, falling-edge, pull-up to 3V3 on board)
+- **I²C (charger bus)**: **I2C1_CHG_XXX** on **PB6 (SCL)** / **PB7 (SDA)**
+- **I²C (sensors bus)**: **I2C3_SENS_XXX** on **PA7 (SCL)** / **PB4 (SDA)** *(or alt pins as routed)*
 
 ---
 
@@ -85,7 +84,7 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 - ESD entry control (VBUS TVS, CC ESD, D+/- option), shield bleed, plane discipline  
 - Tight SMPS loops, crystal “islands”, RF via-fence and π-match
 
-### ISO 13485 — Quality system
+### ISO 13485 — Quality system (how I organize the work)
 - Structured docs, BOM/MPNs, OutJobs/releases, linked datasheets/app notes
 
 ### ISO 14971 — Risk management
@@ -94,26 +93,18 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 ---
 
 ## Documentation
-- **Wearable Schematic Guide (v4):** `docs/BLE-Control_Wearable_Schematic_Guide_AD25_v4.md`  
-- **Grouped BOM (v4):** `docs/BOM/BLE-Control_BOM_Grouped_v4.md`  
-- **Power & Ground Rules (STM32WBxx):** `docs/BLE-Control_Power_Ground_Rails_v2.md`  
-- **Build Plan (AD25):** `docs/BLE-Control_Build_Plan_AD25.md`  
-- **CubeMonitor-RF test flow:** `docs/testing/BLE_Control_CubeMonitorRF_Testing.md`  
-- **Battery pack docs:** `docs/Battery/` (spec, RFQ template, incoming inspection)
+- **Wearable Schematic Guide (v4):** [BLE-Control_Wearable_Schematic_Guide_AD25_v4.md](BLE-Control_Wearable_Schematic_Guide_AD25_v4.md)
+- **Grouped BOM (v4):** [Docs/BOM/BLE-Control_BOM_Grouped_v4.md](Docs/BOM/BLE-Control_BOM_Grouped_v4.md)
+- **Power & Ground Rules (STM32WBxx):** [Docs/BLE-Control_Power_Ground_Rails_v2.md](Docs/BLE-Control_Power_Ground_Rails_v2.md)
+- **Build Plan (AD25):** [Docs/BLE-Control_Build_Plan_AD25.md](Docs/BLE-Control_Build_Plan_AD25.md)
+- **CubeMonitor-RF test flow:** [Docs/testing/BLE_Control_CubeMonitorRF_Testing.md](Docs/testing/BLE_Control_CubeMonitorRF_Testing.md)
+- **Battery pack docs:** [Docs/Battery/](Docs/Battery/) _(spec, RFQ template, incoming inspection)_
+
 
 ---
 
 ## Datasheets & Notes
-See **`docs/Datasheets/`**.
-
----
-
-## Quick start (Altium AD25)
-1. Open **`Hardware/Altium/BLE_Control.PrjPcb`**.  
-2. **Libraries**  
-   - Integrated: compile `Libraries/Integrated/*.LibPkg`, add via **Components → gear → File-based Libraries**.  
-   - DB: connect `Libraries/DBLib/BLE_Control.DBLib` → `Libraries/Database/BLE_Control_Parts_DB.xlsx`.  
-3. Place parts on `Schematic/*.SchDoc` → **Project → Validate** → open `BLE_Control.PcbDoc`.
+See [Datasheets & Notes → Docs/Datasheets](Docs/Datasheets/Datasheets.md)
 
 ---
 
@@ -123,7 +114,7 @@ See **`docs/Datasheets/`**.
 - **MCU_RF.SchDoc**  
   **STM32WB55**, HSE 32 MHz & LSE 32.768 kHz, on-chip SMPS cell (L1=10 µH + 10 nH DNP), RF feed with **π-match (DNP)**, **TC2030 SWD**.
 - **Sensor_IO_Buttons_LED.SchDoc**  
-  **TPS22910A** → **`3V3_SENS`** (from `+3V3_SYS`, gated by `SENS_EN`), **BMI270**, **TMP117** (default), button (ESD + 100 Ω), status LED (active-low), I²C pulls to **`3V3_SENS`**, test pads.
+  **TPS22910A** → **`3V3_SENS`** (from `+3V3_SYS`, gated by `SENS_EN`), **BMI270**, **TMP117** (default)**SHTC3**, button (ESD + 100 Ω), status LED (active-low), I²C pulls to **`3V3_SENS`**, test pads.
 
 ---
 
@@ -133,7 +124,6 @@ See **`docs/Datasheets/`**.
 - **`+3V3_SYS`** = **main system rail** from **TPS7A02-3.3**  
 - **`3V3_SENS`** = switched sensor rail from **TPS22910A** (local label; not exported)  
 - **`LSLDO`** = auxiliary rail (local node, ≥2.2 µF to GND), **not** tied to `+3V3_SYS`  
-- **`VIO (BQ21061)`** = **`+3V3_SYS`**  
 - **`VDDA`**: tie to `+3V3_SYS` with **0.1 µF + 1 µF** to **VSSA**
 
 ### On-chip SMPS cell
@@ -150,7 +140,7 @@ See **`docs/Datasheets/`**.
 
 ## Debug (TC2030 — Cortex/SWD)
 
-Pads (top view `1 2 3 / 4 5 6`): **1=VTref**, **2=SWDIO (PA13)**, **3=GND**, **4=SWCLK (PA14)**, **5=NRST**, **6=SWO (PB3, opt)**
+Pads (top view `1 2 3 / 4 5 6`): **1=VTref**, **2=SWDIO (PA13)**, **3=GND**, **4=SWCLK (PA14)**, **5=NRST**, **6=SWO (PB3)**
 
 ### Handy hook table
 | Pad | Signal | Net | WB55 Pin | Req | Notes |
@@ -160,7 +150,7 @@ Pads (top view `1 2 3 / 4 5 6`): **1=VTref**, **2=SWDIO (PA13)**, **3=GND**, **4
 | 3 | GND  | GND | — | ✅ | Stitch via |
 | 4 | SWCLK | SWCLK | PA14 | ✅ | No series R |
 | 5 | nRESET | NRST | NRST | ✅ | 10 k→3V3 (+100 nF opt) |
-| 6 | SWO | SWO | PB3 | ◻️ | Optional SWV |
+| 6 | SWO | SWO | PB3 | ✅ | SWV |
 
 ---
 
@@ -184,8 +174,8 @@ Wireless coprocessor (CPU2): flash BLE stack via **STM32CubeProgrammer → Wirel
 ## Bring-up sequence (what I do first)
 1. **Power path:** verify **PMID/VBAT_PROT**; enable **TPS7A02-3.3 → +3V3_SYS**; check ripple/overshoot  
 2. **MCU basic:** BYPASS SMPS (0 Ω links) for first flash; heartbeat LED + SWV  
-3. **I²C (charger bus):** talk to **BQ21061**, confirm **INT** on **PA8** (falling-edge)  
-4. **Sensors:** assert **SENS_EN → TPS22910A → 3V3_SENS**; I²C pull-ups on `3V3_SENS`; read BMI270/TMP117  
+3. **I²C (charger bus):** talk to **BQ21061**, confirm **BQ_INT** on **PA10** (falling-edge)  
+4. **Sensors:** assert **SENS_EN → TPS22910A → 3V3_SENS**; I²C pull-ups on `3V3_SENS`; read BMI270/TMP117/SHTC3  
 5. **Enable on-chip SMPS:** populate **L1** (+10 nH DNP option), remove BYPASS links; confirm current draw  
 6. **RF:** π-match tune; verify PER with **STM32CubeMonitor-RF**
 
