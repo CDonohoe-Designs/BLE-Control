@@ -44,21 +44,21 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 - **MCU:** STM32WB55CGU6 (BLE 5.0 + Cortex-M4, QFN-48)
 - **Power:**
   - **Charger/power-path:** **TI BQ21061** (USB-C sink) — **TS** to pack **10 k NTC**, **INT** open-drain to MCU
-  - **Main 3V3:** **TPS7A02-3.3** (VIN = **PMID** preferred, alt = **VBAT_PROT**) → **`+3V3_SYS`**
+  - **Main 3V3:** **TPS7A02-3.3** (VIN = **PMID** ) → **`+3V3_SYS`**
   - **Aux:** **LSLDO** (from BQ21061) kept **separate** with ≥2.2 µF; **not** tied to `+3V3_SYS`
   - **Sensors rail:** **TPS22910A** load-switch creates **`3V3_SENS`** (gated by `SENS_EN`)
   - **USB-C front end:** PPTC (**MF-PSMF050X-2**), **VBUS TVS**, low-C **CC ESD**, shield **1 MΩ // 1 nF (C0G)**
-- **Battery:** 1-cell Li-Po, **3-wire with 10 k NTC** (JST-GH-3); requires **IEC 62133-2**, **UN 38.3** (see `docs/Battery/`)
+- **Battery:** 1-cell Li-Po, **3-wire with 10 k NTC** (JST-GH-3); requires **IEC 62133-2**, **UN 38.3** (see [docs/Battery/](docs/Battery/))
 - **RF:** 2.4 GHz chip antenna, **π-match (DNP)**, CPWG 50 Ω, via-fence; RF ESD pad (DNP)
-- **Sensors (on `3V3_SENS`):** **BMI270** (IMU), **TMP117** (skin temp, default) *(alt path SHTC3 + LPS22HH)*
+- **Sensors (on `3V3_SENS`):** **BMI270** (IMU), **TMP117** (skin temp, default) **SHTC3** (Ambient Temp)
 - **Debug:** **Tag-Connect TC2030-NL** (Cortex/SWD) — programming independent of USB data
 - **I/O:** 1× tactile button (ESD + 100 Ω series), 1× status LED (active-low)
 - **Key nets (flat project):** `+3V3_SYS`, `3V3_SENS`, `USB_FS_P/N`, `I2C_SCL/SDA`, `I2C_CHG_SCL/SDA`, `BQ_INT`, `CE_MCU`, `SENS_EN`, `LED_STAT_N`
 
 **MCU pin highlights (QFN-48):**
-- **`BQ_INT → PA8`** (EXTI, falling-edge, pull-up to 3V3 on board)
-- **I²C (charger bus)**: **I2C1** on **PB8 (SCL)** / **PB9 (SDA)**
-- **I²C (sensors bus)**: **I2C3** on **PC0 (SCL)** / **PC1 (SDA)** *(or alt pins as routed)*
+- **`BQ_INT → PA10`** (EXTI, falling-edge, pull-up to 3V3 on board)
+- **I²C (charger bus)**: **I2C1_CHG_XXX** on **PB6 (SCL)** / **PB7 (SDA)**
+- **I²C (sensors bus)**: **I2C3_SENS_XXX** on **PA7 (SCL)** / **PB4 (SDA)** *(or alt pins as routed)*
 
 ---
 
