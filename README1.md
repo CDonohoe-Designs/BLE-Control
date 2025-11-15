@@ -174,8 +174,8 @@ Wireless coprocessor (CPU2): flash BLE stack via **STM32CubeProgrammer → Wirel
 ## Bring-up sequence (what I do first)
 1. **Power path:** verify **PMID/VBAT_PROT**; enable **TPS7A02-3.3 → +3V3_SYS**; check ripple/overshoot  
 2. **MCU basic:** BYPASS SMPS (0 Ω links) for first flash; heartbeat LED + SWV  
-3. **I²C (charger bus):** talk to **BQ21061**, confirm **INT** on **PA8** (falling-edge)  
-4. **Sensors:** assert **SENS_EN → TPS22910A → 3V3_SENS**; I²C pull-ups on `3V3_SENS`; read BMI270/TMP117  
+3. **I²C (charger bus):** talk to **BQ21061**, confirm **BQ_INT** on **PA10** (falling-edge)  
+4. **Sensors:** assert **SENS_EN → TPS22910A → 3V3_SENS**; I²C pull-ups on `3V3_SENS`; read BMI270/TMP117/SHTC3  
 5. **Enable on-chip SMPS:** populate **L1** (+10 nH DNP option), remove BYPASS links; confirm current draw  
 6. **RF:** π-match tune; verify PER with **STM32CubeMonitor-RF**
 
