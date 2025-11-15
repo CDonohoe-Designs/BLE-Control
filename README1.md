@@ -150,7 +150,7 @@ Pads (top view `1 2 3 / 4 5 6`): **1=VTref**, **2=SWDIO (PA13)**, **3=GND**, **4
 | 3 | GND  | GND | — | ✅ | Stitch via |
 | 4 | SWCLK | SWCLK | PA14 | ✅ | No series R |
 | 5 | nRESET | NRST | NRST | ✅ | 10 k→3V3 (+100 nF opt) |
-| 6 | SWO | SWO | PB3 | ◻️ | Optional SWV |
+| 6 | SWO | SWO | PB3 | ✅ | SWV |
 
 ---
 
