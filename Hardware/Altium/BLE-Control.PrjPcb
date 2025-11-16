@@ -1272,6 +1272,11 @@ ParameterName2=Description
 ParameterUpdate2=1
 ParameterName3=Library Reference
 ParameterUpdate3=1
+ModelTypeGroup0=PCBLIB
+ModelTypeUpdate0=1
+ModelType0=PCBLIB
+ModelName0=PCBComponent_1
+ModelUpdate0=1
 
 [DatabaseUpdateOptions]
 SelectedOnly=0
