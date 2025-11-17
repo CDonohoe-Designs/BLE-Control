@@ -3,8 +3,8 @@
 **Document ID:** BLEC-60601-COMP-A1  
 **Revision:** A1 (Full Expanded Version)  
 **Applies to:** BLE-Control Wearable BLE Controller PCB  
-**Author:** C. Donohoe  
-**Date:** [Insert Date]
+**Author:** Caoilte Donohoe  
+**Date:** 17/11/2025
 
 ---
 
