@@ -3,8 +3,8 @@
 **Document ID:** BLEC-SAF-ISO14971-A0  
 **Revision:** A0  
 **Applies to:** BLE-Control Wearable BLE Controller PCB  
-**Author:** C. Donohoe  
-**Date:** [Insert Date]
+**Author:** Caoilte Donohoe  
+**Date:** 17/11/2025
 
 ---
 
