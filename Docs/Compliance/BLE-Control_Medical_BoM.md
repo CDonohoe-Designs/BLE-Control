@@ -3,7 +3,7 @@
 **Document ID:** BLEC-BOM-A2  
 **Revision:** A2  
 **Device:** BLE-Control Wearable BLE Controller  
-**Prepared by:** C. Donohoe  
+**Prepared by:** Caoilte Donohoe  
 **Standards:** IEC 60601-1, IEC 60601-1-2, ISO 13485, ISO 14971  
 
 ---
