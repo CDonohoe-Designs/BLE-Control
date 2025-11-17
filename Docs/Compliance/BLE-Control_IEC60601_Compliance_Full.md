@@ -141,9 +141,9 @@ This table forms the basis for the EMC test plan and risk analysis.
 
 **Example Schematic Note**
 
-**IEC 60601 compliance:
-USB-C = AC/DC SELV input. Protected via PPTC, TVS, CC ESD, and USBLC6+CMC to support IEC 60601-1-2 (IEC 61000-4-2/-4/-5) surge/ESD/burst requirements.
-**
+**IEC 60601 compliance:**
+**USB-C = AC/DC SELV input. Protected via PPTC, TVS, CC ESD, and USBLC6+CMC to support IEC 60601-1-2 (IEC 61000-4-2/-4/-5) surge/ESD/burst requirements.**
+
 
 ---
 
