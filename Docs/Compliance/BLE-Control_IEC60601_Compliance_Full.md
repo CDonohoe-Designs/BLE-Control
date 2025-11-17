@@ -3,8 +3,8 @@
 **Document ID:** BLEC-60601-COMP-A1  
 **Revision:** A1 (Full Expanded Version)  
 **Applies to:** BLE-Control Wearable BLE Controller PCB  
-**Author:** C. Donohoe  
-**Date:** [Insert Date]
+**Author:** Caoilte Donohoe  
+**Date:** 17/11/2025
 
 ---
 
@@ -129,7 +129,7 @@ This table forms the basis for the EMC test plan and risk analysis.
 - All rails on this sheet are SELV (≤ 5 V).  
 - Overcurrent protection via PPTC on USB_VBUS.  
 - Surge protection via SMF5.0 TVS on VBUS.  
-- Reverse battery protection via NFET on VBATT_RAW.  
+- Reverse battery protection via FET on VBATT_RAW.  
 - Safe charging with temperature monitoring through an NTC thermistor and charger safety limits.
 
 **EMC**
@@ -141,7 +141,9 @@ This table forms the basis for the EMC test plan and risk analysis.
 
 **Example Schematic Note**
 
-> **USB-C = AC/DC SELV input. Protected via PPTC, TVS, CC ESD, and USBLC6+CMC. Supports IEC 60601-1-2 surge/ESD/burst requirements.**
+**IEC 60601 compliance:**
+**USB-C = AC/DC SELV input. Protected via PPTC, TVS, CC ESD, and USBLC6+CMC to support IEC 60601-1-2 (IEC 61000-4-2/-4/-5) surge/ESD/burst requirements.**
+
 
 ---
 
@@ -236,7 +238,7 @@ At system level (controller + PSU + implant + enclosure):
 
 ## 8. BoM REQUIREMENTS FOR MEDICAL COMPLIANCE
 
-The project BoM for BLE-Control should include:
+The project BoM for BLE-Control includes:
 
 - Manufacturer and MPN for each component  
 - Lifecycle status (Active, NRND, Obsolete)  
