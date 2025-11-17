@@ -1,4 +1,4 @@
-# BLE-Control — Medical-Grade Bill of Materials (BoM)
+# BLE-Control — Bill of Materials (BoM)
 
 **Document ID:** BLEC-BOM-A2  
 **Revision:** A2  
@@ -105,12 +105,10 @@ This is required for ISO 14971 traceability and FDA/ISO 13485 Design History Fil
 The design uses **non-procured test points**.  
 These are **logical/electrical net markers only**, with **no physical component** placed.
 
-This classification is acceptable under:
-
-- ISO 13485 (BoM completeness) **if marked N/A**  
+- ISO 13485  **if marked N/A**  
 - FDA QSR 820 (DMR/BOM) **as documentation-only items**  
 - IEC 60601 audits (no operator-accessible conductive part introduced)
 
 ---
 
-# End of BLE-Control_Medical_BoM.md
+### End of BLE-Control_Medical_BoM.md
