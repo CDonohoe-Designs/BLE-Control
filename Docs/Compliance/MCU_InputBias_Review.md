@@ -4,8 +4,8 @@
 **Revision:** A0  
 **Applies to:** BLE-Control Wearable BLE Controller PCB  
 **MCU:** STM32WB55CGU6 (QFN48)  
-**Author:** C. Donohoe  
-**Date:** [Insert Date]
+**Author:** Caoilte Donohoe  
+**Date:** 17/11/2025
 
 ---
 
@@ -85,7 +85,7 @@ All async inputs → **defined states** (no floating lines).
 
 ---
 
-## 3. Unused GPIO Policy (Important)
+## 3. Unused GPIO Policy
 
 Several pins are unconnected (`NetIC3_x` nets).
 
@@ -102,20 +102,7 @@ Optional (not used): 100–220 kΩ pull-down resistors.
 
 ---
 
-## 4. Summary of Required/Optional Biasing Changes
-
-| Item | Status | Action |
-|------|--------|--------|
-| SENS_EN external pulldown | Optional | Add 470 kΩ to reinforce TPS internal PD |
-| SWCLK / SWDIO biasing | Optional | Add weak pulls only if EMC requires |
-| Unused GPIO handling | Required | Add schematic note (see below) |
-
-**No critical corrections required.**  
-Current design is electrically and EMC-safe.
-
----
-
-## 5. Conclusion
+## 4. Conclusion
 
 The STM32WB55 pins on the BLE-Control PCB are:
 
@@ -129,4 +116,4 @@ Only documentation improvements are recommended (see schematic notes).
 
 ---
 
-# End of MCU_InputBias_Review.md
+### End of MCU_InputBias_Review.md
