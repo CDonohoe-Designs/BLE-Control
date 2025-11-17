@@ -238,7 +238,7 @@ At system level (controller + PSU + implant + enclosure):
 
 ## 8. BoM REQUIREMENTS FOR MEDICAL COMPLIANCE
 
-The project BoM for BLE-Control should include:
+The project BoM for BLE-Control includes:
 
 - Manufacturer and MPN for each component  
 - Lifecycle status (Active, NRND, Obsolete)  
