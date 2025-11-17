@@ -29,7 +29,7 @@ This is required for ISO 14971 traceability and FDA/ISO 13485 Design History Fil
 
 ---
 
-# 2. Full BoM Table (All Components Included)
+# 2. Full BoM Table 
 
 | Cat. | Qty | Designator(s) | Comment / MPN | Description | Footprint | Manufacturer | Notes |
 |------|-----|----------------|----------------|-------------|-----------|--------------|-------|
@@ -100,7 +100,7 @@ This is required for ISO 14971 traceability and FDA/ISO 13485 Design History Fil
 
 ---
 
-# 4. Notes on Test Points (Your Selected Option B)
+# 4. Notes on Test Points
 
 The design uses **non-procured test points**.  
 These are **logical/electrical net markers only**, with **no physical component** placed.
