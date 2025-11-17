@@ -85,7 +85,7 @@ All async inputs → **defined states** (no floating lines).
 
 ---
 
-## 3. Unused GPIO Policy (Important)
+## 3. Unused GPIO Policy
 
 Several pins are unconnected (`NetIC3_x` nets).
 
