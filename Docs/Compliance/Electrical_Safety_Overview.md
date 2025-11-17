@@ -114,7 +114,7 @@ This rail powers:
 Generated via:
 
 - **TPS22910A load switch (SENS_EN)** from +3V3_SYS  
-- **Ferrite bead** + local decoupling
+- **Ferrite bead** + **local decoupling**
 
 Safety intent:
 
