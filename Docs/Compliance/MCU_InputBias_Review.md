@@ -4,8 +4,8 @@
 **Revision:** A0  
 **Applies to:** BLE-Control Wearable BLE Controller PCB  
 **MCU:** STM32WB55CGU6 (QFN48)  
-**Author:** C. Donohoe  
-**Date:** [Insert Date]
+**Author:** Caoilte Donohoe  
+**Date:** 17/11/2025
 
 ---
 
