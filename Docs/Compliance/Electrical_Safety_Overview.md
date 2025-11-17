@@ -52,10 +52,10 @@ The USB-C connector brings in a 5 V SELV supply. Safety-related protections:
   - Limits current during faults (shorts, internal failure).
 - **TVS diode (SMF5.0)** on VBUS:
   - Clamps surge and ESD events.
-- ESD protection on CC and data lines:
+- **ESD protection on CC and data lines:**
   - PESD devices on CC1/CC2.
   - USBLC6 on D+/D–.
-- Cable shield:
+- **Cable shield:**
   - Referenced to PCB ground via **R || C** network  
     (typically 1 MΩ // 1 nF) to control shield currents and ESD paths.
 
@@ -114,7 +114,7 @@ This rail powers:
 Generated via:
 
 - **TPS22910A load switch (SENS_EN)** from +3V3_SYS  
-- **Ferrite bead** + local decoupling
+- **Ferrite bead** + **local decoupling**
 
 Safety intent:
 
