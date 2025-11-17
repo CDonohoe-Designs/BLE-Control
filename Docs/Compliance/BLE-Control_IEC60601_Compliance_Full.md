@@ -129,7 +129,7 @@ This table forms the basis for the EMC test plan and risk analysis.
 - All rails on this sheet are SELV (≤ 5 V).  
 - Overcurrent protection via PPTC on USB_VBUS.  
 - Surge protection via SMF5.0 TVS on VBUS.  
-- Reverse battery protection via NFET on VBATT_RAW.  
+- Reverse battery protection via FET on VBATT_RAW.  
 - Safe charging with temperature monitoring through an NTC thermistor and charger safety limits.
 
 **EMC**
