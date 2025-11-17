@@ -3,7 +3,7 @@
 **Document ID:** BLEC-EMC-PORTS-A0  
 **Revision:** A0  
 **Applies to:** BLE-Control Wearable BLE Controller PCB  
-**Author:** C. Donohoe  
+**Author:** Caoilte Donohoe  
 **Standard:** IEC 60601-1-2 (Edition 4)  
 **Environment:** Class A — Professional Healthcare Environment  
 
