@@ -116,4 +116,4 @@ Only documentation improvements are recommended (see schematic notes).
 
 ---
 
-## End of MCU_InputBias_Review.md
+### End of MCU_InputBias_Review.md
