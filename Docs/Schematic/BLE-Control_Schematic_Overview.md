@@ -104,7 +104,7 @@ This creates a **controlled and safe energy entry path**.
 
 ### 4.4 Key Safety/EMC Design Choices
 - USB-C is the **only exposure point for surge, ESD, EFT**  
-- All harmful energy is clamped or limited **before** PMI and LDO  
+- All harmful energy is clamped or limited **before** PMID and LDO  
 - Full testpoint coverage for EVT validation  
 
 ---
