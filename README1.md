@@ -254,17 +254,6 @@ This document captures the recommended bring-up flow and key test procedures for
 
 ---
 
-## 📌 What to Monitor During EMC Testing
-
-- **BLE RSSI**  
-- **Packet Error Rate (PER)**  
-- **I²C behaviour** (stall, NACK bursts, timing anomalies)  
-- **Reset events**  
-- **False interrupts**  
-- **Rail stability** (`+3V3_SYS`, `3V3_SENS`, `PMID`)  
-
----
-
 ## 🔧 Tools Used
 
 - **Altium Designer 25**  
