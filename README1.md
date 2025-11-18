@@ -156,7 +156,7 @@ BLE-Control contains three core domains:
 ### ISO 13485 (Documentation style)
 
 Repo mirrors a simplified DHF structure:
-
+---
 ```text
 Docs/
   Schematic/
