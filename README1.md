@@ -39,6 +39,44 @@ This project is actively developed. Current completed items:
 - Clear folder structure: Docs / Hardware / Firmware  
 
 ---
+
+## 🚧 What’s Next (Roadmap)
+
+### **1. PCB Layout in Altium AD25**
+- Stack-up definition (0.8 mm, 4-layer)
+- Impedance-controlled CPWG for RF output
+- SMPS layout (tight loop, ground islanding)
+- USB-C differential routing & ESD return paths
+- EMC placement discipline (TVS close to entry, CMC orientation, return paths)
+- Placement of sensors & service loops for testing
+- Test point optimisation
+
+### **2. PCB DRC/EMC Review**
+- High-speed/EMC checks (Rick Hartley rules)
+- Return path verification
+- Split of quiet vs noisy domains
+- Thermal considerations for charger IC
+
+### **3. IEC / ISO Documentation Expansion**
+- Full 60601-1 safety narrative (MOP, essential performance, failure modes)
+- 60601-1-2 immunity rationale for each port
+- ISO 14971: expand risk register and residual risk justification
+- ISO 13485: early DHF structure (revision control, traceability)
+
+### **4. Firmware Bring-Up**
+- Standby → Active → Sensor acquisition flow
+- BLE service creation (GATT)
+- BQ21061 telemetry/status decoding
+- IMU & environmental sensing
+- RF PER testing via CubeMonitor-RF
+
+### **5. Pre-Compliance Preparation**
+- Test plan for ESD/EFT/surge
+- RF pre-scan (harmonics, match tuning)
+- Power integrity measurements
+
+This roadmap is updated as design work continues.
+
 ##  Repository Structure Overview
 
 ```text
