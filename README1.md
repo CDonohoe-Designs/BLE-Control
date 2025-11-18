@@ -14,23 +14,25 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 ---
 ## 📂 Repository Structure Overview
 
+```text
 BLE-Control/
 │
-├── Docs/ ← Main documentation hub
-│ ├── Schematic/
-│ ├── BoM/
-│ ├── Compliance/
-│ ├── Battery/
-│ ├── Risk/
-│ ├── Reports/
-│ └── testing/
+├── Docs/                ← Main documentation hub
+│   ├── Schematic/
+│   ├── BoM/
+│   ├── Compliance/
+│   ├── Battery/
+│   ├── Risk/
+│   ├── Reports/
+│   └── testing/
 │
 ├── Hardware/
-│ └── Altium/ ← Full AD25 hardware project
+│   └── Altium/          ← Full AD25 hardware project
 │
-├── Firmware/ ← STM32WB55 firmware (CubeIDE)
+├── Firmware/            ← STM32WB55 firmware (CubeIDE)
 │
 └── LICENSE_MIT
+
 
 # 🚀 Quick Navigation
 
