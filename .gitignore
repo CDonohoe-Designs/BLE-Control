@@ -41,6 +41,14 @@ Hardware/Altium/Releases/
 # *.IDF
 # *.zip
 
+# Per-doc previews / structural caches
+**/*.SchDocPreview
+**/*.PcbDocPreview
+**/*.PrjPcbStructure
+
+# Variant compilation detritus (kept under Project Outputs anyway)
+**/Variants*/        # if Altium creates ad-hoc variant output dirs
+
 # If you intentionally want to keep a compiled .IntLib, un-ignore a path like:
 # !Hardware/Altium/Libraries/Integrated/Keep/*.IntLib
 
@@ -76,6 +84,16 @@ Firmware/**/.mxproject.user
 **/.venv/
 **/venv/
 **/.ipynb_checkpoints/
+
+###############################################################################
+# Office temp/lock & generic temp/bak
+###############################################################################
+~$*.docx
+~$*.xlsx
+*.tmp
+*.bak
+*.orig
+*.rej
 
 ###############################################################################
 # Generated artifacts inside Outputs/Releases only
