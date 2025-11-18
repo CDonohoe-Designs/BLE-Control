@@ -8,6 +8,18 @@ The repository mirrors a lightweight **Design History File** structure: schemati
 > *Design-for-compliance only — not a medical device.*
 ## ✔ Work Completed (So Far)
 
+## Project status
+
+**Last updated:** _Nov 2025_ Summary
+
+- ✅ **Schematic design**: Rev-A hierarchy complete (charger/LDO, MCU & RF, USB/debug, sensors, IO/buttons, testpoints).
+- ✅ **First-pass BOM + docs**: Markdown BOM and design notes under `docs/`.
+- ✅ **Standards & process docs**: ISO 13485 / ISO 14971 packs started; EMC/IEC alignment notes drafted.
+- 🔄 **PCB layout (AD25)**: Stack-up and floorplanning in progress; routing and EMC tuning next.
+- 🔄 **Design reviews**: EVT Rev-A sign-off checklists being filled in (schematic + PCB).
+- ⏳ **Firmware & bring-up**: Basic STM32WB CubeIDE project to follow once PCB layout stabilises.
+
+
 This project is actively developed. Current completed items:
 
 ### **Hardware Design**
