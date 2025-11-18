@@ -6,6 +6,37 @@ This is a portfolio/showcase project with **design-for-compliance** habits inten
 The repository mirrors a lightweight **Design History File** structure: schematic and BoM, safety & EMC rationale, port classification, risk register, battery documentation, and bring-up/test notes are all traceable from the `/Docs` directory.
 
 > *Design-for-compliance only — not a medical device.*
+## ✔ Work Completed (So Far)
+
+This project is actively developed. Current completed items:
+
+### **Hardware Design**
+- Complete schematic capture in **Altium Designer 25**
+- Power architecture finalised:
+  - USB-C entry protection (PPTC, TVS, USBLC6, CMC, shield bleed)
+  - BQ21061 charger/power-path wired and validated in schematic
+  - TPS7A02-3.3 system rail finalised
+  - TPS22910A sensor rail gating implemented
+- Full RF chain designed:
+  - STM32WB55 RF output → differential filter → π-match (DNP default) → chip antenna
+  - CPWG routing strategy + via-fence defined
+- Sensors subsystem defined (BMI270, TMP117, SHTC3)
+- All MCU pins given **deterministic biasing** (no floating pins)
+- Tag-Connect TC2030-NL debug interface integrated
+
+### **Documentation**
+- `/Docs` folder structured like a mini Design History File
+- Medical-style BoM with component criticality assigned
+- IEC 60601-1 electrical safety overview drafted
+- IEC 60601-1-2 EMC port classification completed
+- ISO 14971 risk register created
+- Battery pack documentation (IEC 62133-2 & UN 38.3 expectations)
+- Bring-up & test notes written (PER testing, EMC behaviours)
+
+### **Repo Structure**
+- Root README reworked for reviewer-friendly navigation  
+- SmartPDF schematic published  
+- Clear folder structure: Docs / Hardware / Firmware  
 
 ---
 ##  Repository Structure Overview
