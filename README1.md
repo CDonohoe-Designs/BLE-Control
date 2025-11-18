@@ -14,7 +14,6 @@ This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1**
 ---
 ## 📂 Repository Structure Overview
 
-```text
 BLE-Control/
 │
 ├── Docs/                ← Main documentation hub
