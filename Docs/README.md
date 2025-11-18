@@ -39,9 +39,9 @@ If you’re reviewing the hardware for the first time:
 Docs/
   README.md                ← this file
   Battery/                 ← battery pack & supplier docs
-  BoM/                     ← medical-style BoM & change control
+  BoM/                     ← BoM & change control
   Compliance/              ← 60601 / 14971 / MCU safety notes
-  Risk/                    ← risk register (if present)
+  Risk/                    ← risk register 
   Schematic/               ← SmartPDF + schematic overview
   Reports/                 ← EMC & technical reports
   Datasheets/              ← key referenced datasheets/app notes
