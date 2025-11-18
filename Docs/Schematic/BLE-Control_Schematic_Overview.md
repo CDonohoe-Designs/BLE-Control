@@ -1,5 +1,5 @@
 # BLE-Control — Schematic Overview (Master Summary)
-**Document ID:** BLEC-SCH-OVERVIEW-A2**  
+**Document ID:** BLEC-SCH-OVERVIEW-A2 
 **Revision:** A2 (EVT)**  
 **Master PDF:** `BLE-Control_Schematic_Master.pdf`  
 **Design Tool:** Altium Designer 25 (AD25)  
@@ -66,7 +66,7 @@ USB entry point hardened for IEC 60601-1-2 Class A.
 
 ---
 
-# 4. Detailed Sheet Summaries (Expanded)
+# 4. Detailed Sheet Summaries 
 
 ---
 
@@ -104,7 +104,7 @@ This creates a **controlled and safe energy entry path**.
 
 ### 4.4 Key Safety/EMC Design Choices
 - USB-C is the **only exposure point for surge, ESD, EFT**  
-- All harmful energy is clamped or limited **before** PMI and LDO  
+- All harmful energy is clamped or limited **before** PMID and LDO  
 - Full testpoint coverage for EVT validation  
 
 ---
@@ -261,19 +261,21 @@ These are referenced implicitly in the schematic; the layout must reflect ST/TI/
 # 8. Related Documentation
 
 - **Medical BoM (full)**  
-  `/Docs/BoM/BLE-Control_Medical_BoM.md`
+  → [Docs/BoM/BLE-Control_Medical_BoM.md](../BoM/BLE-Control_Medical_BoM.md)
 
 - **Risk Register (ISO 14971)**  
-  `/Docs/Risk/Risk_Register.md`
+  → [Docs/Risk/Risk_Register.md](../Risk/Risk_Register.md)
 
 - **Safety Boundary Statement**  
-  `/Docs/Compliance/Safety_Boundary_Statement.md`
+  → [Docs/Compliance/Safety_Boundary_Statement.md](../Compliance/Safety_Boundary_Statement.md)
 
 - **Electrical Safety Overview**  
-  `/Docs/Compliance/Electrical_Safety_Overview.md`
+  → [Docs/Compliance/Electrical_Safety_Overview.md](../Compliance/Electrical_Safety_Overview.md)
 
 - **EMC Pre-compliance Notes**  
-  `/Docs/Reports/EMC_Precompliance_Notes.md`
+  → [Docs/Reports/EMC_Precompliance_Notes.md](../Reports/EMC_Precompliance_Notes.md)
+
+
 
 ---
 
