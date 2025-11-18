@@ -166,6 +166,9 @@ Docs/
   Battery/
   Reports/
   testing/
+```
+
+
 ---
 # 🧪 BLE-Control — Bring-Up & Testing Summary
 
