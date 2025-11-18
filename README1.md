@@ -4,6 +4,11 @@
 (BLE 5 dual-core Cortex-M4/M0+).  
 The goal is to demonstrate **robust hardware design, EMC-aware layout, documented power architecture, risk thinking (ISO 14971), and medical-style documentation structure** — suitable for a **professional portfolio** or **design review**.
 
+
+**BLE-Control** is a small, low-power wearable control board built around **STM32WB55** (BLE 5 + Cortex-M4).  
+This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1** (basic safety & essential performance) and **IEC 60601-1-2 Ed.4** (EMC, **Class A** – professional healthcare environment) habits, with documentation patterns influenced by **ISO 13485** (QMS) and **ISO 14971** (risk).  
+> *Not a claim of compliance; design-for-compliance focus only.*
+
 > ⚠️ *Design-for-compliance only — not a medical device.*
 
 ---
