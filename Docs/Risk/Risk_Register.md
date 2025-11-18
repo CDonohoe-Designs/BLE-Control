@@ -162,8 +162,6 @@ This Risk Register is part of the BLE-Control **Risk Management File (RMF)** and
 - **MCU_Design_Rationale.md**  
 - **Component_Criticality_ChangeControl.md**
 
-Auditors reference these as supporting documents.
-
 ---
 
 _End of Risk_Register.md_
