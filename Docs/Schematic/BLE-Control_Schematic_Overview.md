@@ -1,5 +1,5 @@
 # BLE-Control — Schematic Overview (Master Summary)
-**Document ID:** BLEC-SCH-OVERVIEW-A2**  
+**Document ID:** BLEC-SCH-OVERVIEW-A2 
 **Revision:** A2 (EVT)**  
 **Master PDF:** `BLE-Control_Schematic_Master.pdf`  
 **Design Tool:** Altium Designer 25 (AD25)  
