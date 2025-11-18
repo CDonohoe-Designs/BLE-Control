@@ -261,19 +261,20 @@ These are referenced implicitly in the schematic; the layout must reflect ST/TI/
 # 8. Related Documentation
 
 - **Medical BoM (full)**  
-  → [Docs/BoM/BLE-Control_Medical_BoM.md](../../BoM/BLE-Control_Medical_BoM.md)
+  → [Docs/BoM/BLE-Control_Medical_BoM.md](../BoM/BLE-Control_Medical_BoM.md)
 
 - **Risk Register (ISO 14971)**  
-  → [Docs/Risk/Risk_Register.md](../../Risk/Risk_Register.md)
+  → [Docs/Risk/Risk_Register.md](../Risk/Risk_Register.md)
 
 - **Safety Boundary Statement**  
-  → [Docs/Compliance/Safety_Boundary_Statement.md](../../Compliance/Safety_Boundary_Statement.md)
+  → [Docs/Compliance/Safety_Boundary_Statement.md](../Compliance/Safety_Boundary_Statement.md)
 
 - **Electrical Safety Overview**  
-  → [Docs/Compliance/Electrical_Safety_Overview.md](../../Compliance/Electrical_Safety_Overview.md)
+  → [Docs/Compliance/Electrical_Safety_Overview.md](../Compliance/Electrical_Safety_Overview.md)
 
 - **EMC Pre-compliance Notes**  
-  → [Docs/Reports/EMC_Precompliance_Notes.md](../../Reports/EMC_Precompliance_Notes.md)
+  → [Docs/Reports/EMC_Precompliance_Notes.md](../Reports/EMC_Precompliance_Notes.md)
+
 
 
 ---
