@@ -7,6 +7,25 @@ The goal is to demonstrate **robust hardware design, EMC-aware layout, documente
 > ⚠️ *Design-for-compliance only — not a medical device.*
 
 ---
+## 📂 Repository Structure Overview
+
+BLE-Control/
+│
+├── Docs/ ← Main documentation hub
+│ ├── Schematic/
+│ ├── BoM/
+│ ├── Compliance/
+│ ├── Battery/
+│ ├── Risk/
+│ ├── Reports/
+│ └── testing/
+│
+├── Hardware/
+│ └── Altium/ ← Full AD25 hardware project
+│
+├── Firmware/ ← STM32WB55 firmware (CubeIDE)
+│
+└── LICENSE_MIT
 
 # 🚀 Quick Navigation
 
@@ -138,3 +157,113 @@ Docs/
   Battery/
   Reports/
   testing/
+# 🧪 BLE-Control — Bring-Up & Testing Summary
+
+This document captures the recommended bring-up flow and key test procedures for the BLE-Control hardware platform.
+
+---
+
+## 🔧 Recommended Bring-Up Order
+
+### 1. **Verify Power Path & Rails**
+- Power via USB-C or bench supply.
+- Confirm:
+  - `VBUS`
+  - `VBAT_RAW`
+  - `VBAT_PROT`
+  - `PMID`
+  - `+3V3_SYS` (TPS7A02 output)
+- Check for ripple, inrush anomalies, or unstable startup.
+
+### 2. **Flash STM32WB55 (SMPS-bypass mode)**
+- Leave SMPS inductors populated or install 0 Ω bypass links.
+- Program using Tag-Connect TC2030-CTX-NL.
+- Load minimal firmware (heartbeat LED + UART/SWV optional).
+
+### 3. **Enable Charger & Monitor `BQ_INT`**
+- Validate:
+  - USB attachment detection
+  - Correct CC pull-down behaviour
+  - BQ21061 charge state transitions
+  - `BQ_INT` on MCU (falling-edge EXTI)
+
+### 4. **Bring Up Sensors (`SENS_EN` → `3V3_SENS`)**
+- Assert `SENS_EN` → TPS22910A enables the sensor rail.
+- Confirm correct voltage and soft-start behaviour.
+- Check I²C access to:
+  - TMP117
+  - BMI270
+  - SHTC3
+
+### 5. **Enable SMPS & Verify Ripple**
+- Populate SMPS inductors (10 µH + optional 10 nH helper).
+- Remove any bypass 0 Ω links if used.
+- Measure ripple on:
+  - `VLXSMPS`
+  - `VDD`
+  - `+3V3_SYS`
+
+### 6. **RF Bring-Up + π-Match Tuning**
+- Conduct preliminary RF tests:
+  - Return-loss sweep of antenna
+  - Harmonic scan
+  - π-match population depending on results
+
+### 7. **Run STM32CubeMonitor-RF PER Tests**
+- Validate BLE link margin.
+- Test across multiple channels.
+- Measure Packet Error Rate (PER) at various distances and orientations.
+
+---
+
+## 📡 EMC Pre-Compliance Checklist
+
+### **IEC 61000-4-2 (ESD)**
+- ±8 kV contact  
+- ±15 kV air  
+- Test:
+  - USB shield
+  - Button
+  - Enclosure reference points
+
+### **IEC 61000-4-4 (Burst/EFT)**
+- ±1 kV at VBUS entry (through external PSU)
+
+### **IEC 61000-4-3 (Radiated Immunity)**
+- 10 V/m, 80 MHz–2.7 GHz  
+- Observe:
+  - BLE stability (RSSI)
+  - Sensor I²C errors
+  - Reset line behaviour
+  - Spurious interrupts
+
+### **IEC 61000-4-6 (Conducted RF Immunity)**
+- 3 Vrms, 150 kHz–80 MHz  
+- Monitor:
+  - BLE performance  
+  - I²C bus integrity  
+  - Power rail droop
+
+---
+
+## 📌 What to Monitor During EMC Testing
+
+- **BLE RSSI**  
+- **Packet Error Rate (PER)**  
+- **I²C behaviour** (stall, NACK bursts, timing anomalies)  
+- **Reset events**  
+- **False interrupts**  
+- **Rail stability** (`+3V3_SYS`, `3V3_SENS`, `PMID`)  
+
+---
+
+## 🔧 Tools Used
+
+- **Altium Designer 25**  
+- **STM32CubeIDE / STM32CubeProgrammer**  
+- **LTspice / Python** (signal analysis, power ripple, FFT, etc.)  
+- **STM32CubeMonitor-RF** (BLE PER, RSSI, channel sweep)  
+
+---
+
+
