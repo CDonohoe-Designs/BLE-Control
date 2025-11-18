@@ -26,6 +26,7 @@ $RECYCLE.BIN/
 **/History/
 Hardware/Altium/Outputs/
 Hardware/Altium/Releases/
+Hardware/Altium/__Previews/
 
 # Compiled/derived libraries (keep LibPkg + source SchLib/PcbLib in git)
 *.IntLib
