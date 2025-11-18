@@ -3,7 +3,8 @@
 **Document ID:** BLEC-MCU-RATIONALE-A0  
 **Applies to:** BLE-Control PCB, MCU_RF.SchDoc  
 **MCU:** STM32WB55CGU6 (QFN48)  
-**Author:** Caoilte Donohoe 
+**Author:** Caoilte Donohoe
+
 **Date:** 17/11/2025
 
 ---
