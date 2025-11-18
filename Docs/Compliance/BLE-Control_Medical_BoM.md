@@ -1,114 +1,95 @@
-# BLE-Control — Bill of Materials (BoM)
+# BLE-Control — Medical-Grade Bill of Materials (BoM)
 
-**Document ID:** BLEC-BOM-A2  
-**Revision:** A2  
+**Document ID:** BLEC-BOM-A3  
+**Revision:** A3  
 **Device:** BLE-Control Wearable BLE Controller  
-**Prepared by:** Caoilte Donohoe  
+**Prepared by:** C. Donohoe  
 **Standards:** IEC 60601-1, IEC 60601-1-2, ISO 13485, ISO 14971  
-**Date:** 17/11/2025
 
 ---
 
-# 1. Component Criticality Classification
+## 1. Criticality Classes
 
-All components are classified as follows:
-
-**A — Safety-Critical:**  
-Necessary for electrical safety, EMC protection, current limiting, surge protection, battery protection.
-
-**B — EMC-Critical:**  
-Affects EMI/EMC performance, RF tuning, emissions, susceptibility.
-
-**C — Function-Critical:**  
-Microcontroller, RF, sensors, passives that affect core operation.
-
-**D — Non-Critical:**  
-UI elements, passives, test points (documentation only), general mechanical/connectors.
-
-This is required for ISO 14971 traceability and FDA/ISO 13485 Design History Files.
+- **A — Safety-Critical** (electrical safety, battery, current limiting, surge/ESD)  
+- **B — EMC-Critical** (RF match, CMC, ferrite, shield bleed)  
+- **C — Function-Critical** (MCU, BLE, sensors, core passives)  
+- **D — Non-Critical** (UI, indicators, documentation-only items, mechanical)
 
 ---
 
-# 2. Full BoM Table 
+## 2. Full BoM (with MPNs, including passives)
 
-| Cat. | Qty | Designator(s) | Comment / MPN | Description | Footprint | Manufacturer | Notes |
-|------|-----|----------------|----------------|-------------|-----------|--------------|-------|
-| **B** | 1 | ANT1 | 2450AT18A100E | BLE Antenna 2.4 GHz | ANTC3216X140N | Johanson | RF emissions & sensitivity |
-| **C** | 6 | C1, C2, C24, C26, C103, C104 | 1uF | 1uF 0402 MLCC | CAP_0402 | Yageo/Murata | Decoupling |
-| **C** | 10 | C3, C9, C10, C11, C12, C13, C16, C17, C19, C23 | 100nF | 100nF 0402 MLCC | CAP_0402 | Yageo/Murata | Decoupling |
-| **C** | 3 | C8, C18, C20 | 4.7uF | 4.7uF 0402 | CAP_0402 | Murata | Bulk |
-| **B** | 1 | C14 | GRM1555C1HR80BA01D | 0.8pF RF Match | CAP_0402 | Murata | RF tuning |
-| **B** | 1 | C15 | GRM1555C1HR30WA01D | 0.3pF RF Match | CAP_0402 | Murata | RF tuning |
-| **C** | 1 | C21 | 10pF | Crystal load cap | CAP_0402 | Murata | Clock stability |
-| **C** | 1 | C22 | 10pF | Crystal load cap | CAP_0402 | Murata | Clock stability |
-| **C** | 4 | C25, C27, C28, C29 | 100nF | BTN RC & decoupling | CAP_0402 | Yageo/Murata | Filtering |
-| **C** | 2 | C101, C110 | 1nF | Filtering | CAP_0402 | Murata | Burst suppression |
-| **C** | 1 | C102 | 22uF | Bulk | CAP_0402 | Murata | System stability |
-| **C** | 2 | C105, C106 | 2.2uF | LDO decoupling | CAP_0402 | Murata | Filtering |
-| **A** | 4 | D3, ESD_CC1, ESD_CC2, ESD_RF1 | PESD5V0S1UL,315 | ESD diode | PESD5V0S1BL315 | Nexperia | ESD safety |
-| **A** | 1 | D101 | SMF5.0AT1G | VBUS TVS | SOD-123FL | OnSemi | Surge/Burst safety |
-| **A** | 1 | D102 | USBLC6-2SC6Y | USB ESD array | SOT95P280X145-6 | STMicro | USB ESD protection |
-| **A** | 1 | F101 | MF-PSMF050X-2 | PPTC 500mA | FP-MF-PSMF | Bourns | Overcurrent safety |
-| **B** | 2 | FB2, FB101 | BLM15AG121SN1D | Ferrite Bead 120R | 0402 | Murata | Conducted RF immunity |
-| **B** | 1 | FL2 | DLF162500LT-5028A1 | Differential filter | - | TDK | RF filtering |
-| **B** | 1 | FL101 | ACM2012D-900-2P-T00 | USB CMC | 0805 | TDK | USB emissions |
-| **A** | 1 | IC1 | BQ21061YFPR | Charger/Power-path | BGA20 | Texas Instruments | Battery safety |
-| **A** | 1 | IC2 | TPS7A0233PDBVR | 3.3V LDO | SOT23-5 | Texas Instruments | Power rail |
-| **C** | 1 | IC3 | STM32WB55CGU6 | BLE MCU | QFN48 | STMicro | Core logic |
-| **C** | 1 | IC4 | TMP117NAIDRVR | Temp Sensor | SON6 | TI | Sensor |
-| **C** | 1 | IC5 | BMI270 | IMU | QFN | Bosch | Sensor |
-| **C** | 1 | IC6 | SHTC3 | Humidity Sensor | QFN | Sensirion | Sensor |
-| **B** | 1 | IC7 | TPS22910AYZVR | Load Switch | BGA4 | TI | EMC recovery |
-| **D** | 1 | J1 | BM03B-GHS-TBT | Battery conn. | - | JST | Mechanical |
-| **A** | 1 | J2 | USB4105-GF-A | USB-C Port | - | GCT | Primary EMC entry point |
-| **D** | 1 | J3 | TC2030-CTX-NL | Tag-Connect Header | - | Tag-Connect | Service port |
-| **B** | 1 | L1 | 2.7nH | RF inductor (match) | 0402 | Murata | RF tuning |
-| **C** | 1 | L2 | 10uH | Power inductor | 0805 | Murata | Regulator stability |
-| **B** | 1 | L3 | 10nH | RF inductor (match) | 0402 | Murata | RF tuning |
-| **D** | 1 | LED1 | 19-217_GHC-YR1S2_3T | Status LED | LEDC1608 | Everlight | Indicator |
-| **A** | 1 | Q101 | SSM3J332R | Reverse protection FET | SOT-23 | Toshiba | Battery safety |
-| **D** | 2 | R1, R104 | 5k1 | USB CC resistors | 0402 | Yageo | USB config |
-| **C** | 4 | R2, R9, R17, R18 | 4k7 | I²C pull-up | 0402 | Yageo | Bus integrity |
-| **B** | 8 | R3, R6, R22, R23, R25, R103, R109, R110 | 100k | Biasing pulls | 0402 | Yageo | Stable states |
-| **C** | 1 | R4 | 47k | BQ_INT pull-up | 0402 | Yageo | IRQ behaviour |
-| **B** | 4 | R10, R11, R12, R13 | 22R | Series resistors | 0402 | Yageo | Edge-rate control |
-| **C** | 3 | R14, R16, R19 | 10k | Reset/Alert pull-ups | 0402 | Yageo | Boot stability |
-| **D** | 2 | R15, R105 | 0R | Links | 0402 | Yageo | Routing flexibility |
-| **C** | 1 | R20 | 1k | LED resistor | 0402 | Yageo | UI |
-| **C** | 1 | R21 | 470k | BTN pull-up | 0402 | Yageo | Input bias |
-| **C** | 1 | R24 | 100R | BTN series | 0402 | Yageo | EMC filtering |
-| **B** | 2 | R101, R107 | 1M | Shield bleed resistors | 0402 | Yageo | ESD charge bleed |
-| **C** | 1 | SW1 | B3U-1000P | Tactile switch | - | Omron | UI |
-| **D** | 17 | TP1–TP17 | N/A | Electrical test markers (no physical part) | N/A | N/A | Documentation-only |
-| **C** | 1 | Y1 | NX3225SA-32MHz | 32MHz Crystal | - | NDK | HSE |
-| **C** | 1 | Y2 | ABS07-32.768KHZ-7-T | 32.768kHz Crystal | - | Abracon | RTC |
+> **Note:** For generic passives, MPNs are defined as **internal codes**  
+> (e.g. `BLEC-R-0402-4K70-1%`), which can be mapped to a preferred vendor series  
+> (Yageo RC0402FR-07…, Murata GRM155…, etc.) in your AVL.
 
----
-
-# 3. Safety-Critical Components (ISO 14971 Link)
-
-| Component | Why Safety-Critical | Standard |
-|-----------|----------------------|----------|
-| F101 | Prevents overcurrent/overheating | IEC 60601-1 |
-| D101 | Surge/ESD protection on primary port | IEC 60601-1-2 |
-| USBLC6 | USB ESD protection | IEC 61000-4-2 |
-| PESD diodes | Button/CC/Antenna ESD protection | IEC 61000-4-2 |
-| Q101 | Battery reverse-protection | ISO 14971 |
-| BQ21061 | Battery charge safety | IEC 60601-1 |
-| TPS22910 | EMC recovery on sensors | IEC 60601-1-2 |
-| RF π-match | Controls radiated emissions | IEC 60601-1-2 |
-
----
-
-# 4. Notes on Test Points
-
-The design uses **non-procured test points**.  
-These are **logical/electrical net markers only**, with **no physical component** placed.
-
-- ISO 13485  **if marked N/A**  
-- FDA QSR 820 (DMR/BOM) **as documentation-only items**  
-- IEC 60601 audits (no operator-accessible conductive part introduced)
+| Cat. | Qty | Designator(s) | Function | Value / Part | Package | Manufacturer | MPN | Notes |
+|------|-----|----------------|----------|--------------|---------|--------------|-----|-------|
+| B | 1 | ANT1 | BLE antenna | 2450AT18A100E | 3.2×1.6 | Johanson | 2450AT18A100E | RF front-end |
+| C | 6 | C1, C2, C24, C26, C103, C104 | Bulk/decoupling | 1 µF, 10 V, X5R | 0402 | Internal | **BLEC-C-0402-1u0-10V-X5R** | Pref: Murata GRM155R61A105K |
+| C | 10 | C3, C9, C10, C11, C12, C13, C16, C17, C19, C23 | Local decoupling | 100 nF, 16 V, X7R | 0402 | Internal | **BLEC-C-0402-100n-16V-X7R** | Pref: Murata GRM155R71C104K |
+| C | 3 | C8, C18, C20 | Bulk | 4.7 µF, 10 V, X5R | 0402 | Internal | **BLEC-C-0402-4u7-10V-X5R** | LDO/charger bulk |
+| B | 1 | C14 | RF π-match | 0.8 pF | 0402 | Murata | GRM1555C1HR80BA01D | RF match C1 |
+| B | 1 | C15 | RF π-match | 0.3 pF | 0402 | Murata | GRM1555C1HR30WA01D | RF match C2 |
+| C | 1 | C21 | HSE load C | 10 pF | 0402 | Internal | **BLEC-C-0402-10p-25V-C0G** | Pref: GRM1555C1H100JA01 |
+| C | 1 | C22 | LSE load C | 10 pF | 0402 | Internal | **BLEC-C-0402-10p-25V-C0G** | LSE crystal load |
+| C | 4 | C25, C27, C28, C29 | RC/decoupling | 100 nF | 0402 | Internal | **BLEC-C-0402-100n-16V-X7R** | BTN RC, local decoupling |
+| C | 2 | C101, C110 | Filter/snubber | 1 nF | 0402 | Internal | **BLEC-C-0402-1n0-50V-X7R** | Burst/EMC use |
+| C | 1 | C102 | Bulk | 22 µF | 0402 | Internal | **BLEC-C-0402-22u-6V3-X5R** | Main 3V3 bulk |
+| C | 2 | C105, C106 | LDO decoupling | 2.2 µF | 0402 | Internal | **BLEC-C-0402-2u2-10V-X5R** | TPS7A02/BQ support |
+| A | 4 | D3, ESD_CC1, ESD_CC2, ESD_RF1 | ESD protection | PESD5V0S1UL,315 | SOD-323 | Nexperia | PESD5V0S1UL,315 | CC, BTN, RF ESD |
+| A | 1 | D101 | VBUS TVS | SMF5.0AT1G | SOD-123FL | onsemi | SMF5.0AT1G | Surge/ESD on VBUS |
+| A | 1 | D102 | USB ESD array | USBLC6-2SC6Y | SOT-23-6 | STMicro | USBLC6-2SC6Y | USB D+/D- ESD |
+| A | 1 | F101 | PPTC fuse | MF-PSMF050X-2 | 0805 | Bourns | MF-PSMF050X-2 | 500 mA resettable |
+| B | 2 | FB2, FB101 | Ferrite beads | 120 Ω @100 MHz | 0402 | Murata | BLM15AG121SN1D | Conducted RF filter |
+| B | 1 | FL2 | RF filter | DLF162500LT-5028A1 | 1608 | TDK | DLF162500LT-5028A1 | Differential RF filter |
+| B | 1 | FL101 | USB CMC | ACM2012D-900-2P-T00 | 0805 | TDK | ACM2012D-900-2P-T00 | USB CM choke |
+| A | 1 | IC1 | Charger/PMIC | BQ21061YFPR | BGA20 | TI | BQ21061YFPR | Li-ion charger/safety |
+| A | 1 | IC2 | 3.3V LDO | TPS7A0233PDBVR | SOT23-5 | TI | TPS7A0233PDBVR | 3V3 system rail |
+| C | 1 | IC3 | MCU + BLE | STM32WB55CGU6 | QFN48 | STMicro | STM32WB55CGU6 | Core logic/radio |
+| C | 1 | IC4 | Temp sensor | TMP117NAIDRVR | SON-6 | TI | TMP117NAIDRVR | Precision temperature |
+| C | 1 | IC5 | IMU | BMI270 | QFN | Bosch | BMI270 | 6-axis IMU |
+| C | 1 | IC6 | Humidity sensor | SHTC3 | QFN | Sensirion | SHTC3 | RH & temp |
+| B | 1 | IC7 | Load switch | TPS22910AYZVR | BGA4 | TI | TPS22910AYZVR | Gated 3V3_SENS |
+| D | 1 | J1 | Battery conn. | BM03B-GHS-TBT (LF)(SN)(N) | 3-pin | JST | BM03B-GHS-TBT | Li-Po connector |
+| A | 1 | J2 | USB-C connector | USB4105-GF-A | - | GCT | USB4105-GF-A | Primary IEC 60601 port |
+| D | 1 | J3 | SWD connector | TC2030-CTX-NL | - | Tag-Connect | TC2030-CTX-NL | Service-only debug |
+| B | 1 | L1 | RF inductor | 2.7 nH | 0402 | Murata | (per LQW15 series) | RF π-match L |
+| C | 1 | L2 | Power inductor | 10 µH | 0805 | Murata | (LQM21FN series) | LDO/charger inductor |
+| B | 1 | L3 | RF inductor | 10 nH | 0402 | Murata | LQG15HS2N7S02 or equiv. | RF network |
+| D | 1 | LED1 | Status LED | 19-217_GHC-YR1S2_3T | 0603 | Everlight | 19-217_GHC-YR1S2_3T | Indicator |
+| A | 1 | Q101 | Reverse FET | SSM3J332R,LF | SOT-23 | Toshiba | SSM3J332R,LF | Battery reverse protection |
+| D | 2 | R1, R104 | USB CC | 5.1 kΩ, 1% | 0402 | Internal | **BLEC-R-0402-5K10-1%** | Pref: Yageo RC0402FR-075K1L |
+| C | 4 | R2, R9, R17, R18 | I2C pull-up | 4.7 kΩ, 1% | 0402 | Internal | **BLEC-R-0402-4K70-1%** | I2C SYS/SENS pulls |
+| B | 8 | R3, R6, R22, R23, R25, R103, R109, R110 | Bias pulls | 100 kΩ, 1% | 0402 | Internal | **BLEC-R-0402-100K-1%** | Biasing GPIO/CE/etc. |
+| C | 1 | R4 | BQ_INT pull-up | 47 kΩ, 1% | 0402 | Internal | **BLEC-R-0402-47K0-1%** | INT line pull |
+| B | 4 | R10, R11, R12, R13 | Series resistors | 22 Ω, 1% | 0402 | Internal | **BLEC-R-0402-22R0-1%** | USB/signal damping |
+| C | 3 | R14, R16, R19 | Reset/alert pulls | 10 kΩ, 1% | 0402 | Internal | **BLEC-R-0402-10K0-1%** | NRST/TMP/BQ pulls |
+| D | 2 | R15, R105 | Zero-ohm links | 0 Ω | 0402 | Internal | **BLEC-R-0402-0R00** | Config links |
+| C | 1 | R20 | LED resistor | 1 kΩ, 1% | 0402 | Internal | **BLEC-R-0402-1K00-1%** | LED current set |
+| C | 1 | R21 | Button pull-up | 470 kΩ, 1% | 0402 | Internal | **BLEC-R-0402-470K-1%** | BTN bias |
+| C | 1 | R24 | BTN series | 100 Ω, 1% | 0402 | Internal | **BLEC-R-0402-100R-1%** | EMC on button line |
+| B | 2 | R101, R107 | Shield bleed | 1 MΩ, 1% | 0402 | Internal | **BLEC-R-0402-1M00-1%** | Shield R in R//C network |
+| C | 1 | SW1 | Tactile switch | B3U-1000P | SMD | Omron | B3U-1000P | User pushbutton |
+| D | 1 | TP1 | Electrical TP: USB_VBUS | N/A (net marker only) | N/A | N/A | N/A | Documentation-only |
+| D | 2 | TP2, TP17 | Electrical TPs | N/A (TestPoint nets) | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP3 | Electrical TP: VIN_BQ | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP4 | Electrical TP: VBATT_RAW | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP5 | Electrical TP: VBAT_PROT | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP6 | Electrical TP: GND | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP7 | Electrical TP: +3V3_SYS | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP8 | Electrical TP: BQ_INT | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP9 | Electrical TP: LSLDO | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP10 | Electrical TP: CE_MCU | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP11 | Electrical TP: BAT_NTC_10K | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP12 | Electrical TP: 3V3_SENS | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP13 | Electrical TP: USB_FS_R_P | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP14 | Electrical TP: SENS_EN | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP15 | Electrical TP: USB_FS_R_N | N/A | N/A | N/A | N/A | Documentation-only |
+| D | 1 | TP16 | Electrical TP: VDD | N/A | N/A | N/A | N/A | Documentation-only |
+| C | 1 | Y1 | HSE crystal | 32 MHz | NX3225SA | NDK | NX3225SA-32MHZ-EXS00A-CS02368 | Main clock |
+| C | 1 | Y2 | LSE crystal | 32.768 kHz | ABS07 | Abracon | ABS07-32.768KHZ-7-T | RTC clock |
 
 ---
 
-### End of BLE-Control_Medical_BoM.md
+_End of BLE-Control_Medical_BoM.md_
