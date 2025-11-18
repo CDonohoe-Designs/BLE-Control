@@ -1,18 +1,83 @@
-# BLE-Control — Wearable BLE Controller (Altium AD25 + IEC 60601-style Design)
+# BLE-Control — Wearable BLE Controller
 
-**BLE-Control** is a low-power wearable controller designed around **STM32WB55**  
-(BLE 5 dual-core Cortex-M4/M0+).  
-The goal is to demonstrate **robust hardware design, EMC-aware layout, documented power architecture, risk thinking (ISO 14971), and medical-style documentation structure** — suitable for a **professional portfolio** or **design review**.
+BLE-Control is a compact, low-power wearable controller built around the STM32WB55 (BLE 5 + Cortex-M4/M0+), designed with robust power delivery, RF performance, USB-C protection, and sensor interfacing in mind. The system includes a protected USB-C charging front end (PPTC, TVS, CMC, ESD), a TI BQ21061 charger/power-path, a clean 3.3 V system rail from TPS7A02, and a switchable sensor domain feeding TMP117, BMI270, and SHTC3. It acts as an external BLE-enabled controller/companion board suitable for wearable, low-profile and medically-aligned designs.
 
+This is a portfolio/showcase project with **design-for-compliance** habits intentionally aligned to **IEC 60601-1** (basic safety & essential performance), **IEC 60601-1-2 Ed.4** (EMC, Class A), and documentation practices informed by **ISO 13485** (QMS) and **ISO 14971** (risk).  
+The repository mirrors a lightweight **Design History File** structure: schematic and BoM, safety & EMC rationale, port classification, risk register, battery documentation, and bring-up/test notes are all traceable from the `/Docs` directory.
 
-**BLE-Control** is a small, low-power wearable control board built around **STM32WB55** (BLE 5 + Cortex-M4).  
-This is a **portfolio/showcase** design intentionally aligned to **IEC 60601-1** (basic safety & essential performance) and **IEC 60601-1-2 Ed.4** (EMC, **Class A** – professional healthcare environment) habits, with documentation patterns influenced by **ISO 13485** (QMS) and **ISO 14971** (risk).  
-> *Not a claim of compliance; design-for-compliance focus only.*
+> *Design-for-compliance only — not a medical device.*
+## ✔ Work Completed (So Far)
 
-> ⚠️ *Design-for-compliance only — not a medical device.*
+This project is actively developed. Current completed items:
+
+### **Hardware Design**
+- Complete schematic capture in **Altium Designer 25**
+- Power architecture finalised:
+  - USB-C entry protection (PPTC, TVS, USBLC6, CMC, shield bleed)
+  - BQ21061 charger/power-path wired and validated in schematic
+  - TPS7A02-3.3 system rail finalised
+  - TPS22910A sensor rail gating implemented
+- Full RF chain designed:
+  - STM32WB55 RF output → differential filter → π-match (DNP default) → chip antenna
+  - CPWG routing strategy + via-fence defined
+- Sensors subsystem defined (BMI270, TMP117, SHTC3)
+- All MCU pins given **deterministic biasing** (no floating pins)
+- Tag-Connect TC2030-NL debug interface integrated
+
+### **Documentation**
+- `/Docs` folder structured like a mini Design History File
+- Medical-style BoM with component criticality assigned
+- IEC 60601-1 electrical safety overview drafted
+- IEC 60601-1-2 EMC port classification completed
+- ISO 14971 risk register created
+- Battery pack documentation (IEC 62133-2 & UN 38.3 expectations)
+- Bring-up & test notes written (PER testing, EMC behaviours)
+
+### **Repo Structure**
+- Root README reworked for reviewer-friendly navigation  
+- SmartPDF schematic published  
+- Clear folder structure: Docs / Hardware / Firmware  
 
 ---
-## 📂 Repository Structure Overview
+
+## 🚧 What’s Next (Roadmap)
+
+### **1. PCB Layout in Altium AD25**
+- Stack-up definition (0.8 mm, 4-layer)
+- Impedance-controlled CPWG for RF output
+- SMPS layout (tight loop, ground islanding)
+- USB-C differential routing & ESD return paths
+- EMC placement discipline (TVS close to entry, CMC orientation, return paths)
+- Placement of sensors & service loops for testing
+- Test point optimisation
+
+### **2. PCB DRC/EMC Review**
+- High-speed/EMC checks (Rick Hartley rules)
+- Return path verification
+- Split of quiet vs noisy domains
+- Thermal considerations for charger IC
+
+### **3. IEC / ISO Documentation Expansion**
+- Full 60601-1 safety narrative (MOP, essential performance, failure modes)
+- 60601-1-2 immunity rationale for each port
+- ISO 14971: expand risk register and residual risk justification
+- ISO 13485: early DHF structure (revision control, traceability)
+
+### **4. Firmware Bring-Up**
+- Standby → Active → Sensor acquisition flow
+- BLE service creation (GATT)
+- BQ21061 telemetry/status decoding
+- IMU & environmental sensing
+- RF PER testing via CubeMonitor-RF
+
+### **5. Pre-Compliance Preparation**
+- Test plan for ESD/EFT/surge
+- RF pre-scan (harmonics, match tuning)
+- Power integrity measurements
+
+This roadmap is updated as design work continues.
+
+##  Repository Structure Overview
 
 ```text
 BLE-Control/
@@ -36,9 +101,9 @@ BLE-Control/
 
 ---
 
-# 🚀 Quick Navigation
+# Quick Navigation
 
-### 📘 Full Documentation (start here)
+###  Full Documentation (start here)
 → **[`Docs/README.md`](Docs/README.md)**  
 Structured like a mini **Design History File (DHF)**:
 
@@ -52,7 +117,7 @@ Structured like a mini **Design History File (DHF)**:
 
 ---
 
-### 📐 Hardware (Altium AD25)
+###  Hardware (Altium AD25)
 → **[`Hardware/Altium/`](Hardware/Altium/)**  
 
 Includes:
@@ -64,7 +129,7 @@ Includes:
 
 ---
 
-### 💻 Firmware (STM32WB55)
+###  Firmware (STM32WB55)
 → **[`Firmware/`](Firmware/)**  
 
 - STM32CubeIDE project  
@@ -74,7 +139,7 @@ Includes:
 
 ---
 
-### 📊 Key Engineering Docs
+###  Key Engineering Docs
 
 - **Schematic (PDF):**  
   → [`Docs/Schematic/BLE-Control_Schematic_Master.pdf`](Docs/Schematic/BLE-Control_Schematic_Master.pdf)
@@ -90,7 +155,7 @@ Includes:
 
 ---
 
-# 🧩 System Overview
+#  System Overview
 
 BLE-Control contains three core domains:
 
@@ -128,7 +193,7 @@ BLE-Control contains three core domains:
 
 ---
 
-# 🛡 Design-for-Compliance Highlights
+#  Design-for-Compliance Highlights
 
 *(Not certified; reflects professional habits and design intent)*
 
@@ -156,7 +221,7 @@ BLE-Control contains three core domains:
 ### ISO 13485 (Documentation style)
 
 Repo mirrors a simplified DHF structure:
----
+
 ```text
 Docs/
   Schematic/
@@ -166,15 +231,16 @@ Docs/
   Battery/
   Reports/
   testing/
+```
+
 
 ---
-# 🧪 BLE-Control — Bring-Up & Testing Summary
+#  BLE-Control — Bring-Up & Testing Summary
 
 This document captures the recommended bring-up flow and key test procedures for the BLE-Control hardware platform.
 
----
 
-## 🔧 Recommended Bring-Up Order
+##  Recommended Bring-Up Order
 
 ### 1. **Verify Power Path & Rails**
 - Power via USB-C or bench supply.
@@ -227,7 +293,7 @@ This document captures the recommended bring-up flow and key test procedures for
 
 ---
 
-## 📡 EMC Pre-Compliance Checklist
+##  EMC Pre-Compliance Checklist
 
 ### **IEC 61000-4-2 (ESD)**
 - ±8 kV contact  
@@ -257,18 +323,7 @@ This document captures the recommended bring-up flow and key test procedures for
 
 ---
 
-## 📌 What to Monitor During EMC Testing
-
-- **BLE RSSI**  
-- **Packet Error Rate (PER)**  
-- **I²C behaviour** (stall, NACK bursts, timing anomalies)  
-- **Reset events**  
-- **False interrupts**  
-- **Rail stability** (`+3V3_SYS`, `3V3_SENS`, `PMID`)  
-
----
-
-## 🔧 Tools Used
+##  Tools Used
 
 - **Altium Designer 25**  
 - **STM32CubeIDE / STM32CubeProgrammer**  
