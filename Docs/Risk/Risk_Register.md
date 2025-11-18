@@ -6,6 +6,9 @@
 **Prepared by:** C. Donohoe  
 **Standard:** ISO 14971:2019 (Risk Management for Medical Devices)
 
+**Date:** 18/11/2025
+
+
 ---
 
 # 1. Purpose
@@ -158,8 +161,6 @@ This Risk Register is part of the BLE-Control **Risk Management File (RMF)** and
 - **EMC_Precompliance_Notes.md**  
 - **MCU_Design_Rationale.md**  
 - **Component_Criticality_ChangeControl.md**
-
-Auditors reference these as supporting documents.
 
 ---
 
