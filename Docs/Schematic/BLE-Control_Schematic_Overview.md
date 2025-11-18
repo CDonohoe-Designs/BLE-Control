@@ -66,7 +66,7 @@ USB entry point hardened for IEC 60601-1-2 Class A.
 
 ---
 
-# 4. Detailed Sheet Summaries (Expanded)
+# 4. Detailed Sheet Summaries 
 
 ---
 
