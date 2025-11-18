@@ -156,7 +156,7 @@ BLE-Control contains three core domains:
 ### ISO 13485 (Documentation style)
 
 Repo mirrors a simplified DHF structure:
-
+---
 ```text
 Docs/
   Schematic/
@@ -166,6 +166,8 @@ Docs/
   Battery/
   Reports/
   testing/
+
+---
 # 🧪 BLE-Control — Bring-Up & Testing Summary
 
 This document captures the recommended bring-up flow and key test procedures for the BLE-Control hardware platform.
