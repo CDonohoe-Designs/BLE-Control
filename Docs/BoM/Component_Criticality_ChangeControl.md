@@ -144,7 +144,7 @@ LED1, SW1, Tag-Connect (J3), mechanical connectors (J1, if not safety-sensitive)
 |-------|--------|---------------------------|-----------------------|--------------------|-------|
 | **A** | Safety & essential performance | **Yes** | **Yes** | **Yes** | Highest control |
 | **B** | EMC & essential performance | Maybe | **Recommended** | Yes | RF/EMC-sensitive |
-| **C** | Functional | No (usually) | No | ECO/ECR | Check tolerances |
+| **C** | Functional | No  | No | ECO/ECR | Check tolerances |
 | **D** | Minimal | No | No | ECO | Test points, UI |
 
 ---
