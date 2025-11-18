@@ -32,7 +32,7 @@ BLE-Control/
 ├── Firmware/            ← STM32WB55 firmware (CubeIDE)
 │
 └── LICENSE_MIT
-
+---
 
 # 🚀 Quick Navigation
 
