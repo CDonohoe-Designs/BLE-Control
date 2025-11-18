@@ -1,5 +1,12 @@
 # BLE-Control — Wearable BLE Controller (Altium AD25 + IEC 60601-style Design)
 
+BLE-Control is a compact, low-power wearable controller built around the STM32WB55 (BLE 5 + Cortex-M4/M0+), designed with robust power delivery, RF performance, USB-C protection, and sensor interfacing in mind. The system includes a protected USB-C charging front end (PPTC, TVS, CMC, ESD), a TI BQ21061 charger/power-path, a clean 3.3 V system rail from TPS7A02, and a switchable sensor domain feeding TMP117, BMI270, and SHTC3. It acts as an external BLE-enabled controller/companion board suitable for wearable, low-profile and medically-aligned designs.
+
+This is a portfolio/showcase project with **design-for-compliance** habits intentionally aligned to **IEC 60601-1** (basic safety & essential performance), **IEC 60601-1-2 Ed.4** (EMC, Class A), and documentation practices informed by **ISO 13485** (QMS) and **ISO 14971** (risk).  
+The repository mirrors a lightweight **Design History File** structure: schematic and BoM, safety & EMC rationale, port classification, risk register, battery documentation, and bring-up/test notes are all traceable from the `/Docs` directory.
+
+✅ 3. Add a “Work Completed” Section to Landing
+
 **BLE-Control** is a small, low-power wearable control board built around the **STM32WB55 (BLE 5 + Cortex-M4)**, with USB-C power/charging, a protected 3.3 V system rail, and a switchable sensor domain feeding an IMU, precision temperature sensor, and humidity/temperature sensor. It is intended as an external “controller/companion” style board for BLE-connected systems where robust power, RF, and sensor handling matter more than raw throughput.
 
 This is a portfolio/showcase design intentionally aligned to **IEC 60601-1** (basic safety & essential performance) and **IEC 60601-1-2 Ed.4** (EMC, Class A – professional healthcare environment) habits, with documentation patterns influenced by **ISO 13485** (QMS) and **ISO 14971** (risk). The repo is structured to look and feel like a lightweight Design History File: schematic and BoM, safety/EMC rationale, risk register, battery documentation, and bring-up/test notes are all linked and traceable from the `/Docs` folder.
