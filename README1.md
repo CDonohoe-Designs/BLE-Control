@@ -167,12 +167,10 @@ Docs/
   Reports/
   testing/
 
----
 # 🧪 BLE-Control — Bring-Up & Testing Summary
 
 This document captures the recommended bring-up flow and key test procedures for the BLE-Control hardware platform.
 
----
 
 ## 🔧 Recommended Bring-Up Order
 
