@@ -5,10 +5,10 @@
 This is a portfolio/showcase design intentionally aligned to **IEC 60601-1** (basic safety & essential performance) and **IEC 60601-1-2 Ed.4** (EMC, Class A – professional healthcare environment) habits, with documentation patterns influenced by **ISO 13485** (QMS) and **ISO 14971** (risk). The repo is structured to look and feel like a lightweight Design History File: schematic and BoM, safety/EMC rationale, risk register, battery documentation, and bring-up/test notes are all linked and traceable from the `/Docs` folder.
 
 
-> ⚠️ *Design-for-compliance only — not a medical device.*
+> *Design-for-compliance only — not a medical device.*
 
 ---
-## 📂 Repository Structure Overview
+##  Repository Structure Overview
 
 ```text
 BLE-Control/
@@ -32,9 +32,9 @@ BLE-Control/
 
 ---
 
-# 🚀 Quick Navigation
+# Quick Navigation
 
-### 📘 Full Documentation (start here)
+###  Full Documentation (start here)
 → **[`Docs/README.md`](Docs/README.md)**  
 Structured like a mini **Design History File (DHF)**:
 
@@ -48,7 +48,7 @@ Structured like a mini **Design History File (DHF)**:
 
 ---
 
-### 📐 Hardware (Altium AD25)
+###  Hardware (Altium AD25)
 → **[`Hardware/Altium/`](Hardware/Altium/)**  
 
 Includes:
@@ -60,7 +60,7 @@ Includes:
 
 ---
 
-### 💻 Firmware (STM32WB55)
+###  Firmware (STM32WB55)
 → **[`Firmware/`](Firmware/)**  
 
 - STM32CubeIDE project  
@@ -70,7 +70,7 @@ Includes:
 
 ---
 
-### 📊 Key Engineering Docs
+###  Key Engineering Docs
 
 - **Schematic (PDF):**  
   → [`Docs/Schematic/BLE-Control_Schematic_Master.pdf`](Docs/Schematic/BLE-Control_Schematic_Master.pdf)
@@ -86,7 +86,7 @@ Includes:
 
 ---
 
-# 🧩 System Overview
+#  System Overview
 
 BLE-Control contains three core domains:
 
@@ -124,7 +124,7 @@ BLE-Control contains three core domains:
 
 ---
 
-# 🛡 Design-for-Compliance Highlights
+#  Design-for-Compliance Highlights
 
 *(Not certified; reflects professional habits and design intent)*
 
@@ -166,12 +166,12 @@ Docs/
 
 
 ---
-# 🧪 BLE-Control — Bring-Up & Testing Summary
+#  BLE-Control — Bring-Up & Testing Summary
 
 This document captures the recommended bring-up flow and key test procedures for the BLE-Control hardware platform.
 
 
-## 🔧 Recommended Bring-Up Order
+##  Recommended Bring-Up Order
 
 ### 1. **Verify Power Path & Rails**
 - Power via USB-C or bench supply.
@@ -224,7 +224,7 @@ This document captures the recommended bring-up flow and key test procedures for
 
 ---
 
-## 📡 EMC Pre-Compliance Checklist
+##  EMC Pre-Compliance Checklist
 
 ### **IEC 61000-4-2 (ESD)**
 - ±8 kV contact  
@@ -254,7 +254,7 @@ This document captures the recommended bring-up flow and key test procedures for
 
 ---
 
-## 🔧 Tools Used
+##  Tools Used
 
 - **Altium Designer 25**  
 - **STM32CubeIDE / STM32CubeProgrammer**  
