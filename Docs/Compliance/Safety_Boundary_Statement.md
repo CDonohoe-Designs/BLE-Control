@@ -3,7 +3,10 @@
 **Document ID:** BLEC-SAFETY-BOUNDARY-A1  
 **Revision:** A1  
 **Device:** BLE-Control Wearable BLE Controller  
-**Prepared by:** C. Donohoe  
+**Prepared by:** C. Donohoe
+
+**Date:** 18/11/2025
+
 
 **Standards Referenced:**  
 - IEC 60601-1 (Basic Safety & Essential Performance)  
