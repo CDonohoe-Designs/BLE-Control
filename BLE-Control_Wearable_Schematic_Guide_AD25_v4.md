@@ -23,14 +23,71 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 ---
 
 ## <a id="toplevel"></a>TopLevel.SchDoc
-**Purpose:** hierarchy & net connectivity only (no real circuitry).  
-**What to include:**
-- Sheet symbols for: `Power_Charge_USB`, `MCU_RF`, `Sensor_IO_Buttons_LED`, `Testpoints_Assembly`.
-- Global power/net flags: `VBATT_RAW`, `VBAT_PROT`, `PMID`, `+3V3_SYS`, `VDD_SENS`, `USB_VBUS`, `GND`.
-- Bus labels: `I2C_SCL`, `I2C_SDA`, `BMI270_INT1`, `BMI270_INT2`, `BTN_IN`, `GPIO_LED`, `SENS_EN`, `SKIN_ALERT`.
-- RF net labels: `RF_OUT` (from MCU) → `ANT_IN` (to antenna).
-- SWD bundle: `SWDIO`, `SWCLK`, `NRST`, `SWO` (opt), `VTREF`, `GND`.
-- Order documents in **Project Options → Documents** so TopLevel is first (AD25 uses **Validate Project**).
+# BLE-Control — Net Manifest (Flat Design, no TopLevel)
+
+> Source of truth for inter-sheet connectivity in a flat AD25 project.  
+> Scope option used: **Flat (Off-Sheet Connectors)** *or* **Flat (Net Labels Only)** — pick one and stick to it.
+
+## Power & Grounds
+| Net         | Source sheet            | Consumers                                  | Notes |
+|-------------|-------------------------|---------------------------------------------|------|
+| `VBATT_RAW` | Power_Charge_USB        | Power_Charge_USB (PFET Q101), Testpoints    | From battery connector J1. |
+| `VBAT_PROT` | Power_Charge_USB        | BQ21061 `BAT`, Testpoints                   | After reverse-protection PFET. |
+| `PMID`      | Power_Charge_USB        | TPS7A02 `IN`, bulk caps, Testpoints         | System node from BQ power-path. |
+| `+3V3_SYS`  | Power_Charge_USB (TPS7A02) | MCU_RF (`VDD*`, `VDDRF`, `VDDSMPS`, `VDDUSB`), Sensor_IO (LED opt), SWD VTref | Main 3V3 rail. |
+| `3V3_SENS`  | Power_Charge_USB (TPS22910A) | Sensor_IO_Buttons_LED (all sensors, TMP117) | Gated sensor domain (via `SENS_EN`). |
+| `USB_VBUS`  | Power_Charge_USB (USB-C) | BQ21061 `IN` (via TVS/PPTC/FB), Testpoints | Charge input; protect at connector. |
+| `GND`       | All sheets              | All sheets                                  | Solid L2 plane; heavy stitching. |
+
+## USB FS / CC
+| Net            | Source sheet      | Consumers                    | Notes |
+|----------------|-------------------|-----------------------------|------|
+| `USB_FS_P`     | Power_Charge_USB  | MCU_RF (USB FS P)           | Through **ACM2012D CMC**, **22 Ω series**, **USBLC6**. |
+| `USB_FS_N`     | Power_Charge_USB  | MCU_RF (USB FS N)           | Same as above. |
+| `USB_CC1`      | Power_Charge_USB  | —                           | 5.1 kΩ `Rd` to GND (sink/UFP). |
+| `USB_CC2`      | Power_Charge_USB  | —                           | 5.1 kΩ `Rd` to GND (sink/UFP). |
+
+## I²C Buses
+| Bus / Nets              | Source sheet            | Consumers                         | Pull-ups |
+|-------------------------|-------------------------|-----------------------------------|---------|
+| **Charger I²C**: `I2C_CHG_SCL`, `I2C_CHG_SDA` | MCU_RF (MCU) → Power_Charge_USB | BQ21061 (`SCL/SDA`)               | 4.7–10 kΩ → `+3V3_SYS` (VIO) |
+| **Sensor I²C**: `I2C3_SENS_SCL`, `I2C3_SENS_SDA` | MCU_RF (MCU) → Sensor_IO_Buttons_LED | BMI270, TMP117, (SHTC3/LPS22HH) | **4.7 kΩ → `3V3_SENS`** |
+
+## RF Path
+| Net        | Source sheet | Consumers                      | Notes |
+|------------|--------------|--------------------------------|------|
+| `RF1`      | MCU_RF       | MCU_RF π-match input           | From STM32WB RF pin. |
+| `RF1_FLT`  | MCU_RF       | Filter/π-match mid             | 0402 footprints; DNP initially. |
+| `RF1_ANT`  | MCU_RF       | Antenna feed                   | 50 Ω CPWG on L1; via-fence. |
+
+## SWD / Debug
+| Net      | Source sheet | Consumers      | Notes |
+|----------|--------------|----------------|------|
+| `SWDIO`  | MCU_RF       | TC2030 pad 2   | Keep short; no series R. |
+| `SWCLK`  | MCU_RF       | TC2030 pad 4   | Keep short; no series R. |
+| `NRST`   | MCU_RF       | TC2030 pad 5   | 10 kΩ → 3V3 + 100 nF → GND near pin. |
+| `SWO`    | MCU_RF       | TC2030 pad 6   | Optional. |
+| `VTREF`  | Power_Charge_USB (+3V3_SYS) | TC2030 pad 1 | Sense only; debugger doesn’t power board. |
+| `GND`    | —            | TC2030 pad 3   | Stitch via next to pad. |
+
+## Control / Status / IRQ
+| Net            | Source sheet            | Consumers           | Notes |
+|----------------|-------------------------|--------------------|------|
+| `SENS_EN`      | MCU_RF (GPIO)           | TPS22910A `ON`     | Gates `3V3_SENS`. |
+| `BQ_INT`       | Power_Charge_USB (BQ21061) | MCU_RF (EXTI)      | Open-drain; PU to `+3V3_SYS`. |
+| `CE_MCU`       | MCU_RF (GPIO)           | BQ21061 `CE`       | Charger enable. |
+| `TMP117_ALERT` | Sensor_IO_Buttons_LED   | MCU_RF (EXTI)      | Open-drain; PU to `3V3_SENS`. |
+| `BMI270_INT1`  | Sensor_IO_Buttons_LED   | MCU_RF (PA0)       | IMU interrupt. |
+| `BMI270_INT2`  | Sensor_IO_Buttons_LED   | MCU_RF (PA1)       | IMU interrupt. |
+| `BTN1`         | Sensor_IO_Buttons_LED   | MCU_RF (GPIO)      | Button to GND, ESD + series + RC. |
+| `LED_STAT_N`   | Sensor_IO_Buttons_LED   | MCU_RF (GPIO)      | Active-low LED option. |
+
+## Sanity rules (do this before generating the PCB)
+- Use **Off-Sheet Connectors** (or identical Net Labels) for every net listed above.  
+- Don’t mix naming (`VDD_SENS` vs `3V3_SENS`) — use **`3V3_SENS`** everywhere.  
+- Keep `TMP117_ALERT` (not `SKIN_ALERT`) for consistency with sensor sheet.  
+- Run **Project → Validate Project**; Navigator panel should show each net spanning the intended sheets.  
+- Add **test pads**: `TP_USB_5V`, `TP_VBATT_RAW`, `TP_VBAT_PROT`, `TP_PMID`, `TP_+3V3_SYS`, `TP_3V3_SENS`, `TP_I2C*`, `TP_BTN1`, `TP_GND`.
 
 ---
 
