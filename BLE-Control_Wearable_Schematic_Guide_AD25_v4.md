@@ -6,6 +6,9 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 ## Table of contents
 
+- **Schematic (PDF):**  
+  → [`Docs/Schematic/BLE-Control_Schematic_Master.pdf`](Docs/Schematic/BLE-Control_Schematic_Master.pdf)
+
 - **[Power_Charge_USB.SchDoc](#power_charge_usb)**
 - **[MCU_RF.SchDoc](#mcu_rf)**
 - **[Sensor_IO_Buttons_LED.SchDoc](#sensor_io_buttons_led)** 
