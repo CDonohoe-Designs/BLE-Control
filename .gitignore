@@ -31,6 +31,9 @@ Hardware/Altium/__Previews/
 # Compiled/derived libraries (keep LibPkg + source SchLib/PcbLib in git)
 *.IntLib
 
+# Ignore the staging area under Altium libraries
+Hardware/Altium/Libraries/_staging/
+
 # Draftsman/temporary exports (usually land under Outputs/Releases anyway)
 # Uncomment if you see these spill elsewhere:
 # *.PDF
