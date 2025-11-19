@@ -253,7 +253,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 2. **SMPS Cell:** Draw the block with `L1`, optional `L2=10 nH` in series, `Cbulk 4.7 µF` on `VFBSMPS`, and `Cvdsmps 4.7 µF + 100 nF` on `VDDSMPS`.  
    - Add **0 Ω links** labelled “BYPASS” to short `VDDSMPS/VLXSMPS/VFBSMPS` to `VDD` when not using SMPS.  
 3. **Decouplers:** One **100 nF per `VDDx`**, plus bulk **4.7–10 µF** per side of the MCU.  
-4. **Analog Node:** `VDDA` to `+3V3_ANA` via bead **or** straight to `+3V3_SYS`; **`VREF+` → `VDDA`**. Place **100 nF + 1 µF** to `VSSA`.  
+4. **Analog Node:** `VDDA` to `+3V3_SYS`; **`VREF+` → `VDDA`**. Place **100 nF + 1 µF** to `VSSA`.  
 5. **USB Node:** `VDDUSB` → `VDD` (if unused) with 100 nF; otherwise to a 3.0–3.6 V rail with local caps.  
 6. **VBAT_PROT:** Net-tie to `VDD` + 100 nF **or** bring in 3.0–3.3 V backup with 100 nF; label “Max 3.6 V”.  
 7. **Ground Pins:** Expose **`VSSRF/EPAD`** pin on the symbol and annotate: “via array to GND, keepout under HSE/RF”.  
