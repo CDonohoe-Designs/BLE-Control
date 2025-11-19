@@ -8,7 +8,7 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 - **Schematic (PDF):**  
   → [`Docs/Schematic/BLE-Control_Schematic_Master.pdf`](Docs/Schematic/BLE-Control_Schematic_Master.pdf)
-
+- **[BLE-Control — Net Manifest (Flat Design, no TopLevel)](#net_manifest)**
 - **[Power_Charge_USB.SchDoc](#power_charge_usb)**
 - **[MCU_RF.SchDoc](#mcu_rf)**
 - **[Sensor_IO_Buttons_LED.SchDoc](#sensor_io_buttons_led)** 
@@ -22,9 +22,8 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 ---
 
-## <a id="Net Manifest"></a>Net Manifest
-## BLE-Control — Net Manifest (Flat Design, no TopLevel)
-
+<a id="net_manifest"></a>
+## BLE-Control — Net Manifest 
 > Source of truth for inter-sheet connectivity in a flat AD25 project.  
 > Scope option used: **Flat (Off-Sheet Connectors)** *or* **Flat (Net Labels Only)** — pick one and stick to it.
 
