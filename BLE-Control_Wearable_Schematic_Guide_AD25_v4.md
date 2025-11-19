@@ -226,7 +226,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 - **`VDDSMPS` → `+3V3_SYS`**: **4.7 µF + 0.1 µF** at the pin to GND.
 - **On‑chip SMPS**: `+3V3_SYS → L1 (2.2 µH @8 MHz or 10 µH @4 MHz, opt +10 nH series) → VLXSMPS`; **4.7 µF from VFBSMPS→GND** (not a system rail).
 - **BYPASS option**: 0 Ω links to short `VDDSMPS/VLXSMPS/VFBSMPS → VDD` when not using SMPS (keep footprints).
-- **`VDDA` / `VREF+`**: to `+3V3_ANA` (via bead) **or** `+3V3_SYS`; **0.1 µF + 1 µF** to **`VSSA`** at pins.
+- **`VDDA` / `VREF+`**:  `+3V3_SYS`; **0.1 µF + 1 µF** to **`VSSA`** at pins.
 - **`VDDUSB`**: tie to `VDD` with 0.1 µF if USB FS unused; else 3.0–3.6 V with local caps.
 - **`VBAT_PROT`**: **≤ 3.6 V**. Net‑tie to `VDD` + 0.1 µF **or** feed from 3.0–3.3 V backup.
 
@@ -242,14 +242,14 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 | `+3V3_SYS`              | `VDDx`, `VDDRF`, `VDDSMPS`   | Same rail; per‑pin 0.1 µF on VDDx/VDDRF; **4.7 µF + 0.1 µF** on VDDSMPS. |
 | `+3V3_SYS` via L1       | `VLXSMPS`                    | L1 = 2.2 µH (8 MHz) or 10 µH (4 MHz), optional +10 nH series. |
 | —                       | `VFBSMPS`                    | **4.7 µF → GND**; **not** a system rail. |
-| `+3V3_SYS` / `+3V3_ANA` | `VDDA`, `VREF+`              | 0.1 µF + 1 µF to VSSA; bead optional for `+3V3_ANA`. |
+| `+3V3_SYS` | `VDDA`, `VREF+`              | 0.1 µF + 1 µF to `VSSA`. |
 | `VBAT_PROT`                  | `VBAT_PROT` (MCU)                 | ≤ 3.6 V; tie to VDD (0.1 µF) **or** 3.0–3.3 V backup. |
 | *(local)* `BQ_VDD`      | —                            | Charger‑IC local net only; don’t reuse as MCU `VDD`. |
 | `GND`                   | `VSS`, `VSSRF/EPAD`, `VSSSMPS`, `VSSA` | One plane; EPAD via‑in‑pad; compact SMPS loop. |
 
 ## Schematic How-To (AD25)
 
-1. **Power Ports:** Place global `+3V3_SYS`, `+3V3_ANA` (if used), and `GND` power ports.  
+1. **Power Ports:** Place global `+3V3_SYS` and `GND` power ports.  
 2. **SMPS Cell:** Draw the block with `L1`, optional `L2=10 nH` in series, `Cbulk 4.7 µF` on `VFBSMPS`, and `Cvdsmps 4.7 µF + 100 nF` on `VDDSMPS`.  
    - Add **0 Ω links** labelled “BYPASS” to short `VDDSMPS/VLXSMPS/VFBSMPS` to `VDD` when not using SMPS.  
 3. **Decouplers:** One **100 nF per `VDDx`**, plus bulk **4.7–10 µF** per side of the MCU.  
