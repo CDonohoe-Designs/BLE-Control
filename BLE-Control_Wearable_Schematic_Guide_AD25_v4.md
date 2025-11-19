@@ -5,7 +5,7 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 > Update: **USB‑C VBUS protection now specifies a PPTC: _Bourns MF‑PSMF050X‑2 (0805), I_hold = 0.5 A_**, sized for **ILIM = 500 mA**. Keep a **0 Ω DNP bypass** pad in parallel for bring‑up.
 
 ## Table of contents
-- **[TopLevel.SchDoc](#toplevel)** — [`Hardware/Altium/TopLevel.SchDoc`](Hardware/Altium/TopLevel.SchDoc)
+
 - **[Power_Charge_USB.SchDoc](#power_charge_usb)** — [`Hardware/Altium/Power_Charge_USB.SchDoc`](Hardware/Altium/Power_Charge_USB.SchDoc)
 - **[MCU_RF.SchDoc](#mcu_rf)** — [`Hardware/Altium/MCU_RF.SchDoc`](Hardware/Altium/MCU_RF.SchDoc)
 - **[Sensor_IO_Buttons_LED.SchDoc](#sensor_io_buttons_led)** — [`Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc`](Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc)
@@ -22,17 +22,16 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 ## <a id="toplevel"></a>TopLevel.SchDoc
 **Purpose:** hierarchy & net connectivity only (no real circuitry).  
 **What to include:**
-- Sheet symbols for: Power_Charge_USB, MCU_RF, Sensor_IO_Buttons_LED, Testpoints_Assembly.
-- Global power/net flags: `VBAT`, `+3V3_SYS`, `VDD_SENS`, `USB_5V`, `GND`.
+- Sheet symbols for: `Power_Charge_USB`, `MCU_RF`, `Sensor_IO_Buttons_LED`, `Testpoints_Assembly`.
+- Global power/net flags: `VBATT_RAW`, `VBAT_PROT`, `PMID`, `+3V3_SYS`, `VDD_SENS`, `USB_VBUS`, `GND`.
 - Bus labels: `I2C_SCL`, `I2C_SDA`, `BMI270_INT1`, `BMI270_INT2`, `BTN_IN`, `GPIO_LED`, `SENS_EN`, `SKIN_ALERT`.
 - RF net labels: `RF_OUT` (from MCU) → `ANT_IN` (to antenna).
-- SWD bundle: `SWDIO`, `SWCLK`, `NRST`, `SWO`(opt), `VTREF`, `GND`.
+- SWD bundle: `SWDIO`, `SWCLK`, `NRST`, `SWO` (opt), `VTREF`, `GND`.
 - Order documents in **Project Options → Documents** so TopLevel is first (AD25 uses **Validate Project**).
-
 
 ---
 
-## <a id="power_charge_usb"></a>Power_Charge_USB.SchDoc — TI BQ21062 (USB-C charge, 1-cell Li-Po, ship-mode)
+## <a id="power_charge_usb"></a>Power_Charge_USB.SchDoc — TI BQ21061 (USB-C charge, 1-cell Li-Po, ship-mode)
 
 ## Power architecture
 
@@ -43,7 +42,7 @@ USB‑C VBUS
    │
  [TVS]   — SMF5.0A to GND at connector
    │
- [FB1]*  — optional ferrite bead (DNP default)
+ [FB1]  — optional ferrite bead 
    │
   IN  →  BQ21061  →  PMID ──────────────┐
              │                          │
@@ -157,23 +156,23 @@ USB‑C VBUS
 **Example (pseudocode):**
 ```c
 // i2cWrite(addr, reg, val)
-i2cWrite(BQ21062_ADDR, REG_ICHG,   ICHG_150mA);
-i2cWrite(BQ21062_ADDR, REG_ILIM,   ILIM_500mA);
+i2cWrite(BQ21061_ADDR, REG_ICHG,   ICHG_150mA);
+i2cWrite(BQ21061_ADDR, REG_ILIM,   ILIM_500mA);
 
 #if MODE_LDO_3V3
-i2cWrite(BQ21062_ADDR, REG_LDOCTL, LDO_EN | LDO_V_3V3);
+i2cWrite(BQ21061_ADDR, REG_LDOCTL, LDO_EN | LDO_V_3V3);
 #else // MODE_LS_VDDSENS
-i2cWrite(BQ21062_ADDR, REG_LSCTL,  LS_MODE | LS_DISABLE);  // start off
+i2cWrite(BQ21061_ADDR, REG_LSCTL,  LS_MODE | LS_DISABLE);  // start off
 #endif
 
-i2cWrite(BQ21062_ADDR, REG_TSCTL,  TS_ENABLE_OR_DISABLE);
-i2cWrite(BQ21062_ADDR, REG_SHIP,   SHIP_CFG); // configure ship / long-press behavior
+i2cWrite(BQ21061_ADDR, REG_TSCTL,  TS_ENABLE_OR_DISABLE);
+i2cWrite(BQ21061_ADDR, REG_SHIP,   SHIP_CFG); // configure ship / long-press behavior
 ```
 
 ---
 
 ### Thermal sanity (linear charger rule‑of‑thumb)
-Dissipation ≈ **(VUSB − VBAT) × ICHG**.  
+Dissipation ≈ **(VUSB − VBAT_PROT) × ICHG**.  
 - 5.0 V → 4.2 V @ **100 mA** → **0.08 W** (easy).  
 - 5.0 V → 4.2 V @ **300 mA** → **0.24 W** (watch copper).  
 Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for spreading.
@@ -190,15 +189,15 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 ---
 
 ### What to remove from the old design
-- **TPS7A02‑3V3** (external LDO) — replaced by BQ21062 **LDO mode** (Mode A).  
-- **TPS22910A** (sensor load switch) — replaced by BQ21062 **Load‑Switch mode** (Mode B).  
+- **TPS7A02‑3V3** (external LDO) — replaced by BQ21061 **LDO mode** (Mode A).  
+- **TPS22910A** (sensor load switch) — replaced by BQ21061 **Load‑Switch mode** (Mode B).  
 
 
 ---
 
 ## <a id="bringup_checklist"></a>Bring-up checklist
 - ❑ ST‑LINK can flash; MCU boots on **3V3**.  
-- ❑ I²C talks to **BQ21062**; reads **PG/INT** as expected.  
+- ❑ I²C talks to **BQ21061**; reads **PG/INT** as expected.  
 - ❑ **ICHG/ILIM** applied; battery charges from USB.  
 - ❑ **Mode A:** 3V3 within spec; ripple OK. **Mode B:** `VDD_SENS` toggles under MCU control.  
 - ❑ **VBUS drop** across PPTC at **500 mA** < **150 mV** (typical) — sanity check with load.  
@@ -213,8 +212,8 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 > **Purpose:** lock rail names and ground strategy before drawing `MCU_RF.SchDoc`. Main rail is **`+3V3_SYS`** from the charger/LDO sheet.
 
 ### Context from `Power_Charge_USB.SchDoc`
-- USB-C (**USB4105-GF-A**), PPTC (**MF-PSMF050X-2**), TVS (**SMF5.0A**), ferrite (**BLM15AG121**), charger **BQ21062YFPR**.
-- Nets exported: **`VBAT`**, **`PMID`**, **`+3V3_SYS`**.
+- USB-C (**USB4105-GF-A**), PPTC (**MF-PSMF050X-2**), TVS (**SMF5.0A**), ferrite (**BLM15AG121**), charger **BQ21061YFPR**.
+- Nets exported: **`VBAT_PROT`**, **`PMID`**, **`+3V3_SYS`**.
 - The charger has a local **VDD (IC1-D1)** pin. **Rename that local net to `BQ_VDD`** (or `CHG_VDD`) to avoid clashing with the MCU’s `VDD` rail name.
 
 ### VDDSMPS vs VDD — what & why
@@ -230,7 +229,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 - **BYPASS option**: 0 Ω links to short `VDDSMPS/VLXSMPS/VFBSMPS → VDD` when not using SMPS (keep footprints).
 - **`VDDA` / `VREF+`**: to `+3V3_ANA` (via bead) **or** `+3V3_SYS`; **0.1 µF + 1 µF** to **`VSSA`** at pins.
 - **`VDDUSB`**: tie to `VDD` with 0.1 µF if USB FS unused; else 3.0–3.6 V with local caps.
-- **`VBAT`**: **≤ 3.6 V**. Net‑tie to `VDD` + 0.1 µF **or** feed from 3.0–3.3 V backup.
+- **`VBAT_PROT`**: **≤ 3.6 V**. Net‑tie to `VDD` + 0.1 µF **or** feed from 3.0–3.3 V backup.
 
 ### Ground strategy
 - **Single solid GND plane** under MCU & RF (L2). Heavy stitching.
@@ -245,7 +244,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 | `+3V3_SYS` via L1       | `VLXSMPS`                    | L1 = 2.2 µH (8 MHz) or 10 µH (4 MHz), optional +10 nH series. |
 | —                       | `VFBSMPS`                    | **4.7 µF → GND**; **not** a system rail. |
 | `+3V3_SYS` / `+3V3_ANA` | `VDDA`, `VREF+`              | 0.1 µF + 1 µF to VSSA; bead optional for `+3V3_ANA`. |
-| `VBAT`                  | `VBAT` (MCU)                 | ≤ 3.6 V; tie to VDD (0.1 µF) **or** 3.0–3.3 V backup. |
+| `VBAT_PROT`                  | `VBAT_PROT` (MCU)                 | ≤ 3.6 V; tie to VDD (0.1 µF) **or** 3.0–3.3 V backup. |
 | *(local)* `BQ_VDD`      | —                            | Charger‑IC local net only; don’t reuse as MCU `VDD`. |
 | `GND`                   | `VSS`, `VSSRF/EPAD`, `VSSSMPS`, `VSSA` | One plane; EPAD via‑in‑pad; compact SMPS loop. |
 
@@ -257,7 +256,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 3. **Decouplers:** One **100 nF per `VDDx`**, plus bulk **4.7–10 µF** per side of the MCU.  
 4. **Analog Node:** `VDDA` to `+3V3_ANA` via bead **or** straight to `+3V3_SYS`; **`VREF+` → `VDDA`**. Place **100 nF + 1 µF** to `VSSA`.  
 5. **USB Node:** `VDDUSB` → `VDD` (if unused) with 100 nF; otherwise to a 3.0–3.6 V rail with local caps.  
-6. **VBAT:** Net-tie to `VDD` + 100 nF **or** bring in 3.0–3.3 V backup with 100 nF; label “Max 3.6 V”.  
+6. **VBAT_PROT:** Net-tie to `VDD` + 100 nF **or** bring in 3.0–3.3 V backup with 100 nF; label “Max 3.6 V”.  
 7. **Ground Pins:** Expose **`VSSRF/EPAD`** pin on the symbol and annotate: “via array to GND, keepout under HSE/RF”.  
 8. **Naming hygiene:** Keep the charger’s local **`BQ_VDD`** distinct from MCU **`VDD`** to avoid ERC/DRC confusion.
 
@@ -297,7 +296,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 - BYPASS links in place (option to defer SMPS bring‑up).
 - 0.1 µF at each VDDx; bulk near device.
 - VDDA/VREF+ decouple to VSSA; short tie to plane.
-- VBAT ≤ 3.6 V, labelled accordingly.
+- VBAT_PROT ≤ 3.6 V, labelled accordingly.
 - EPAD note present; RF/SMPS loops compact.
 - **Naming hygiene:** use `BQ_VDD` for the charger pin; reserve `VDD` for the MCU rail.
 
@@ -378,15 +377,15 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 ---
 
 ## <a id="testpoints_assembly"></a>Testpoints_Assembly.SchDoc
-- **Test pads:** `TP_VBAT`, `TP_3V3_SYS`, `TP_VDD_SENS`, `TP_USB_5V`, `TP_SWDIO`, `TP_SWCLK`, `TP_GND`, `TP_SKIN`.
+- **Test pads:** `TP_VBAT_PROT`, `TP_3V3_SYS`, `TP_VDD_SENS`, `TP_USB_VBUS`, `TP_SWDIO`, `TP_SWCLK`, `TP_GND`, `TP_SKIN`.
 - **DNP jumpers** (0 Ω) where useful for bring‑up: in series with I²C lines, across the **PPTC** (bypass), and current‑sense access in rails.
-- **Assembly notes:** Mark **antenna keepout**, Tag‑Connect footprint **DNL**, RF π‑match **DNP** by default.
+- **Assembly notes:** Mark **antenna keepout**, Tag‑Connect footprint **DNP**, RF π‑match **DNP** by default.
 
 
 ---
 
 ## <a id="emc_rules"></a>EMC & layout rules (wearable)
-- **Stackup (4‑layer, 0.8 mm):** L1=signals+CPWG RF; L2=**solid GND plane**; L3=+3V3/VBAT pours + slow signals; L4=signals/battery.
+- **Stackup (4‑layer, 0.8 mm):** L1=signals+CPWG RF; L2=**solid GND plane**; L3=+3V3/VBAT_PROT pours + slow signals; L4=signals/battery.
 - **Grounding:** one continuous ground (no splits). Stitch vias around RF trace and board edges.
 - **Loops:** keep **charger input loop (VBUS→PPTC→TVS→IC→GND)** and **LDO loops** tight. Place caps **at the pins**.
 - **Decoupling order:** pad → 0.1 µF → via to GND (short); bulk cap slightly farther.
@@ -405,7 +404,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 - **I²C series (DNP):** **33 Ω** near MCU on SCL/SDA.  
 - **LED series:** 1 kΩ (0402).  
 - **Reset:** 10 kΩ to 3V3 + 100 nF to GND.  
-- **BQ21062 caps:** 10 µF at `VIN` and `BAT` (check DS), plus local 0.1 µF at pins.  
+- **BQ21061 caps:** 10 µF at `VIN` and `BAT` (check DS), plus local 0.1 µF at pins.  
 - **RF π‑match (0402):** C1/L1/C2 = **DNP** initially.  
 - **HSE/LSE loads:** 12 pF each (tune to crystal CL).  
 - **USB CC:** 5.1 kΩ on CC1/CC2 to GND (sink‑only).  
@@ -427,7 +426,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
   • ~100 mAh → ~20×15×3.5 mm • ~150–200 mAh → ~30×20×3–4 mm • ~250–300 mAh → ~35×25×4–4.5 mm  
 - **Charge‑current rule of thumb:** start at **0.5 C** (e.g., 200 mAh → 100 mA ICHG). Go higher only if the cell datasheet allows.
 - **Runtime quick‑estimate:** `hours ≈ 0.8 × capacity_mAh / avg_current_mA` (0.8 derating for temp/aging).
-- **EMC/placement:** keep **battery metal away from the antenna keepout**, add **foam+tape** strain relief, **twist VBAT/GND leads**, leave a **service loop**.
+- **EMC/placement:** keep **battery metal away from the antenna keepout**, add **foam+tape** strain relief, **twist VBAT_PROT/GND leads**, leave a **service loop**.
 
 ### Connector options (pick one)
 - **Direct‑solder tabs** (thinnest): large pads + strain‑relief slot/adhesive. *Non‑serviceable.*
@@ -439,12 +438,12 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ### Schematic tie‑in (where to wire things)
 - **Power_Charge_USB.SchDoc**
-  - **J_BATT (2‑pin)** → `VBAT` / `GND` (clear silk polarity). Place near board edge opposite antenna.
-  - **BQ21062**: `VIN` from USB via **PPTC 0.5 A (MF‑PSMF050X‑2)** + **TVS** to GND. `BAT` → `VBAT` with **10 µF** local cap.
+  - **J_BATT (2‑pin)** → `VBAT_PROT` / `GND` (clear silk polarity). Place near board edge opposite antenna.
+  - **BQ21061**: `VIN` from USB via **PPTC 0.5 A (MF‑PSMF050X‑2)** + **TVS** to GND. `BAT` → `VBAT_PROT` with **10 µF** local cap.
   - **ICHG/ILIM:** program ~**0.5 C** of chosen cell; **ILIM = 500 mA** (USB cap).
   - **TS (thermistor):** connect **10 k NTC** if the pack exposes it; otherwise configure per datasheet to disable or bias safely.
   - **VDD_SENS**: use internal **Load‑Switch mode** if you choose to gate sensors from the charger.
-  - **Test pads:** `TP_VBAT`, `TP_3V3_SYS`, `TP_VDD_SENS`, `TP_USB_5V`, `TP_GND`.
+  - **Test pads:** `TP_VBAT_PROT`, `TP_3V3_SYS`, `TP_VDD_SENS`, `TP_USB_VBUS`, `TP_GND`.
 - **Sensor_IO_Buttons_LED.SchDoc**
   - `I2C_SCL/SDA` with **2.2 kΩ** to `VDD_SENS`; `33 Ω` DNP near MCU; decoupling at pins.
   - `BTN_IN → PB1` (to GND on press), `GPIO_LED → PB0` (choose active‑low/high option), `BMI270_INT1/2 → PA0/PA1`, `TMP117 addr=0x48`.
