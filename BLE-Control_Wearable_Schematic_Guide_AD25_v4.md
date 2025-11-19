@@ -6,10 +6,10 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 
 ## Table of contents
 
-- **[Power_Charge_USB.SchDoc](#power_charge_usb)** — [`Hardware/Altium/Power_Charge_USB.SchDoc`](Hardware/Altium/Power_Charge_USB.SchDoc)
+- **[Power_Charge_USB.SchDoc](#power_charge_usb)** — [`Hardware/Altium/Power_Charge_USB.SchDoc`](Hardware/Altium/Schematic/Power_Charge_USB.SchDoc)
 - **[MCU_RF.SchDoc](#mcu_rf)** — [`Hardware/Altium/MCU_RF.SchDoc`](Hardware/Altium/MCU_RF.SchDoc)
-- **[Sensor_IO_Buttons_LED.SchDoc](#sensor_io_buttons_led)** — [`Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc`](Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc)
-- **[Testpoints_Assembly.SchDoc](#testpoints_assembly)** — [`Hardware/Altium/Testpoints_Assembly.SchDoc`](Hardware/Altium/Testpoints_Assembly.SchDoc)
+- **[Sensor_IO_Buttons_LED.SchDoc](#sensor_io_buttons_led)** — [`Hardware/Altium/Sensor_IO_Buttons_LED.SchDoc`](Hardware/Altium/Schematic/Sensor_IO_Buttons_LED.SchDoc)
+- **[Testpoints_Assembly.SchDoc](#testpoints_assembly)** — [`Hardware/Altium/Testpoints_Assembly.SchDoc`](Hardware/Altium/Schematic/Testpoints_Assembly.SchDoc)
 - **[EMC & layout rules (wearable)](#emc_rules)**
 - **[Values cheat-sheet (start points)](#values_cheatsheet)**
 - **[Battery selection & connector](#battery)**
