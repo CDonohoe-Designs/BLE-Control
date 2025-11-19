@@ -81,13 +81,6 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 | `BTN1`         | Sensor_IO_Buttons_LED   | MCU_RF (GPIO)      | Button to GND, ESD + series + RC. |
 | `LED_STAT_N`   | Sensor_IO_Buttons_LED   | MCU_RF (GPIO)      | Active-low LED option. |
 
-## Sanity rules (do this before generating the PCB)
-- Use **Off-Sheet Connectors** (or identical Net Labels) for every net listed above.  
-- Don’t mix naming (`VDD_SENS` vs `3V3_SENS`) — use **`3V3_SENS`** everywhere.  
-- Keep `TMP117_ALERT` (not `SKIN_ALERT`) for consistency with sensor sheet.  
-- Run **Project → Validate Project**; Navigator panel should show each net spanning the intended sheets.  
-- Add **test pads**: `TP_USB_5V`, `TP_VBATT_RAW`, `TP_VBAT_PROT`, `TP_PMID`, `TP_+3V3_SYS`, `TP_3V3_SENS`, `TP_I2C*`, `TP_BTN1`, `TP_GND`.
-
 ---
 
 ## <a id="power_charge_usb"></a>Power_Charge_USB.SchDoc — TI BQ21061 (USB-C charge, 1-cell Li-Po, ship-mode)
@@ -110,14 +103,6 @@ USB‑C VBUS
             VDD (decouple only)          │
             VIO → LS/LDO (= system 3V) ──┴─→ +3V3_SYS (MCU & sensors)
 ```
-
-- **With USB present:** PMID is sourced from USB and the battery charges; **LS/LDO** drives +3V3_SYS.  
-- **With USB removed:** PMID tracks **BAT** via the power‑path; **LS/LDO** continues to power +3V3_SYS from the battery.  
-- **Ship/ship‑hold** (if used) disconnects BAT from PMID; wake via **MR** or USB.
-
-> \*FB1 is optional; keep footprint and DNP by default. Fit if noise/EMI requires it.
-
----
 
 ## USB‑C (charge‑only) rules
 - Receptacle: **GCT USB4105‑GF‑A** or similar.  
@@ -161,16 +146,6 @@ USB‑C VBUS
 | **CE** | MCU or default strap | Leave NC for “charge-enabled” default, or drive from MCU. |
 
 \* **VBUS chain (as drawn):** USB4105 → **SMF5.0A TVS** → **PPTC (MF-PSMF050X-2)** → (opt **FB101**) → **IN**.
-
----
-
-## Schematic checklist
-- **Connector J1** (USB‑C, UFP) with **R1/R2 = 5.1 kΩ** to GND on CC1/CC2.  
-- **Protection**: **TVS (SMF5.0A)** at VBUS, **PPTC** in series, **USBLC6‑2SC6** for ESD.  
-- **CIN** at IN (**≥4.7–10 µF**), **CPMID** (**22–47 µF**), **CVDD** (**2.2–4.7 µF**), **CINLS** (**≥1 µF**), **CLDO** (**2.2 µF**).  
-- **LP pull‑up** (100 kΩ → VIO), **PG/INT pull‑ups** (100 kΩ → VIO).  
-- **I²C pull‑ups only on MCU** (10 kΩ → VIO).  
-- **Test pads**: TP_VBUS, TP_PMID, TP_BAT, TP_3V3_SYS, TP_GND.
 
 ---
 
