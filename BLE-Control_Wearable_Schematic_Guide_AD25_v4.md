@@ -146,19 +146,21 @@ USB‑C VBUS
 
 | BQ21061 Pin | Connects to | Notes |
 |---|---|---|
-| **IN** | USB VBUS (after PPTC/TVS/FB1*) | Place **CIN 4.7–10 µF** close |
-| **PMID** | System power‑path node | **22–47 µF** bulk near PMID |
-| **BAT** | Li‑ion cell + | **1 µF** near BAT; **TS** to NTC |
-| **VINLS** | **PMID** | Provide **≥1 µF** (match or exceed CLDO) |
-| **LS/LDO** | **+3V3_SYS → MCU & sensors** | **2.2 µF** near pin (system rail) |
-| **VIO** | **+3V3_SYS (LS/LDO)** | I/O reference for I²C/LP/CE/PG/INT |
-| **LP** | **Pull‑up to VIO (~100 kΩ)** | I²C alive on battery |
-| **SCL/SDA** | MCU I²C | **Pull‑ups on MCU only** (10 kΩ → VIO) |
-| **PG/INT** | MCU GPIO (open‑drain) | Pull‑ups to VIO (~100 kΩ) |
-| **MR** | Momentary NO to GND | Wakes from ship; ESD protect trace |
-| **TS** | NTC divider | 10 kΩ NTC typical; see datasheet tables |
-| **VDD** | Decouple to GND | 2.2–4.7 µF; don’t load |
-| **CE** | MCU or default | Leave NC for charge‑enabled default, or drive from MCU |
+| **IN** | USB VBUS (after PPTC/TVS/FB1\*) | *CIN* presently **1 µF (C103)**; consider **4.7–10 µF** per DS. |
+| **PMID** | System power-path node → feeds TPS7A02 | **22–47 µF** bulk near PMID. |
+| **BAT** | Li-ion cell + | **≈1 µF** near BAT; **TS** to NTC on pack/connector. |
+| **VINLS** | **PMID** | Provide **≥1 µF** (match/exceed CLDO). |
+| **LS/LDO** | **Decouple only; TP provided** | Not tied to +3V3_SYS in this rev (TPS7A02 makes 3V3). |
+| **VIO** | **Intended = +3V3_SYS** | Tie VIO to +3V3_SYS; ensure the short link exists on one sheet. |
+| **LP** | Pull-up to **VIO** (~100 kΩ) | Keeps I²C alive on battery-only. |
+| **SCL/SDA** | MCU I²C (charger bus) | Pull-ups placed on MCU side (e.g., 4.7–10 kΩ → +3V3_SYS). |
+| **PG/INT** | MCU GPIOs (open-drain) | **PG ≈100 kΩ PU**, **INT ≈47 kΩ PU** to **VIO**. |
+| **MR** | Momentary NO to GND | Wake from ship; keep ESD/RC as drawn. |
+| **TS** | 10 k NTC divider | From battery connector (BAT_NTC_10K). |
+| **VDD** | Decouple to GND | Local cap + TP only; don’t power loads. |
+| **CE** | MCU or default strap | Leave NC for “charge-enabled” default, or drive from MCU. |
+
+\* **VBUS chain (as drawn):** USB4105 → **SMF5.0A TVS** → **PPTC (MF-PSMF050X-2)** → (opt **FB101**) → **IN**.
 
 ---
 
@@ -178,16 +180,6 @@ USB‑C VBUS
 3. **USB only (no batt):** PMID from USB, **+3V3_SYS present**, PG asserted.  
 4. **Battery + USB:** charge current follows config; INT/PG behaviour as expected.  
 5. **Glitch/EMI checks:** probe **VBUS/PMID/+3V3_SYS** during BLE TX; stuff **FB1** if needed.
-
----
-
-## BOM highlights (key parts)
-- **Charger:** TI **BQ21061** — 1‑cell Li‑ion, power‑path + LS/LDO  
-- **USB‑C receptacle:** **GCT USB4105‑GF‑A**  
-- **TVS (VBUS):** **Littelfuse SMF5.0A** (SOD‑123FL)  
-- **ESD array (CC/D±):** **ST USBLC6‑2SC6**  
-- **PPTC:** **Bourns MF‑PSMF050X‑2** (0805) or **MF‑MSMF050/16** (1206, alt)  
-- **Ferrite bead :** ~**120 Ω @ 100 MHz** (0402/0603), low RDC, ≥1 A
 
 ---
 
@@ -223,15 +215,6 @@ Dissipation ≈ **(VUSB − VBAT_PROT) × ICHG**.
 - 5.0 V → 4.2 V @ **100 mA** → **0.08 W** (easy).  
 - 5.0 V → 4.2 V @ **300 mA** → **0.24 W** (watch copper).  
 Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for spreading.
-
----
-
-### Layout notes (wearable/EMC)
-- L2 = **solid GND**; no ground splits.  
-- Keep **VIN→PPTC→TVS→IC→GND** and **BAT→IC→GND** loops **tight**; caps **at pins**.
-- Route **I²C** as a pair with a good return; place pulls near MCU.  
-- Keep **TS** away from RF/high‑dV/dt.  
-- For **RF (2.4 GHz)**: respect antenna keepout; π‑match DNP footprints in **MCU_RF.SchDoc**.
 
 ---
 
