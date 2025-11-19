@@ -129,7 +129,7 @@ USB‑C VBUS
   - **ESD array** (**USBLC6‑2SC6**) protecting CC and (optionally) D± pads.  
 - **Optional EMI bead:** **FB1 ~120 Ω @ 100 MHz** between protection and charger **IN** (DNP by default).
 
-**Placement order (recommended):** `J1 VBUS → TVS → PPTC → (FB1 opt) → BQ21061 IN` with **CIN** close to IN.
+**Placement order:** `J1 VBUS → TVS → PPTC → (FB1 opt) → BQ21061 IN` with **CIN** close to IN.
 
 ---
 
@@ -160,8 +160,6 @@ USB‑C VBUS
 | **VDD** | Decouple to GND | 2.2–4.7 µF; don’t load |
 | **CE** | MCU or default | Leave NC for charge‑enabled default, or drive from MCU |
 
-\*FB1 is optional; keep footprint; DNP by default.
-
 ---
 
 ## Schematic checklist
@@ -189,17 +187,7 @@ USB‑C VBUS
 - **TVS (VBUS):** **Littelfuse SMF5.0A** (SOD‑123FL)  
 - **ESD array (CC/D±):** **ST USBLC6‑2SC6**  
 - **PPTC:** **Bourns MF‑PSMF050X‑2** (0805) or **MF‑MSMF050/16** (1206, alt)  
-- **Ferrite bead (opt):** ~**120 Ω @ 100 MHz** (0402/0603), low RDC, ≥1 A
-
----
-
-## Datasheets / refs
-- TI **BQ21061** — 1‑cell charger w/ power‑path + LS/LDO: <https://www.ti.com/lit/gpn/BQ21061>  
-- GCT **USB4105‑GF‑A** — USB‑C receptacle: <https://gct.co/connector/usb4105>  
-- Littelfuse **SMF5.0A** — 5 V TVS (SMAF): <https://www.littelfuse.com/products/overvoltage-protection/tvs-diodes/surface-mount/smf/smf5-0a>  
-- ST **USBLC6‑2SC6** — 2‑line ESD array: <https://www.st.com/resource/en/datasheet/usblc6-2.pdf>  
-- Bourns **MF‑PSMF050X‑2** — PPTC 0805: <https://www.bourns.com/docs/product-datasheets/mfpsmf.pdf>  
-- Bourns **MF‑MSMF050/16** — PPTC 1206: <https://www.bourns.com/docs/product-datasheets/mf-msmf.pdf>
+- **Ferrite bead :** ~**120 Ω @ 100 MHz** (0402/0603), low RDC, ≥1 A
 
 ---
 
@@ -247,12 +235,6 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ---
 
-### What to remove from the old design
-- **TPS7A02‑3V3** (external LDO) — replaced by BQ21061 **LDO mode** (Mode A).  
-- **TPS22910A** (sensor load switch) — replaced by BQ21061 **Load‑Switch mode** (Mode B).  
-
-
----
 
 ## <a id="bringup_checklist"></a>Bring-up checklist
 - ❑ ST‑LINK can flash; MCU boots on **3V3**.  
