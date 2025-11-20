@@ -102,6 +102,7 @@ BLE-Control/
 │   ├── Risk/
 │   ├── Reports/
 │   └── testing/
+│   └── PCB/            ← Layout plan + checklist
 │
 ├── Hardware/
 │   └── Altium/          ← Full AD25 hardware project
