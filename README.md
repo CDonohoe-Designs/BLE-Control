@@ -102,6 +102,7 @@ BLE-Control/
 │   ├── Risk/
 │   ├── Reports/
 │   └── testing/
+│   └── PCB/            ← Layout plan + checklist
 │
 ├── Hardware/
 │   └── Altium/          ← Full AD25 hardware project
@@ -155,6 +156,9 @@ Includes:
 
 - **Schematic (PDF):**  
   → [`Docs/Schematic/BLE-Control_Schematic_Master.pdf`](Docs/Schematic/BLE-Control_Schematic_Master.pdf)
+
+  - **PCB Layout Plan (AD25, RF & IEC 60601-1-2 minded):**  
+  → [`Docs/PCB/BLE-Control_PCB_Layout_Plan_AD25.md`](Docs/PCB/BLE-Control_PCB_Layout_Plan_AD25.md)
 
 - **Medical BoM:**  
   → [`Docs/BoM/BLE-Control_Medical_BoM.md`](Docs/BoM/BLE-Control_Medical_BoM.md)
