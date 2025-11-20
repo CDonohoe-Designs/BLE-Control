@@ -75,7 +75,7 @@ Bottom copper acts as a shield toward the patient side during immunity tests.
 
 ## 4. Zones & IEC Mindset
 
-Divide the board into four conceptual zones:
+I divide the board into four conceptual zones:
 
 - **Zone A – USB / Power entry (noisy I/O)**  
   J2, F101, D101, FL101, D102, ESD_CCx, BQ21061, TPS7A02, Q101, J1.  
