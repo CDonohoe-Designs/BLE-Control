@@ -211,6 +211,10 @@ DocumentPath=Project Outputs for BLE-Control\BLE-Control.csv
 DItemRevisionGUID=
 
 [GeneratedDocument3]
+DocumentPath=Project Outputs for BLE-Control\Design Rule Check - BLE-Control.html
+DItemRevisionGUID=
+
+[GeneratedDocument4]
 DocumentPath=MessageListReport.html
 DItemRevisionGUID=
 
