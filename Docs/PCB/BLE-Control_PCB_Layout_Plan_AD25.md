@@ -55,7 +55,7 @@ All key packages (0.4 mm BGA, 0.5 mm BMI270, 0.65 mm SON) land cleanly on 0.05 m
 **Top side (user/outside)** — almost everything:
 
 - Connectors: **J2 USB-C**, **J1 JST-GH**, **J3 TC2030** (debug).
-- RF: **ANT1**, π-match network (C14/C15/L1/L3/FL2), **ESD_RF1**.
+- RF: **ANT1**, π-match network (C14/C15/L1/L3/FL2) and **ESD_RF1**.
 - MCU: **STM32WB55 (IC3)** + all decouplers, bulk caps, crystals Y1/Y2.
 - Power: **BQ21061 (IC1)**, **TPS7A02 (IC2)**, **TPS22910 (IC7)**, **Q101** reverse FET, **L2** power inductor, input/output/bulk caps.
 - USB protection: **F101, D101, FL101, D102, ESD_CC1/2, R1/R104**.
@@ -69,7 +69,7 @@ All key packages (0.4 mm BGA, 0.5 mm BMI270, 0.65 mm SON) land cleanly on 0.05 m
 - Possibly a few **non-critical 0402 passives** (pull-ups, config links), via’d straight to top.
 - Avoid tall parts under the battery; avoid routing under antenna keep-out.
 
-Reasoning: better patient comfort, easier rework, and bottom copper acts as a shield during immunity tests.
+Bottom copper acts as a shield toward the patient side during immunity tests.
 
 ---
 
@@ -123,15 +123,18 @@ Net classes defined via Net Class Directives in schematics:
 
 Defined in **Layer Stack Manager → Impedance**:
 
-- **`S50`** – single-ended 50 Ω  
+- **`S50`** – single-ended 50 Ω (RF feed)  
   - Layer: `L1_TOP`, Ref: `L2_GND`  
-  - Width ≈ **0.369 mm** (per AD25 calc)  
+  - Calculated width: **0.36921 mm**  
+  - Impedance: ~**49.98 Ω**  
   - Used by: `rf_50ohms` class.
 
-- **`D90_USB`** (name example) – differential 90 Ω (USB FS)  
+- **`D90_USB`** – differential 90 Ω (USB FS)  
   - Layer: `L1_TOP`, Ref: `L2_GND`  
-  - Outputs: `Width` and `Gap` for USB diff pair.  
-  - Used by: `USB_FS` class via differential pair rule.
+  - Provides **Width (W1)** and **Gap** values used in diff-pair rule.  
+  - Used by: `USB_FS` class.
+
+These profiles are the single source of truth for controlled-impedance routing.
 
 ---
 
@@ -149,18 +152,16 @@ Defined in **Layer Stack Manager → Impedance**:
 
 ### 7.2 Width rules by class (Routing → Width)
 
-Example values (exact numbers tied to impedance calc):
-
 - `Width_RF_50ohms` – `InNetClass('rf_50ohms')`  
-  - Min/Pref/Max: `0.369 mm` (from `S50` profile).
+  - Min / Pref / Max: **`0.369 mm`** (locked to `S50` profile).
 
 - `Width_USB_FS` – `InNetClass('USB_FS')`  
-  - Min/Pref/Max: from `D90_USB` profile (e.g. `0.15 mm`).
+  - Min / Pref / Max: values from `D90_USB` profile (e.g. `0.15 mm`).
 
 - `Width_PowerMain` – `InNetClass('PWR_MAIN')`  
   - Pref `0.25 mm`, Min `0.20 mm`, Max `0.40 mm`.
 
-- Other classes (`DIG_FAST`, `SENS_DIG`, `SENS_ANALOG`) fall back to default or custom as needed.
+- Other classes (`DIG_FAST`, `SENS_DIG`, `SENS_ANALOG`) can use default width or custom rules as needed.
 
 ### 7.3 Clearance rules (Electrical → Clearance)
 
@@ -178,7 +179,7 @@ IEC idea: enforce extra spacing between noisy switching/clock nets and sensitive
 ### 7.4 Differential pair rule (High Speed → Differential Pairs Routing)
 
 - Rule `Diff_USB_FS` – `InNetClass('USB_FS')`  
-  - Width & Gap: from `D90_USB` profile (≈ 90 Ω diff).  
+  - **Width & Gap:** from `D90_USB` profile (≈ 90 Ω diff).  
   - Optional max uncoupled length: `2–3 mm`.
 
 USB pair defined via **Differential Pairs Editor** (`USB_FS_R_P` / `_N`).
@@ -232,12 +233,11 @@ J2 → FL101 CMC → D102 ESD array → series Rs (if used) → MCU pins
 - **IEC view:** This creates a compact, well-referenced ESD/surge sink right at the port, reducing stress on BQ21061/STM32 and lowering emissions on the USB cable.
 
 ## 9. Next Steps
-- Implement/verify all rules in AD25 (Width, Clearance, Diff Pair) tied to net classes above.
-- Place Block 1 (USB-C + protection island) per Section 8, checking:
-  - Short VBUS surge loops.
-  - D+ / D− diff pair obeying the impedance rule.
-  - ESD parts tight to connector pins with solid GND vias.
+- Verify all rules in AD25 (Width, Clearance, Diff Pair) are using the net classes and impedance profiles described above.
+- Complete placement of Block 1 (USB-C + protection island) per Section 8 and run DRC to confirm widths/clearances.
 - Move on to Block 2: Charger + LDO island (BQ21061 + TPS7A02) with the same IEC-aware pattern:
   - Tiny switching loops.
   - Short, fat power traces in PWR_MAIN.
   - Good separation from RF and sensors.
+- This plan is the anchor for further placement/routing playbooks for each circuit block.
+
