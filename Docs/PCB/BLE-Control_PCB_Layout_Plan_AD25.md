@@ -212,7 +212,7 @@ Order on each line:
 
 ```text
 J2 → FL101 CMC → D102 ESD array → series Rs (if used) → MCU pins
-
+```
 # USB-C Layout & Protection Guidelines
 
 ## Differential Pair Routing
