@@ -150,6 +150,8 @@ These profiles are the single source of truth for controlled-impedance routing.
 
 ### 7.1 Global manufacturing limits
 
+Aligned with **Eurocircuits standard pool**: **0.10 mm** min track/space, **0.25 mm** copper-to-board-edge.
+
 - **Default track width:**  
   - Pref `0.12 mm`, Min `0.10 mm`, Max `0.30 mm`.
 - **Default clearance (`Clearance_Default`):** `0.10 mm`.
@@ -166,37 +168,45 @@ These profiles are the single source of truth for controlled-impedance routing.
 - `Width_USB_FS` – `InNetClass('USB_FS')`  
   - Min / Pref / Max: values from `D90_USB` profile (≈ USB FS 90 Ω leg width).
 
-- `Width_PowerMain` – `InNetClass('PWR_MAIN')`  
+- `Width_PowerMain` *(planned)* – `InNetClass('PWR_MAIN')`  
   - Pref `0.25 mm`, Min `0.20 mm`, Max `0.40 mm`.
 
 - Other classes (`DIG_FAST`, `SENS_DIG`, `SENS_ANALOG`) use default width or can have overrides as needed.
 
 ### 7.3 Clearance rules (Electrical → Clearance)
 
+Implemented:
+
 - **`Clearance_Default`** – `All`  
   - Clearance: `0.10 mm`.
-
-- **`Clearance_PowerToAll`** – Between `Net Class = PWR_MAIN` and **Any Net**  
-  - Clearance: `0.15 mm`.  
-  - IEC-view: enforces extra distance between noisy power rails and everything else.
-
-- **`Clearance_NoiseToAnalog`** – “Between” type  
-  - First: `InNetClass('PWR_MAIN') or InNetClass('DIG_FAST')`  
-  - Second: `InNetClass('SENS_ANALOG')`  
-  - Clearance: `0.20 mm`.  
-  - Protects sensor/analog nets from switching/fast nets.
 
 - **`Clearance_IC3_Local`** – inside STM32WB only  
   - First: `InComponent('IC3')`  
   - Second: `InComponent('IC3')`  
-  - Clearance: `≈0.09–0.10 mm`.  
-  - Reason: package pin pitch is tighter than 0.15 mm; this rule avoids “false” DRC hits inside IC3 while still enforcing 0.15 mm once traces leave the package.
+  - Clearance: **`0.09 mm`**.  
+  - Reason: package pad spacing is slightly <0.10 mm; this rule avoids “false” DRC hits inside IC3 while still enforcing 0.10 mm once traces leave the package.
 
-Rule priority (top→bottom):
+- **J3 pad–keep-out rule** – for Tag-Connect TC2030  
+  - First: `InComponent('J3') and IsPad`  
+  - Second: `InComponent('J3') and IsRegion`  
+  - Clearance: `0 mm`.  
+  - Reason: allow vendor keep-out region to overlap pads without DRC collisions.
+
+Planned (to be added as routing progresses):
+
+- **`Clearance_PowerToAll`** – between `PWR_MAIN` and any net  
+  - Clearance: `0.15 mm`.
+
+- **`Clearance_NoiseToAnalog`** – noise vs sensor/analog  
+  - First: `InNetClass('PWR_MAIN') or InNetClass('DIG_FAST')`  
+  - Second: `InNetClass('SENS_ANALOG')`  
+  - Clearance: `0.20 mm`.
+
+Suggested priority (top→bottom):
 
 1. `Clearance_IC3_Local`  
-2. `Clearance_NoiseToAnalog`  
-3. `Clearance_PowerToAll`  
+2. `Clearance_NoiseToAnalog` *(planned)*  
+3. `Clearance_PowerToAll` *(planned)*  
 4. `Clearance_Default`
 
 ### 7.4 Solder Mask Sliver rules (Manufacturing → Solder Mask Sliver)
@@ -204,7 +214,7 @@ Rule priority (top→bottom):
 - **Global rule – `MaskSliver_Default`**  
   - Scope: `All`, `All`.  
   - Minimum Solder Mask Sliver: **0.08 mm**.  
-  - Chosen as a realistic but conservative manufacturing limit.
+  - Realistic but conservative manufacturing limit.
 
 - **Local RF filter rule – `MaskSliver_FL2`**  
   - First: `InComponent('FL2')`  
@@ -227,7 +237,7 @@ Priority (top→bottom):
 ### 7.5 Silkscreen rules
 
 - **Silk to Solder Mask Clearance**  
-  - Global rule set to **0.15 mm** (realistic for modern fabs; avoids the flood of violations from an over-strict 0.254 mm default).
+  - Global rule set to **0.15 mm** (avoids flood of violations from over-strict 0.254 mm default).
 
 - **Silk to Silk Clearance**  
   - Global rule set to **0.15 mm**.  
@@ -236,7 +246,7 @@ Priority (top→bottom):
 Silk strategy:
 
 - Keep designators for **ICs, connectors, ESD parts, testpoints and key inductors/filters**.
-- Hide designators on dense 0402 fields around MCU and charger to reduce clutter (done via Designator string visibility, not by deleting logical designators).
+- Hide designators on dense 0402 fields around MCU and charger to reduce clutter (done via designator visibility, not by deleting logical designators).
 
 ### 7.6 Differential pair rule (High Speed → Differential Pairs Routing)
 
@@ -267,8 +277,8 @@ Placed on **RIGHT edge, lower half**:
 
 1. **J2** on the edge; shield & GND pins via’d heavily into L2_GND.
 2. **F101 PPTC** directly behind VBUS pins (inline).
-3. **D101 TVS** just behind F101:
-   - VBUS connected at the F101/BQ side.
+3. **D101 TVS** just behind F101:  
+   - VBUS connected at the F101/BQ side.  
    - GND pad with 2–3 vias straight into L2 within <0.5 mm.
 4. First **input cap(s)** for BQ21061 at the VIN pin, forming a tiny loop with D101 path and GND.
 
@@ -281,18 +291,22 @@ Order on each line:
 ```text
 J2 → FL101 CMC → D102 ESD array → series Rs (if used) → MCU pins
 ```
-# PCB Layout Notes
+# Layout Notes
 
 ## USB Differential Pair
-- All on **L1**, tightly-coupled diff pair (**USB_FS class**, **Diff_USB_FS rule**).
-- **FL101** placed immediately behind **J2**.
-- **D102** just after FL101, with **GND pins via’d directly into L2**.
-- Series resistors (if used) routed as a **matched pair**, close to **MCU**.
+- Keep both lines on **L1**, tightly coupled (**Diff_USB_FS rule**).
+- **FL101** immediately behind **J2**; **D102** immediately after FL101.
+- **GND pins of D102** get short tracks to local vias into **L2**.
+- Series resistors (if used) as a **matched pair** close to the **MCU**.
+
+---
 
 ## 8.3 CC & SBU
 - **R1/R104 (5k1)** right at CC pads.
-- **ESD_CC1/2** as close as possible to connector pins:
+- **ESD_CC1/2** as close as possible to connector pins:  
   - **Pad → ESD → short trace to GND via**
+
+---
 
 ## 8.4 Grounding & Copper
 - **L2 solid GND** under whole island; no splits.
@@ -323,7 +337,7 @@ Placed tight around the **BGA**, each with short **GND vias to L2**.
 - **/CE pull-ups**  
 Placed on the **quiet side** away from USB switching.
 
-- Use **short dog-bones** and local tight vias to escape BGA pins while keeping L2 intact.
+- Use **dog-bone fan-out** and local tight vias to escape the BGA while keeping L2 intact.
 
 ---
 
@@ -334,9 +348,9 @@ Placed on the **quiet side** away from USB switching.
 - Rounded-corner board outline defined; **Mechanical 1** used for outline/courtyard copies.
 
 ### Classes & Rules Wired Up
-- Net classes: `PWR_MAIN`, `USB_FS`, `rf_50ohms`, `DIG_FAST`, `SENS_DIG`, `SENS_ANALOG`.
-- Width, clearance and differential-pair rules in Section 7 are created and active, with priorities set.
-- Local clearance rule **Clearance_IC3_Local** added to suppress false **PWR_MAIN spacing errors** inside STM32 package.
+- Net classes: **PWR_MAIN**, **USB_FS**, **rf_50ohms**, **DIG_FAST**, **SENS_DIG**, **SENS_ANALOG**.
+- Width, clearance and differential-pair rules in Section 7 are created where noted; others are queued as “planned”.
+- Local clearance rule **Clearance_IC3_Local** added to suppress false spacing errors inside **STM32 package** while keeping the **0.10 mm default** elsewhere.
 
 ### Manufacturing Rules Tuned
 - Global **mask-sliver rule** set to **0.08 mm**.
@@ -349,14 +363,18 @@ Placed on the **quiet side** away from USB switching.
 - Blanket resize of **designators** on Top/Bottom Overlay using PCB Filter + Properties.
 - Dense **0402 fields** selectively hidden; key ref-des (**ICs, connectors, ESD parts, testpoints, filter inductors/caps**) kept visible.
 
-### Keep-Out and Unions
-- Incorrect **Keep-Out regions** within connector footprint **J3** corrected in PcbLib.
-- Accidental union of “off-board” components exploded; unions now used only where explicitly helpful.
+### Keep-Outs, Unions & Off-board Parking
+- Off-board / parking components collected into **OFFBOARD_UNION**.
+- **BoardOutlineClearance rule scope:**  
+  `All and Not InNamedUnion('OFFBOARD_UNION')`  
+  → DRC ignores the parking lot while still enforcing **0.254 mm** to the real board edge.
+- **Tag-Connect J3** keeps the vendor keep-out region:  
+  A local **Clearance rule** `(InComponent('J3') and IsPad vs InComponent('J3') and IsRegion)` allows **0 mm pad-to-keep-out clearance** to avoid false DRC collisions inside the footprint.
 
 ### Placement Progress
 - **Zone A USB/protection cluster** around J2 placed as in Section 8.
 - Initial placement of **STM32WB55 (IC3)** and RF front-end area established.
-- Preparing to place **BQ21061** and its cap/sense ring between USB and battery connector.
+- **BQ21061 and TPS7A02** being placed as a compact charger/LDO island between USB and battery connector.
 
 ### DRC Status
 - Full **DRC report** generated; major error classes reduced by:
@@ -365,7 +383,7 @@ Placed on the **quiet side** away from USB switching.
 - Remaining violations:
   - **Mask-sliver exceptions** on tight parts (tracked in Section 7.4).
   - Some **silk-to-silk overlaps** still to be cleaned.
-  - **Board-outline clearance** around connectors where local relaxation may be justified.
+  - Occasional **board-outline clearance nibbles** around connectors where small placement moves or local relaxation may be justified.
 
 ---
 
@@ -389,4 +407,7 @@ Placed on the **quiet side** away from USB switching.
 - Re-run **DRC** after each major placement/routing step.
 - Record intentional **rule overrides** in this document.
 - Capture key **screenshots** (Zone A island, charger island, RF area) for repo README and IEC/ISO documentation packs.
+
+
+
 
