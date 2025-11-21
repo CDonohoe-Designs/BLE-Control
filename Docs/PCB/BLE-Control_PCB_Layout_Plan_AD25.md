@@ -280,7 +280,7 @@ Order on each line:
 
 ```text
 J2 → FL101 CMC → D102 ESD array → series Rs (if used) → MCU pins
-'''
+```
 # PCB Layout Notes
 
 ## USB Differential Pair
