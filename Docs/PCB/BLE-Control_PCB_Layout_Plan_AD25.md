@@ -93,8 +93,14 @@ Four conceptual zones:
   SW1, LED1, TC2030, testpoints.  
   *ESD at user interfaces and debugging harness.*
 
-Layout decisions should always ask:  
-> “Can we keep disturbance energy inside Zone A and avoid coupling into B/C?”
+### HDI Note – IC1 (BQ21061 BGA)
+
+The IC1 (BQ21061) region is routed as a dense 0.40 mm BGA using local fine-line rules and via-in-pad style fan-out for inner balls such as `BQ_INT` and `CE_MCU`. This region assumes a **1+N+1 HDI stack with filled via-in-pad microvias** to realistically manufacture.
+
+For a production design targeting standard pool PCB services, I would either:
+- Select the **QFN package variant** of the charger, or  
+- Move to an **HDI-capable fab** (e.g. 50/50 µm trace/space and ~0.10 mm microvias) with an appropriate stack-up.
+
 
 ---
 
