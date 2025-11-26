@@ -57,7 +57,7 @@ The USB-C connector brings in a 5 V SELV supply. Safety-related protections:
   - USBLC6 on D+/D–.
 - **Cable shield:**
   - Referenced to PCB ground via **R || C** network  
-    (typically 1 MΩ // 1 nF) to control shield currents and ESD paths.
+    
 
 **Safety intent:**  
 If the external PSU or cable misbehaves (transients, surge, short), BLE-Control:
@@ -109,7 +109,7 @@ This rail powers:
 - TMP117 (temperature)  
 - BMI270 (IMU)  
 - SHTC3 (humidity/temperature)  
-- Any other on-board sensors
+
 
 Generated via:
 
