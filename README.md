@@ -116,7 +116,7 @@ BLE-Control/
 
 # Quick Navigation
 
-###  Full Documentation (start here)
+###  Full Documentation 
 → **[`Docs/README.md`](Docs/README.md)**  
 Structured like a mini **Design History File (DHF)**:
 
@@ -256,7 +256,7 @@ Docs/
 This document captures the recommended bring-up flow and key test procedures for the BLE-Control hardware platform.
 
 
-##  Recommended Bring-Up Order
+##  Bring-Up Order
 
 ### 1. **Verify Power Path & Rails**
 - Power via USB-C or bench supply.
