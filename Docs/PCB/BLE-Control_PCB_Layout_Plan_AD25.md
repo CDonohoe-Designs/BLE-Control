@@ -64,10 +64,10 @@ IEC-60601-1-2 benefit: tight current loops + solid reference plane ⇒ lower emi
 **Bottom side (battery/skin)** — keep **flat and quiet**:
 
 - Large GND pour (shielding over battery).
-- Possibly a few **non-critical 0402 passives** (pull-ups, config links), via’d straight to top.
+- Maybe a few **non-critical 0402 passives** (pull-ups, config links), via’d straight to top.
 - Keep-out under antenna
 
-Bottom copper acts as a shield toward the patient side during immunity tests.
+Bottom copper acts as a shield during immunity tests.
 
 ---
 
