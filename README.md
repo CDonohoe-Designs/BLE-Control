@@ -1,7 +1,6 @@
 # BLE-Control — Wearable BLE Controller
 
-BLE-Control is a compact, low-power wearable controller built around the STM32WB55 (BLE 5 + Cortex-M4/M0+), designed with robust power delivery, RF performance, USB-C protection, and sensor interfacing in mind. The system includes a protected USB-C charging front end (PPTC, TVS, CMC, ESD), a TI BQ21061 charger/power-path, a clean 3.3 V system rail from TPS7A02, and a switchable sensor domain feeding TMP117, BMI270, and SHTC3. It acts as an external BLE-enabled controller/companion board suitable for wearable, low-profile and medically-aligned designs.
-
+BLE-Control is a compact, low-power wearable controller built around the STM32WB55 (BLE 5 + Cortex-M4/M0+), designed with robust power delivery, RF performance, USB-C protection, and sensor interfacing in mind. The system includes a protected USB-C charging front end (PPTC, TVS, CMC, ESD), a TI BQ21061 charger/power-path, a clean 3.3 V system rail from TPS7A02, and a switchable sensor domain feeding TMP117, BMI270, and SHTC3. 
 
 ## ✔ Work Completed (So Far)
 
@@ -56,7 +55,7 @@ BLE-Control is a compact, low-power wearable controller built around the STM32WB
 ### **2. PCB DRC/EMC Review**
 - High-speed/EMC checks (Rick Hartley rules)
 - Return path verification
-- Split of quiet vs noisy domains
+- Split of quiet vs noisy ccts
 - Thermal considerations for charger IC
 
 ### **3. IEC / ISO Documentation Expansion**
