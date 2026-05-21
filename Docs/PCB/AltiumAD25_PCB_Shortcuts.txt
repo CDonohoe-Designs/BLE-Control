@@ -86,6 +86,5 @@ _(Start by hovering the component, then press the shortcut.)_
 | Rotate component                    | **`Space`**                         |
 | Flip component                      | **`X`** / **`Y`**                   |
 
-> **Note:** Shortcuts can be customised, so if something doesn’t match, check  
-> **`DXP → Preferences → PCB Editor → General → Shortcut Keys`**.
+
 
