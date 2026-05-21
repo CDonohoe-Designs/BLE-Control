@@ -8,7 +8,7 @@ BLE-Control is a compact, low-power wearable controller built around the STM32WB
   <img src="./BLE_Control_PCB.PNG" alt="BLE Control PCB 3D render" width="750">
 </p>
 
-## ✔ Work Completed (So Far)
+## ✔ Work Completed (More to do!)
 
 ## Project status
 
