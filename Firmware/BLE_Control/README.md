@@ -14,7 +14,7 @@ This README is the **source of truth** for toolchain versions, MCU pinout, and b
 
 ---
 ### Pinout & Configuration
-**Canonical pin map — single source:** [Docs/BLE_Control_PinMap.md](../../Docs/BLE_Control_PinMap.md)
+**pin map — single source:** [Docs/BLE_Control_PinMap.md](../../Docs/BLE_Control_PinMap.md)
 
 ---
 
@@ -22,9 +22,9 @@ This README is the **source of truth** for toolchain versions, MCU pinout, and b
 > Fill these once on first commit so anyone can reproduce the build.
 
 - **STM32CubeIDE:** 1.17.0  
-- **STM32CubeWB package:** _e.g., v1.xx.x_  
-- **STM32CubeProgrammer:** _e.g., v2.xx_  
-- **Wireless coprocessor (CPU2) BLE stack flashed:** _e.g., stm32wb5x_BLE_Stack_full_fw v1.x.x_  
+- **STM32CubeWB package:** _e.g., v1
+- **STM32CubeProgrammer:** _e.g., v2
+- **Wireless coprocessor (CPU2) BLE stack flashed:**  
 - **C compiler:** GCC (bundled with CubeIDE)
 
 ---
@@ -46,14 +46,6 @@ This README is the **source of truth** for toolchain versions, MCU pinout, and b
 1. Connect ST-LINK to **SWDIO, SWCLK, NRST, GND, VTref (3V3)**.  
 2. **Run → Debug**. CubeIDE will detect ST-LINK and program the M4 app image.
 
-### C. Wireless coprocessor (CPU2) prerequisite
-If this is a fresh MCU or new board:  
-1. Open **STM32CubeProgrammer**.  
-2. Connect via **ST-LINK**.  
-3. Use the **FUS/Wireless Upgrade** tab to flash the **BLE stack** matching your app (Full/Light/Concurrent).  
-4. Power-cycle the board.
-
-_(We track only the **version** here; binaries stay outside the repo.)_
 
 ---
 
@@ -66,13 +58,13 @@ _(We track only the **version** here; binaries stay outside the repo.)_
 ---
 
 ## 5) I²C bus policy
-- Pull-ups: **3V3 → 2.2–4.7 kΩ** on SCL/SDA (board-level).  
-- Start at **100 kHz**, then 400 kHz once sensors verified.  
-- Keep **analog filter ON**, **digital filter = 0** initially.
+- Pull-ups: **3V3 → 4.7 kΩ** on SCL/SDA (board-level).  
+- I start at **100 kHz**, then 400 kHz once sensors verified.  
+
 
 ---
 
-## 6) Bring-up checklist (short)
+## 6) Bring-up checklist
 - [ ] ST-LINK sees device; can mass-erase & program.  
 - [ ] CPU2 BLE stack version recorded in this README.  
 - [ ] LSE running (check status bit / low-power operation).  
@@ -91,13 +83,6 @@ _(We track only the **version** here; binaries stay outside the repo.)_
 
 ---
 
-## 8) Licensing / third-party
-- ST **CMSIS/HAL** inside `Drivers/` are under **BSD-3-Clause** (keep their LICENSE files).  
-- Add any middleware licenses here (e.g., FreeRTOS MIT).
 
----
-
-## 9) Changelog
-- **v0.1** — Initial commit. CubeIDE 1.17.0; UFQFPN-48 pinout PB6/PB7 I²C; RF1 single-ended; LSE + HSI48/CRS.
 
 
