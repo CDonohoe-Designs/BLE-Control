@@ -93,7 +93,7 @@ Four conceptual zones:
 
 ### HDI Note – IC1 (BQ21061 BGA)
 
-The IC1 (BQ21061) region is routed as a dense 0.40 mm BGA using local fine-line rules and via-in-pad style fan-out for inner balls such as `BQ_INT` and `CE_MCU`. This region assumes a **1+N+1 HDI stack with filled via-in-pad microvias** to realistically manufacture.
+The IC1 (BQ21061) region is routed as a dense 0.40 mm BGA using local fine-line rules and via-in-pad style fan-out for inner balls such as `BQ_INT` and `CE_MCU`. This region assumes a **HDI stack with filled via-in-pad microvias** to realistically manufacture.
 
 For a production design I will modify it for either:
 - Select the **QFN package variant** of the charger, or  
