@@ -119,24 +119,6 @@ Includes:
 
 ---
 
-###  Key Engineering Docs
-
-- **Schematic (PDF):**  
-  → [`Docs/Schematic/BLE-Control_Schematic_Master.pdf`](Docs/Schematic/BLE-Control_Schematic_Master.pdf)
-
-  - **PCB Layout Plan (AD25, RF & IEC 60601-1-2 minded):**  
-  → [`Docs/PCB/BLE-Control_PCB_Layout_Plan_AD25.md`](Docs/PCB/BLE-Control_PCB_Layout_Plan_AD25.md)
-
-- **Medical BoM:**  
-  → [`Docs/BoM/BLE-Control_Medical_BoM.md`](Docs/BoM/BLE-Control_Medical_BoM.md)
-
-- **Risk Register:**  
-  → [`Docs/Risk/Risk_Register.md`](Docs/Risk/Risk_Register.md)
-
-- **EMC Notes:**  
-  → [`Docs/Reports/EMC_Precompliance_Notes.md`](Docs/Reports/EMC_Precompliance_Notes.md)
-
----
 
 #  System Overview
 
