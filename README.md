@@ -2,10 +2,7 @@
 
 BLE-Control is a compact, low-power wearable controller built around the STM32WB55 (BLE 5 + Cortex-M4/M0+), designed with robust power delivery, RF performance, USB-C protection, and sensor interfacing in mind. The system includes a protected USB-C charging front end (PPTC, TVS, CMC, ESD), a TI BQ21061 charger/power-path, a clean 3.3 V system rail from TPS7A02, and a switchable sensor domain feeding TMP117, BMI270, and SHTC3. It acts as an external BLE-enabled controller/companion board suitable for wearable, low-profile and medically-aligned designs.
 
-This is a portfolio/showcase project with **design-for-compliance** habits intentionally aligned to **IEC 60601-1** (basic safety & essential performance), **IEC 60601-1-2 Ed.4** (EMC, Class A), and documentation practices informed by **ISO 13485** (QMS) and **ISO 14971** (risk).  
-The repository mirrors a **Design History File** structure: schematic and BoM, safety & EMC rationale, port classification, risk register, battery documentation, and bring-up/test notes are all traceable from the `/Docs` directory.
 
-> *Design-for-compliance only — not a medical device.*
 ## ✔ Work Completed (So Far)
 
 ## Project status
@@ -20,7 +17,6 @@ The repository mirrors a **Design History File** structure: schematic and BoM, s
 - ⏳ **Firmware & bring-up**: Basic STM32WB CubeIDE project to follow once PCB layout stabilises.
 
 
-This project is actively developed. Current completed items:
 
 ### **Hardware Design**
 - Complete schematic capture in **Altium Designer 25**
@@ -33,7 +29,6 @@ This project is actively developed. Current completed items:
   - STM32WB55 RF output → differential filter → π-match (DNP default) → chip antenna
   - CPWG routing strategy + via-fence defined
 - Sensors subsystem defined (BMI270, TMP117, SHTC3)
-- All MCU pins given **deterministic biasing** (no floating pins)
 - Tag-Connect TC2030-NL debug interface integrated
 
 ### **Documentation**
@@ -45,17 +40,12 @@ This project is actively developed. Current completed items:
 - Battery pack documentation (IEC 62133-2 & UN 38.3 expectations)
 - Bring-up & test notes written (PER testing, EMC behaviours)
 
-### **Repo Structure**
-- Root README reworked for reviewer-friendly navigation  
-- SmartPDF schematic published  
-- Clear folder structure: Docs / Hardware / Firmware  
-
 ---
 
-## 🚧 What’s Next (Roadmap)
+## 🚧 What’s Next (My Roadmap)
 
 ### **1. PCB Layout in Altium AD25**
-- Stack-up definition (0.8 mm, 4-layer)
+- Stack-up definition (1.6 mm, 4-layer)
 - Impedance-controlled CPWG for RF output
 - SMPS layout (tight loop, ground islanding)
 - USB-C differential routing & ESD return paths
@@ -70,8 +60,8 @@ This project is actively developed. Current completed items:
 - Thermal considerations for charger IC
 
 ### **3. IEC / ISO Documentation Expansion**
-- Full 60601-1 safety narrative (MOP, essential performance, failure modes)
-- 60601-1-2 immunity rationale for each port
+- Full 60601-1 safety narrative 
+- 60601-1-2 immunity for each port
 - ISO 14971: expand risk register and residual risk justification
 - ISO 13485: early DHF structure (revision control, traceability)
 
