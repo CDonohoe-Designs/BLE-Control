@@ -5,7 +5,7 @@
 
 ## Electrical / Mechanical
 - 3.7 V (4.2 V max), 300–500 mAh pouch, ≤3.5 mm thick preferred
-- PCM integrated (OVP/UVP/OCP/short)
+- BMS integrated (OVP/UVP/OCP/short)
 - Third-wire NTC: 10 k @25 °C, B≈3435 (bonded to can)
 - Connector: JST-GH 3-pin; pin1=VBAT+, pin2=GND, pin3=NTC
 - Cable 50–150 mm, strain relief
