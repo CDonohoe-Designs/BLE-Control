@@ -13,10 +13,6 @@ This README is the **source of truth** for toolchain versions, MCU pinout, and b
 
 
 ---
-### Pinout & Configuration
-**pin map — single source:** [Docs/BLE_Control_PinMap.md](../../Docs/BLE_Control_PinMap.md)
-
----
 
 ## 2) Toolchain / versions
 > Fill these once on first commit so anyone can reproduce the build.
@@ -44,8 +40,7 @@ This README is the **source of truth** for toolchain versions, MCU pinout, and b
 
 ### B. Flash / Debug (ST-LINK)
 1. Connect ST-LINK to **SWDIO, SWCLK, NRST, GND, VTref (3V3)**.  
-2. **Run → Debug**. CubeIDE will detect ST-LINK and program the M4 app image.
-
+2. **Run → Debug**.
 
 ---
 
