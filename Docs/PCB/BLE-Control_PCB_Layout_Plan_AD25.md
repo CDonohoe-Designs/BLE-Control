@@ -1,7 +1,7 @@
 # BLE-Control PCB Layout Plan (AD25, IEC 60601-1 / -1-2 minded)
 
 Working design notes for the BLE-Control wearable PCB.  
-Target: **4-layer, 0.8 mm**, STM32WB55 BLE, BQ21061 charger, sensors, USB-C.
+Target: **4-layer, 1.6 mm**, STM32WB55 BLE, BQ21061 charger, sensors, USB-C.
 
 This is a jump-off point for detailed block-by-block placement and routing.
 
@@ -10,7 +10,7 @@ This is a jump-off point for detailed block-by-block placement and routing.
 ## 1. Board & Stackup
 
 **Tentative board outline (rev-A target)**  
-- **PCB size:** ≈ **34 mm × 22 mm**, 4-layer, 0.8 mm  
+- **PCB size:** ≈ **34 mm × 22 mm**, 4-layer, 1.6 mm  
 - Long edge: left↔right (X), short edge: bottom↔top (Y).
 
 **Layer stack (current AD25 stack)**
@@ -43,14 +43,12 @@ IEC-60601-1-2 benefit: tight current loops + solid reference plane ⇒ lower emi
 
 - **Units:** mm (`Q` toggles mil/mm in PCB editor).
 - **Normal snap grid:** `0.05 mm` (placement & routing).  
-- **Fine snap grid:** `0.025 mm` (temporary for 0.4 mm BGA escape etc.).  
+- **Fine snap grid:** `0.025 mm` (temporary for 0.4 mm BGA fan-out.).  
 - **Visible grid:** `0.5 mm`.
-
-All key packages (0.4 mm BGA, 0.5 mm BMI270, 0.65 mm SON) land cleanly on 0.05 mm grid multiples.
 
 ---
 
-## 3. Top vs Bottom Side Strategy
+## 3. Top vs Bottom Side Idea
 
 **Top side (user/outside)** — almost everything:
 
@@ -67,7 +65,7 @@ All key packages (0.4 mm BGA, 0.5 mm BMI270, 0.65 mm SON) land cleanly on 0.05 m
 
 - Large GND pour (shielding over battery).
 - Possibly a few **non-critical 0402 passives** (pull-ups, config links), via’d straight to top.
-- Avoid tall parts under the battery; avoid routing under antenna keep-out.
+- Keep-out under antenna
 
 Bottom copper acts as a shield toward the patient side during immunity tests.
 
@@ -97,9 +95,9 @@ Four conceptual zones:
 
 The IC1 (BQ21061) region is routed as a dense 0.40 mm BGA using local fine-line rules and via-in-pad style fan-out for inner balls such as `BQ_INT` and `CE_MCU`. This region assumes a **1+N+1 HDI stack with filled via-in-pad microvias** to realistically manufacture.
 
-For a production design targeting standard pool PCB services, I would either:
+For a production design I will modify it for either:
 - Select the **QFN package variant** of the charger, or  
-- Move to an **HDI-capable fab** (e.g. 50/50 µm trace/space and ~0.10 mm microvias) with an appropriate stack-up.
+- Move to an **HDI-capable fab** (e.g. 50/50 µm trace/space and ~0.10 mm microvias) with an appropriate stack-up. Possibly Optiprint
 
 
 ---
@@ -288,7 +286,7 @@ Placed on **RIGHT edge, lower half**:
    - GND pad with 2–3 vias straight into L2 within <0.5 mm.
 4. First **input cap(s)** for BQ21061 at the VIN pin, forming a tiny loop with D101 path and GND.
 
-Goal: smallest possible **VBUS + GND loop** at the connector → ESD/surge current dumped locally into L2.
+My Goal: smallest possible **VBUS + GND loop** at the connector → ESD/surge current dumped locally into L2.
 
 ### 8.2 D+ / D− path
 
@@ -303,7 +301,7 @@ J2 → FL101 CMC → D102 ESD array → series Rs (if used) → MCU pins
 - Keep both lines on **L1**, tightly coupled (**Diff_USB_FS rule**).
 - **FL101** immediately behind **J2**; **D102** immediately after FL101.
 - **GND pins of D102** get short tracks to local vias into **L2**.
-- Series resistors (if used) as a **matched pair** close to the **MCU**.
+- Series resistors (if I use them) as a **matched pair** close to the **MCU**. Otherwise 0Ohm
 
 ---
 
@@ -323,7 +321,7 @@ J2 → FL101 CMC → D102 ESD array → series Rs (if used) → MCU pins
 ---
 
 ## 9. Next Planned Block – Charger + LDO Island
-*(To be detailed as placement matures – initial intent)*
+*(To be detailed as placement is worked on further)*
 
 - **BQ21061 (IC1)** between J2 and J1, rotated so:
   - **VBUS/IN** faces Zone A (USB).
@@ -343,7 +341,6 @@ Placed tight around the **BGA**, each with short **GND vias to L2**.
 - **/CE pull-ups**  
 Placed on the **quiet side** away from USB switching.
 
-- Use **dog-bone fan-out** and local tight vias to escape the BGA while keeping L2 intact.
 
 ---
 
