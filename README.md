@@ -42,7 +42,7 @@ BLE-Control is a compact, low-power wearable controller built around the STM32WB
 
 ---
 
-## 🚧 What’s Next (My Roadmap)
+## My Roadmap
 
 ### **1. PCB Layout in Altium AD25**
 - Stack-up definition (1.6 mm, 4-layer)
