@@ -23,9 +23,8 @@ Small wearable, EMC‑first, BLE on STM32WB55. This guide explains each schemati
 ---
 
 <a id="net_manifest"></a>
-## BLE-Control — Net Manifest 
-> Source of truth for inter-sheet connectivity in a flat AD25 project.  
-> Scope option used: **Flat (Off-Sheet Connectors)** *or* **Flat (Net Labels Only)** — pick one and stick to it.
+## BLE-Control — Net List 
+
 
 ## Power & Grounds
 | Net         | Source sheet            | Consumers                                  | Notes |
@@ -114,7 +113,6 @@ USB‑C VBUS
   - **ESD array** (**USBLC6‑2SC6**) protecting CC and (optionally) D± pads.  
 - **Optional EMI bead:** **FB1 ~120 Ω @ 100 MHz** between protection and charger **IN** (DNP by default).
 
-**Placement order:** `J1 VBUS → TVS → PPTC → (FB1 opt) → BQ21061 IN` with **CIN** close to IN.
 
 ---
 
@@ -145,7 +143,6 @@ USB‑C VBUS
 | **VDD** | Decouple to GND | Local cap + TP only; don’t power loads. |
 | **CE** | MCU or default strap | Leave NC for “charge-enabled” default, or drive from MCU. |
 
-\* **VBUS chain (as drawn):** USB4105 → **SMF5.0A TVS** → **PPTC (MF-PSMF050X-2)** → (opt **FB101**) → **IN**.
 
 ---
 
@@ -185,7 +182,7 @@ i2cWrite(BQ21061_ADDR, REG_SHIP,   SHIP_CFG); // configure ship / long-press beh
 
 ---
 
-### Thermal sanity (linear charger rule‑of‑thumb)
+### Thermal checks 
 Dissipation ≈ **(VUSB − VBAT_PROT) × ICHG**.  
 - 5.0 V → 4.2 V @ **100 mA** → **0.08 W** (easy).  
 - 5.0 V → 4.2 V @ **300 mA** → **0.24 W** (watch copper).  
@@ -208,17 +205,17 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 
 ## Power & Ground — STM32WBxx (ties to `Power_Charge_USB.SchDoc`)
 
-> **Purpose:** lock rail names and ground strategy before drawing `MCU_RF.SchDoc`. Main rail is **`+3V3_SYS`** from the charger/LDO sheet.
+
 
 ### Context from `Power_Charge_USB.SchDoc`
 - USB-C (**USB4105-GF-A**), PPTC (**MF-PSMF050X-2**), TVS (**SMF5.0A**), ferrite (**BLM15AG121**), charger **BQ21061YFPR**.
 - Nets exported: **`VBAT_PROT`**, **`PMID`**, **`+3V3_SYS`**.
-- The charger has a local **VDD (IC1-D1)** pin. **Rename that local net to `BQ_VDD`** (or `CHG_VDD`) to avoid clashing with the MCU’s `VDD` rail name.
+- The charger has a local **VDD (IC1-D1)** pin. 
 
 ### VDDSMPS vs VDD — what & why
 - **`VDD`** = MCU external 3.3 V rail (**`+3V3_SYS`**). Powers I/O and most internal domains.
-- **`VDDSMPS`** = external 3.3 V **input to the on‑chip buck (SMPS)** that generates the core voltage. Separate pin → tight local decoupling and compact high‑di/dt loop.
-- In this design: **`VDD`, `VDDRF`, `VDDSMPS` → `+3V3_SYS`** (same rail), with **different decoupling**.
+- **`VDDSMPS`** = external 3.3 V **input to the on‑chip buck (SMPS)** that generates the core voltage. 
+- In my design: **`VDD`, `VDDRF`, `VDDSMPS` → `+3V3_SYS`** (same rail), with **different decoupling**.
 
 ### Rail map (what each pin wants)
 - **`VDDx` → `+3V3_SYS`**: **0.1 µF per pin** at‑pin + **4.7–10 µF** bulk nearby.
@@ -231,9 +228,9 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 - **`VBAT_PROT`**: **≤ 3.6 V**. Net‑tie to `VDD` + 0.1 µF **or** feed from 3.0–3.3 V backup.
 
 ### Ground strategy
-- **Single solid GND plane** under MCU & RF (L2). Heavy stitching.
+- **Single solid GND plane** under MCU & RF (L2). 
 - **`VSSRF/EPAD`**: via‑in‑pad array to GND; via fence near RF pins/π‑match.
-- **`VSSSMPS`**: keep the **SMPS loop** (`VLXSMPS → L1 → VFBSMPS → VSSSMPS`) **very tight**.
+- **`VSSSMPS`**: keep the **SMPS loop** (`VLXSMPS → L1 → VFBSMPS → VSSSMPS`) 
 - **`VSSA`**: tie to plane beside MCU; **VDDA/VREF+** decouplers return to **VSSA** (no split planes needed).
 
 ### Power_Charge_USB ⇄ MCU_RF net mapping
@@ -257,7 +254,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 5. **USB Node:** `VDDUSB` → `VDD` (if unused) with 100 nF; otherwise to a 3.0–3.6 V rail with local caps.  
 6. **VBAT_PROT:** Net-tie to `VDD` + 100 nF **or** bring in 3.0–3.3 V backup with 100 nF; label “Max 3.6 V”.  
 7. **Ground Pins:** Expose **`VSSRF/EPAD`** pin on the symbol and annotate: “via array to GND, keepout under HSE/RF”.  
-8. **Naming hygiene:** Keep the charger’s local **`BQ_VDD`** distinct from MCU **`VDD`** to avoid ERC/DRC confusion.
+8. **Naming hygiene:** Keep the charger’s local **`BQ_VDD`** distinct from MCU **`VDD`** 
 
 ## <a id="tc2030"></a>TC2030 (SWD) hook table — STM32WB55
 
@@ -325,7 +322,7 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 - **BMI270 (IMU):** I²C, **0x68** (`SDO → GND`) or 0x69 (`SDO → VDD_SENS`); `INT1→PA0`, `INT2→PA1`.  
 - **BME280:** **0x76** (`SDO→GND`) or **0x77** (`SDO→VDDIO/VDD_SENS`).  
   *Alt:* **SHTC3** (0x70 fixed) + **LPS22HH** (0x5C/0x5D). Choose one path and annotate.
-- Place SHTC3/LPS22HH/BME280 near a vent/slot; keep outside the antenna keepout.
+
 
 ### User I/O
 **Button (SW1):**  
@@ -365,8 +362,8 @@ Keep charger input/output loops tight; pour copper under the EP (to L2 GND) for 
 ### ERC/DRC notes
 - No‑ERC on TVS‑to‑GND if flagged.  
 - Mark environmental vent keepouts; button finger clearance.  
-- Parameter Set on I²C nets if series‑R DNPs are used (to preserve width/clearance rules).
-
+- Parameter Set on I²C nets if series‑R DNPs are used
+- 
 ### Bring‑up (sheet‑level)
 1) `SENS_EN=Low` → sensors off; 3V3 only.  
 2) `SENS_EN=High` → `VDD_SENS≈3.3 V` at TP; I²C scan matches chosen devices.  
