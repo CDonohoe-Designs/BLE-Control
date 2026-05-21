@@ -16,8 +16,6 @@ It’s structured to look and feel like a lightweight **Design History File / Te
 
 ## 1. Where to start
 
-If you’re reviewing the hardware for the first time:
-
 1. **Schematic (master view)**  
    → [`Schematic/BLE-Control_Schematic_Master.pdf`](Schematic/BLE-Control_Schematic_Master.pdf)  
    → [`Schematic/BLE-Control_Schematic_Overview.md`](Schematic/BLE-Control_Schematic_Overview.md)
@@ -33,16 +31,3 @@ If you’re reviewing the hardware for the first time:
 
 ---
 
-## 2. Folder map
-
-```text
-Docs/
-  README.md                ← this file
-  Battery/                 ← battery pack & supplier docs
-  BoM/                     ← BoM & change control
-  Compliance/              ← 60601 / 14971 / MCU safety notes
-  Risk/                    ← risk register 
-  Schematic/               ← SmartPDF + schematic overview
-  Reports/                 ← EMC & technical reports
-  Datasheets/              ← key referenced datasheets/app notes
-  testing/                 ← AD25 rules, bring-up & checklists
