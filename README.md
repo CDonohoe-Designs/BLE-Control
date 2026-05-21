@@ -78,28 +78,6 @@ BLE-Control is a compact, low-power wearable controller built around the STM32WB
 
 This roadmap is updated as design work continues.
 
-##  Repository Structure Overview
-
-```text
-BLE-Control/
-│
-├── Docs/                ← Main documentation hub
-│   ├── Schematic/
-│   ├── BoM/
-│   ├── Compliance/
-│   ├── Battery/
-│   ├── Risk/
-│   ├── Reports/
-│   └── testing/
-│   └── PCB/            ← Layout plan + checklist
-│
-├── Hardware/
-│   └── Altium/          ← Full AD25 hardware project
-│
-├── Firmware/            ← STM32WB55 firmware (CubeIDE)
-│
-└── LICENSE_MIT
-```
 
 ---
 
