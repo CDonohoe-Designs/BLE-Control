@@ -38,12 +38,6 @@ BLE-Control is a compact, low-power wearable controller built around the STM32WB
 
 ### **Documentation**
 - `/Docs` folder structured like a mini Design History File
-- Medical-style BoM with component criticality assigned
-- IEC 60601-1 electrical safety overview drafted
-- IEC 60601-1-2 EMC port classification completed
-- ISO 14971 risk register created
-- Battery pack documentation (IEC 62133-2 & UN 38.3 expectations)
-- Bring-up & test notes written (PER testing, EMC behaviours)
 
 ---
 
