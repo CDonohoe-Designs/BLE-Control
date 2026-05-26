@@ -1,4 +1,4 @@
-# BLE-Control Wearable — Simplified Schematic Review Checklist
+# BLE-Control Wearable: Schematic Review Checklist
 
 Project: **BLE-Control Wearable**  
 Classification: **Non-medical wearable / engineering prototype**  
@@ -14,20 +14,21 @@ Revision:
 
 BLE-Control is a **non-medical BLE wearable learning project**.
 
-It is intended to demonstrate:
+It demonstrates a small embedded wearable design using:
 
-- STM32WB55 BLE control
-- USB-C powered Li-Po charging
-- 3.3 V system regulation
-- Switched sensor power
-- TMP117 temperature sensing
-- BMI270 motion sensing
-- Button / LED user I/O
+- STM32WB55 BLE microcontroller
+- USB-C input and Li-Po charging
+- 3.3 V system rail and switched sensor rail
+- TMP117 temperature sensor
+- BMI270 IMU
+- Button and status LED
 - SWD programming/debug
-- BLE RF layout awareness
-- DFM/DFT and bring-up planning
+- BLE antenna / RF matching
+- DFM, DFT and bring-up planning
 
 This design is **not a medical device**, does **not claim clinical accuracy**, and is **not intended for diagnosis, treatment, therapy, or patient monitoring**.
+
+IEC 60601 / IEC 61000 references, if used, are for **design-awareness only**: low-voltage safety thinking, ESD, EMC robustness, and documentation discipline. No compliance or certification claim is made.
 
 ---
 
@@ -51,190 +52,174 @@ Actions / notes:
 - [ ] Sheet titles are correct.
 - [ ] Sheet numbers are correct.
 - [ ] Revision is correct.
-- [ ] Design notes match the current schematic.
 - [ ] Design is clearly described as a non-medical wearable prototype.
-- [ ] No medical, clinical, diagnostic, therapy, or patient-monitoring claims remain.
+- [ ] Any IEC 60601 / IEC 61000 wording is clearly marked as design-awareness only.
+- [ ] No clinical, diagnostic, therapy, or patient-monitoring claims remain.
 - [ ] Old or removed parts are not mentioned in notes.
 - [ ] SHTC3 has been removed from schematic and documentation.
 - [ ] Only intended sensors remain: TMP117 and BMI270.
-- [ ] Schematic PDF has been exported after the latest changes.
+- [ ] Updated schematic PDF has been exported.
 
 ---
 
-# 2. Net Naming and Schematic Hygiene
+# 2. Compile, Net Naming and Schematic Hygiene
 
 - [ ] Project compiles with no errors.
-- [ ] Remaining warnings are understood.
-- [ ] No duplicate net names remain.
-- [ ] No off-grid ports remain.
-- [ ] No one-pin nets remain unless intentional.
+- [ ] Remaining warnings are understood and documented.
+- [ ] No duplicate net names.
+- [ ] No off-grid ports.
+- [ ] No unintended one-pin nets.
 - [ ] Power rails use Power Ports.
 - [ ] Inter-sheet signals use Ports / Off-Sheet Connectors.
-- [ ] `+3V3_SYS` is consistent across sheets.
-- [ ] `3V3_SENS` is consistent across sheets.
-- [ ] `VIN_CHG` is consistent.
-- [ ] `VBAT_PROT` is consistent.
-- [ ] `VBATT_RAW` is consistent.
-- [ ] `I2C_SENS_SCL` is consistent.
-- [ ] `I2C_SENS_SDA` is consistent.
-- [ ] No mixed `I2C3_SENS_*` and `I2C_SENS_*` naming remains.
-- [ ] No old BQ21061 charger I2C, `CE_MCU`, `BQ_INT`, or `PMID` nets remain.
+- [ ] Main power nets are consistent: `VIN_CHG`, `VBAT_PROT`, `VBATT_RAW`, `+3V3_SYS`, `3V3_SENS`.
+- [ ] Main signal nets are consistent: `I2C_SENS_SCL`, `I2C_SENS_SDA`, `SENS_EN`, `BTN1`, `LED_STAT_N`.
+- [ ] Removed/old nets are gone or clearly marked obsolete.
 
 ---
 
-# 3. Power Architecture
+# 3. Power, USB-C and Charger
 
-- [ ] USB-C VBUS enters through protection before the charger.
-- [ ] `USB_VBUS` and `VIN_CHG` are clearly separated.
-- [ ] MCP73833 VDD connects to `VIN_CHG`.
-- [ ] MCP73833 VBAT connects to `VBAT_PROT`.
-- [ ] Battery connector connects to `VBATT_RAW`.
-- [ ] Reverse-protection PFET connects `VBATT_RAW` to `VBAT_PROT`.
-- [ ] TPS7A02 input connects to `VBAT_PROT`.
-- [ ] TPS7A02 output creates `+3V3_SYS`.
-- [ ] TPS7A02 EN is tied to input for always-on 3.3 V.
-- [ ] TPS7A02 is not controlled by an MCU GPIO.
-- [ ] TPS22910A creates `3V3_SENS` from `+3V3_SYS`.
-- [ ] No unintended short exists between `VIN_CHG`, `VBAT_PROT`, and `+3V3_SYS`.
-- [ ] Test points exist for main rails: `VIN_CHG`, `VBAT_PROT`, `+3V3_SYS`, `3V3_SENS`, and GND.
+## Design snapshot
 
----
+USB-C provides low-voltage input power. The MCP73833 charges a single-cell Li-Po battery. The TPS7A02 generates the always-on `+3V3_SYS` rail. The TPS22910A generates the switched `3V3_SENS` rail.
 
-# 4. USB-C and Input Protection
+## Checks
 
 - [ ] USB-C connector pinout is checked.
-- [ ] CC1 has 5.1 kΩ Rd to GND.
-- [ ] CC2 has 5.1 kΩ Rd to GND.
-- [ ] VBUS TVS is included.
-- [ ] PPTC/fuse is included in the VBUS path.
-- [ ] USB data ESD protection is included if USB data is used.
-- [ ] USB D+ and D- nets are named consistently.
-- [ ] USB common-mode choke/filtering is included or intentionally DNP.
-- [ ] USB shield/mounting pins are handled correctly.
-- [ ] USB protection parts are placed close to the connector in the intended layout.
+- [ ] CC1 and CC2 have correct Rd pull-downs.
+- [ ] USB-C VBUS has input protection: TVS, PPTC/fuse, and filtering as required.
+- [ ] `USB_VBUS` and `VIN_CHG` are clearly separated.
+- [ ] MCP73833 input connects to `VIN_CHG`.
+- [ ] MCP73833 battery output connects to `VBAT_PROT`.
+- [ ] MCP73833 charge-current setting is documented.
+- [ ] MCP73833 THERM connection is defined.
+- [ ] MCP73833 STAT/PG outputs are test/debug only unless level-shifted.
+- [ ] Battery connector polarity and net naming are clear.
+- [ ] Reverse-protection PFET path is checked.
+- [ ] TPS7A02 input/output/enable connections are correct.
+- [ ] No unintended short exists between `VIN_CHG`, `VBAT_PROT`, and `+3V3_SYS`.
+- [ ] Power test points exist for bring-up.
 
 ---
 
-# 5. MCP73833 Charger
+# 4. MCU, Clocks and Debug
 
-- [ ] MCP73833 part number is correct.
-- [ ] MSOP-10 footprint is assigned.
-- [ ] VDD pins connect to `VIN_CHG`.
-- [ ] VBAT pins connect to `VBAT_PROT`.
-- [ ] VSS connects to GND.
-- [ ] PROG resistor is fitted.
-- [ ] Charge current note is present.
-- [ ] Input capacitor is fitted.
-- [ ] Battery/output capacitor is fitted.
-- [ ] THERM connection is correct.
-- [ ] STAT1 goes to test point only.
-- [ ] STAT2 goes to test point only.
-- [ ] PG goes to test point only.
-- [ ] STAT1/STAT2/PG pull-ups are correct.
-- [ ] Charger status pins are not connected directly to MCU if pulled up to `VIN_CHG`.
-- [ ] No I2C, CE, ship-mode, or power-path behaviour is implied for MCP73833.
+## Design snapshot
 
----
+STM32WB55 provides BLE, USB FS, I2C sensor control, GPIO, debug and system control.
 
-# 6. STM32WB55 MCU
+## Checks
 
-- [ ] All MCU power pins connect to `+3V3_SYS`.
-- [ ] MCU VBAT pin is not connected directly to Li-Po voltage.
-- [ ] Each MCU power pin has local decoupling.
+- [ ] All MCU power pins connect to the correct rail.
+- [ ] MCU decoupling is present on each supply domain.
 - [ ] Bulk capacitance is present near the MCU.
-- [ ] NRST circuit is correct.
+- [ ] VBAT pin treatment is intentional and safe.
+- [ ] HSE/LSE crystal circuits are checked.
+- [ ] NRST circuit has defined reset behaviour.
 - [ ] BOOT0 has a defined default state.
-- [ ] SWDIO is connected correctly.
-- [ ] SWCLK is connected correctly.
-- [ ] NRST is available on SWD connector.
-- [ ] VTREF connects to `+3V3_SYS`.
-- [ ] SWD connector is accessible for programming.
-- [ ] Unused MCU pins are documented or marked intentionally unused.
-- [ ] Firmware note states unused pins should be configured safely.
+- [ ] SWDIO, SWCLK, NRST, VTREF and GND are connected to the debug connector.
+- [ ] SWD/Tag-Connect is documented as service/debug only.
+- [ ] Unused MCU pins are documented or handled in firmware.
 
 ---
 
-# 7. Sensor Power and I2C
+# 5. Sensor Power and I2C Bus
+
+## Design snapshot
+
+Sensors are powered from a switched `3V3_SENS` rail. The sensor rail is enabled by `SENS_EN`. TMP117 and BMI270 share the `I2C_SENS_SCL` / `I2C_SENS_SDA` bus.
+
+## Checks
 
 - [ ] TPS22910A input is `+3V3_SYS`.
 - [ ] TPS22910A output is `3V3_SENS`.
-- [ ] `SENS_EN` controls the TPS22910A ON pin.
-- [ ] `SENS_EN` has a pulldown to GND.
-- [ ] Sensors are OFF by default during MCU reset.
-- [ ] `3V3_SENS` has local capacitance.
-- [ ] I2C pull-ups connect to `3V3_SENS`.
-- [ ] I2C pull-ups do not connect to `+3V3_SYS`.
-- [ ] `I2C_SENS_SCL` and `I2C_SENS_SDA` use bidirectional ports.
-- [ ] 22 Ω series resistors are included near MCU side if used.
-- [ ] TMP117 and BMI270 are on the same sensor I2C bus.
-- [ ] I2C bus can be checked with a firmware I2C scan.
+- [ ] `SENS_EN` has a defined default state.
+- [ ] Sensors remain off during MCU reset unless intentionally enabled.
+- [ ] `3V3_SENS` has suitable local capacitance.
+- [ ] I2C pull-ups connect to `3V3_SENS`, not `+3V3_SYS`.
+- [ ] I2C sheet ports are bidirectional.
+- [ ] Series resistors are included near the MCU if used.
+- [ ] I2C bus can be verified with a firmware scan.
 
 ---
 
-# 8. TMP117 Temperature Sensor
+# 6. TMP117 Temperature Sensor
+
+## Design snapshot
+
+TMP117 is used as an engineering temperature sensor on the switched sensor rail.
+
+## Checks
 
 - [ ] TMP117 V+ connects to `3V3_SENS`.
-- [ ] TMP117 GND connects to GND.
-- [ ] TMP117 SCL connects to `I2C_SENS_SCL`.
-- [ ] TMP117 SDA connects to `I2C_SENS_SDA`.
-- [ ] ADD0 address strap is correct.
-- [ ] ALERT connection is correct or intentionally unused.
-- [ ] ALERT pull-up is fitted if ALERT is used.
-- [ ] Decoupling capacitor is close to TMP117.
-- [ ] Temperature reading is described as prototype/engineering data only, not clinical data.
+- [ ] TMP117 SCL/SDA connect to the sensor I2C bus.
+- [ ] TMP117 address strap is defined.
+- [ ] ALERT pin is connected or intentionally unused.
+- [ ] Decoupling capacitor is present.
+- [ ] Temperature data is described as prototype/engineering data only.
 
 ---
 
-# 9. BMI270 IMU
+# 7. BMI270 IMU
 
-- [ ] BMI270 VDD connects to `3V3_SENS`.
-- [ ] BMI270 VDDIO connects to `3V3_SENS`.
-- [ ] BMI270 GND/GNDIO connect to GND.
-- [ ] BMI270 SCL/SCX connects to `I2C_SENS_SCL`.
-- [ ] BMI270 SDA/SDX connects to `I2C_SENS_SDA`.
-- [ ] CSB is strapped correctly for I2C mode.
-- [ ] SDO is strapped for intended I2C address.
-- [ ] INT1 connects to `BMI270_INT1`.
-- [ ] INT2 connects to `BMI270_INT2`.
-- [ ] Interrupt pull-up/pulldown/filtering is intentional.
-- [ ] Decoupling capacitors are close to BMI270.
+## Design snapshot
+
+BMI270 is used as an engineering motion/IMU sensor on the switched sensor rail.
+
+## Checks
+
+- [ ] BMI270 VDD and VDDIO connect to `3V3_SENS`.
+- [ ] BMI270 SCL/SDA pins connect to the sensor I2C bus.
+- [ ] I2C mode strap pins are defined.
+- [ ] I2C address strap is defined.
+- [ ] INT1 and INT2 are routed or intentionally unused.
+- [ ] Decoupling capacitors are present.
 - [ ] IMU placement note considers board flex and mechanical stress.
 
 ---
 
-# 10. Button and LED
+# 8. Button and LED
 
-- [ ] Button net is `BTN1`.
+## Design snapshot
+
+The board has one user button and one status LED for basic interaction and bring-up.
+
+## Checks
+
+- [ ] Button net is clearly named.
 - [ ] Button has a defined default state.
-- [ ] Button pull-up uses `+3V3_SYS`.
-- [ ] Button does not depend on `3V3_SENS`.
-- [ ] Button has series resistor.
-- [ ] Button has RC debounce/filter if intended.
-- [ ] Button has ESD protection if user-accessible.
-- [ ] LED net is `LED_STAT_N`.
+- [ ] Button pull-up/pull-down is on the correct rail.
+- [ ] Button has series resistance, filtering, and ESD protection if user-accessible.
+- [ ] LED net is clearly named.
 - [ ] LED current-limit resistor is fitted.
-- [ ] LED rail choice is intentional.
-- [ ] LED active-low or active-high behaviour is documented.
+- [ ] LED polarity and active state are documented.
+- [ ] Button and LED can be tested in firmware.
 
 ---
 
-# 11. BLE RF Section
+# 9. BLE RF Section
 
-- [ ] STM32WB RF pin connects to RF matching network.
+## Design snapshot
+
+STM32WB55 RF output feeds an RF matching/filter/ESD path and 2.4 GHz BLE antenna.
+
+## Checks
+
+- [ ] RF pin connects to the matching network.
 - [ ] Pi-match / tuning footprints are present.
 - [ ] RF filter footprint is correct.
-- [ ] Antenna part number is correct.
 - [ ] RF ESD footprint is included.
+- [ ] Antenna part number and footprint are correct.
 - [ ] Antenna keepout is documented.
 - [ ] 50 ohm CPWG requirement is documented.
 - [ ] Solid L2 GND under RF path is planned.
-- [ ] RF via fence is planned.
-- [ ] No signal or copper will be placed under the antenna keepout.
+- [ ] RF via stitching / via fence is planned.
 - [ ] RF match parts are marked DNP/tuneable if required.
+- [ ] No copper or signals will be placed under the antenna keepout.
 
 ---
 
-# 12. DFT / Bring-Up Access
+# 10. DFT / Bring-Up Access
 
 - [ ] GND test point exists.
 - [ ] `VIN_CHG` test point exists.
@@ -243,34 +228,29 @@ Actions / notes:
 - [ ] `3V3_SENS` test point exists.
 - [ ] Charger status test points exist.
 - [ ] SWD programming access exists.
+- [ ] I2C bus can be probed or verified in firmware.
 - [ ] Button and LED can be tested in firmware.
-- [ ] TMP117 can be verified by I2C scan.
-- [ ] BMI270 can be verified by I2C scan.
 - [ ] BLE advertising can be tested after programming.
-- [ ] Test points are accessible and not inside the antenna keepout.
+- [ ] Test points are accessible and outside antenna keepout.
 
 ---
 
-# 13. BOM / Library / Footprints
+# 11. BOM, Libraries and Footprints
 
 - [ ] Every schematic symbol has a footprint.
-- [ ] STM32WB55 footprint matches exact package.
-- [ ] MCP73833 footprint matches MSOP-10 package.
-- [ ] TPS7A02 footprint is correct.
-- [ ] TPS22910A footprint is correct.
-- [ ] TMP117 footprint is correct.
-- [ ] BMI270 footprint is correct.
-- [ ] USB-C connector footprint is correct.
-- [ ] Battery connector footprint is correct.
+- [ ] Main IC footprints match exact packages.
+- [ ] USB-C connector footprint matches the selected part.
+- [ ] Battery connector footprint matches the selected part.
 - [ ] SWD/Tag-Connect footprint is correct.
 - [ ] Antenna footprint matches datasheet.
-- [ ] Passives are sensible package sizes.
-- [ ] DNP parts are clearly marked.
+- [ ] Passive package sizes are practical for assembly.
+- [ ] DNP/tuning parts are clearly marked.
 - [ ] Manufacturer part numbers are added where useful.
+- [ ] No downloaded/staging library files are accidentally included in the release.
 
 ---
 
-# 14. Ready for PCB Layout
+# 12. Ready for PCB Layout
 
 - [ ] Schematic compiles cleanly.
 - [ ] Schematic checklist is complete.
