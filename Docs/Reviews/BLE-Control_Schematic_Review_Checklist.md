@@ -251,5 +251,3 @@ Decision:
 - [ ] Approved with minor actions
 - [ ] Rework required
 
-- 
-- 
