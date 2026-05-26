@@ -18,43 +18,79 @@ $RECYCLE.BIN/
 ###############################################################################
 # Altium Designer (AD25)
 ###############################################################################
+
 # Per-project generated folders
 **/Project Outputs*/
+**/Project Outputs for*/
 **/Project Logs*/
+**/Project Logs for*/
 **/Simulation Logs*/
+**/Generated/
+**/Generated Documents/
+**/Reports/
+**/__Previews/
 **/__Previews__/
 **/History/
+
 Hardware/Altium/Outputs/
 Hardware/Altium/Releases/
 Hardware/Altium/__Previews/
+Hardware/Altium/Generated/
+Hardware/Altium/Generated Documents/
 
-# Compiled/derived libraries (keep LibPkg + source SchLib/PcbLib in git)
+# Compiled/derived libraries
+# Keep LibPkg + source SchLib/PcbLib in git.
 *.IntLib
 
 # Ignore the staging area under Altium libraries
 Hardware/Altium/Libraries/_staging/
 
-# Draftsman/temporary exports (usually land under Outputs/Releases anyway)
-# Uncomment if you see these spill elsewhere:
-# *.PDF
-# *.DXF
-# *.DWG
-# *.STEP
-# *.STP
-# *.IGS
-# *.IDF
-# *.zip
-
 # Per-doc previews / structural caches
 **/*.SchDocPreview
 **/*.PcbDocPreview
 **/*.PrjPcbStructure
+**/*.PrjPcbVariants
 
-# Variant compilation detritus (kept under Project Outputs anyway)
-**/Variants*/        # if Altium creates ad-hoc variant output dirs
+# Variant output folders
+**/Variants*/
 
-# If you intentionally want to keep a compiled .IntLib, un-ignore a path like:
-# !Hardware/Altium/Libraries/Integrated/Keep/*.IntLib
+# Altium generated reports / logs
+*MessageListReport*
+*Design Rule Check*
+*Design Rule Verification Report*
+*.DRC
+*.ERC
+*.REP
+*.rpt
+*.log
+*.LOG
+*.err
+
+# Temporary / backup files
+*.~*
+*.tmp
+*.bak
+*.orig
+*.rej
+
+# Draftsman / release exports
+# Do NOT globally ignore PDFs because schematic PDFs are useful in the repo.
+# Keep formal exports under Docs/ or Hardware/Altium/ when intentional.
+# Ignore generated release packages only:
+Hardware/Altium/Outputs/**/*.csv
+Hardware/Altium/Releases/**/*.csv
+Hardware/Altium/Outputs/**/*.xlsx
+Hardware/Altium/Releases/**/*.xlsx
+Hardware/Altium/Outputs/**/*.zip
+Hardware/Altium/Releases/**/*.zip
+Hardware/Altium/Outputs/**/*.PDF
+Hardware/Altium/Releases/**/*.PDF
+Hardware/Altium/Outputs/**/*.STEP
+Hardware/Altium/Releases/**/*.STEP
+Hardware/Altium/Outputs/**/*.STP
+Hardware/Altium/Releases/**/*.STP
+Hardware/Altium/Outputs/**/*.DXF
+Hardware/Altium/Releases/**/*.DXF
 
 ###############################################################################
 # STM32CubeIDE / build artifacts
