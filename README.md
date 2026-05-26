@@ -1,12 +1,14 @@
 # BLE-Control — Wearable BLE Controller
 
-BLE-Control is a compact, low-power wearable controller built around the STM32WB55 (BLE 5 + Cortex-M4/M0+), designed with robust power delivery, RF performance, USB-C protection, and sensor interfacing in mind. The system includes a protected USB-C charging front end (PPTC, TVS, CMC, ESD), a TI BQ21061 charger/power-path, a clean 3.3 V system rail from TPS7A02, and a switchable sensor domain feeding TMP117, BMI270, and SHTC3. It acts as an external BLE-enabled controller/companion board suitable for wearable, low-profile and medically-aligned designs.
+BLE-Control is a compact, low-power wearable controller built around the STM32WB55 (BLE 5 + Cortex-M4/M0+), designed with robust power delivery, RF performance, USB-C protection, and sensor interfacing in mind. The system includes a protected USB-C charging front end (PPTC, TVS, CMC, ESD), a TI BQ21061 charger/power-path, a clean 3.3 V system rail from TPS7A02, and a switchable sensor domain feeding TMP117, BMI270, and SHTC3. 
 
-This is a portfolio/showcase project with **design-for-compliance** habits intentionally aligned to **IEC 60601-1** (basic safety & essential performance), **IEC 60601-1-2 Ed.4** (EMC, Class A), and documentation practices informed by **ISO 13485** (QMS) and **ISO 14971** (risk).  
-The repository mirrors a **Design History File** structure: schematic and BoM, safety & EMC rationale, port classification, risk register, battery documentation, and bring-up/test notes are all traceable from the `/Docs` directory.
+## PCB Render
 
-> *Design-for-compliance only — not a medical device.*
-## ✔ Work Completed (So Far)
+<p align="center">
+  <img src="./BLE_Control_PCB.PNG" alt="BLE Control PCB 3D render" width="750">
+</p>
+
+## ✔ Work Completed (More to do!)
 
 ## Project status
 
@@ -20,7 +22,6 @@ The repository mirrors a **Design History File** structure: schematic and BoM, s
 - ⏳ **Firmware & bring-up**: Basic STM32WB CubeIDE project to follow once PCB layout stabilises.
 
 
-This project is actively developed. Current completed items:
 
 ### **Hardware Design**
 - Complete schematic capture in **Altium Designer 25**
@@ -33,29 +34,17 @@ This project is actively developed. Current completed items:
   - STM32WB55 RF output → differential filter → π-match (DNP default) → chip antenna
   - CPWG routing strategy + via-fence defined
 - Sensors subsystem defined (BMI270, TMP117, SHTC3)
-- All MCU pins given **deterministic biasing** (no floating pins)
 - Tag-Connect TC2030-NL debug interface integrated
 
 ### **Documentation**
 - `/Docs` folder structured like a mini Design History File
-- Medical-style BoM with component criticality assigned
-- IEC 60601-1 electrical safety overview drafted
-- IEC 60601-1-2 EMC port classification completed
-- ISO 14971 risk register created
-- Battery pack documentation (IEC 62133-2 & UN 38.3 expectations)
-- Bring-up & test notes written (PER testing, EMC behaviours)
-
-### **Repo Structure**
-- Root README reworked for reviewer-friendly navigation  
-- SmartPDF schematic published  
-- Clear folder structure: Docs / Hardware / Firmware  
 
 ---
 
-## 🚧 What’s Next (Roadmap)
+## My Roadmap
 
 ### **1. PCB Layout in Altium AD25**
-- Stack-up definition (0.8 mm, 4-layer)
+- Stack-up definition (1.6 mm, 4-layer)
 - Impedance-controlled CPWG for RF output
 - SMPS layout (tight loop, ground islanding)
 - USB-C differential routing & ESD return paths
@@ -66,12 +55,12 @@ This project is actively developed. Current completed items:
 ### **2. PCB DRC/EMC Review**
 - High-speed/EMC checks (Rick Hartley rules)
 - Return path verification
-- Split of quiet vs noisy domains
+- Split of quiet vs noisy ccts
 - Thermal considerations for charger IC
 
 ### **3. IEC / ISO Documentation Expansion**
-- Full 60601-1 safety narrative (MOP, essential performance, failure modes)
-- 60601-1-2 immunity rationale for each port
+- Full 60601-1 safety narrative 
+- 60601-1-2 immunity for each port
 - ISO 14971: expand risk register and residual risk justification
 - ISO 13485: early DHF structure (revision control, traceability)
 
@@ -89,34 +78,12 @@ This project is actively developed. Current completed items:
 
 This roadmap is updated as design work continues.
 
-##  Repository Structure Overview
-
-```text
-BLE-Control/
-│
-├── Docs/                ← Main documentation hub
-│   ├── Schematic/
-│   ├── BoM/
-│   ├── Compliance/
-│   ├── Battery/
-│   ├── Risk/
-│   ├── Reports/
-│   └── testing/
-│   └── PCB/            ← Layout plan + checklist
-│
-├── Hardware/
-│   └── Altium/          ← Full AD25 hardware project
-│
-├── Firmware/            ← STM32WB55 firmware (CubeIDE)
-│
-└── LICENSE_MIT
-```
 
 ---
 
 # Quick Navigation
 
-###  Full Documentation (start here)
+###  Full Documentation 
 → **[`Docs/README.md`](Docs/README.md)**  
 Structured like a mini **Design History File (DHF)**:
 
@@ -152,24 +119,6 @@ Includes:
 
 ---
 
-###  Key Engineering Docs
-
-- **Schematic (PDF):**  
-  → [`Docs/Schematic/BLE-Control_Schematic_Master.pdf`](Docs/Schematic/BLE-Control_Schematic_Master.pdf)
-
-  - **PCB Layout Plan (AD25, RF & IEC 60601-1-2 minded):**  
-  → [`Docs/PCB/BLE-Control_PCB_Layout_Plan_AD25.md`](Docs/PCB/BLE-Control_PCB_Layout_Plan_AD25.md)
-
-- **Medical BoM:**  
-  → [`Docs/BoM/BLE-Control_Medical_BoM.md`](Docs/BoM/BLE-Control_Medical_BoM.md)
-
-- **Risk Register:**  
-  → [`Docs/Risk/Risk_Register.md`](Docs/Risk/Risk_Register.md)
-
-- **EMC Notes:**  
-  → [`Docs/Reports/EMC_Precompliance_Notes.md`](Docs/Reports/EMC_Precompliance_Notes.md)
-
----
 
 #  System Overview
 
@@ -256,7 +205,7 @@ Docs/
 This document captures the recommended bring-up flow and key test procedures for the BLE-Control hardware platform.
 
 
-##  Recommended Bring-Up Order
+##  Bring-Up Order
 
 ### 1. **Verify Power Path & Rails**
 - Power via USB-C or bench supply.

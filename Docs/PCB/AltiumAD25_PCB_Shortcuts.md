@@ -1,6 +1,6 @@
 # Altium AD25 – PCB Shortcuts (Quick Reference)
 
-> Focused on placement, routing and inspection – the ones you’ll use all the time.
+
 
 ---
 
@@ -85,7 +85,4 @@ _(Start by hovering the component, then press the shortcut.)_
 | Toggle mm/mil                       | **`Q`**                             |
 | Rotate component                    | **`Space`**                         |
 | Flip component                      | **`X`** / **`Y`**                   |
-
-> **Note:** Shortcuts can be customised, so if something doesn’t match, check  
-> **`DXP → Preferences → PCB Editor → General → Shortcut Keys`**.
 
