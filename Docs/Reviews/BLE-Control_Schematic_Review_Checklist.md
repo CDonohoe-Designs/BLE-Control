@@ -244,7 +244,6 @@ STM32WB55 RF output feeds an RF matching/filter/ESD path and 2.4 GHz BLE antenna
 # Sign-Off
 
 Reviewer:  Caoilte Donohoe
-Date:  
 
 Decision:
 
