@@ -1,4 +1,4 @@
-# BLE-Control Wearable — Simplified Schematic Review Checklist
+# BLE-Control Wearable: Schematic Review Checklist
 
 Project: **BLE-Control Wearable**  
 Classification: **Non-medical wearable / engineering prototype**  
