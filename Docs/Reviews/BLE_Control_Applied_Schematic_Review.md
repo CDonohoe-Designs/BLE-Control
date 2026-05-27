@@ -1,11 +1,34 @@
-# BLE-Control Schematic Design Review — Applied Checklist
+# BLE-Control Wearable: Schematic Review Checklist
 
-**Project:** BLE-Control Wearable  
-**Review Type:** Schematic Design Review  
-**Review Basis:** Uploaded schematic PDF + individual Altium `.SchDoc` files + `.PcbDoc` file  
-**Reviewer:** Caoilte Donohoe / ChatGPT support review  
-**Date:** 2026-05-27  
-**Status:** First-pass engineering review. Final sign-off still requires Altium compile/ERC, BOM, library, footprint and manufacturer checks.
+Project: **BLE-Control Wearable**  
+Classification: **Non-medical wearable / engineering prototype**  
+Review Stage: **Schematic Freeze before PCB Layout**  
+Tool: **Altium Designer AD25**  
+Reviewer:  
+Date:  
+Revision:  A0 (EVT)
+
+---
+
+## Scope
+
+BLE-Control is a **non-medical BLE wearable learning project**.
+
+It demonstrates a small embedded wearable design using:
+
+- STM32WB55 BLE microcontroller
+- USB-C input and Li-Po charging
+- 3.3 V system rail and switched sensor rail
+- TMP117 temperature sensor
+- BMI270 IMU
+- Button and status LED
+- SWD programming/debug
+- BLE antenna / RF matching
+- DFM, DFT and bring-up planning
+
+This design is **not a medical device**, does **not claim clinical accuracy**, and is **not intended for diagnosis, treatment, therapy, or patient monitoring**.
+
+IEC 60601 / IEC 61000 references, if used, are for **design-awareness only**: low-voltage safety thinking, ESD, EMC robustness, and documentation discipline. No compliance or certification claim is made.
 
 ---
 
