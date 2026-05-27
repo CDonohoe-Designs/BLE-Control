@@ -7,7 +7,7 @@
 **Date:** 2026-05-27  
 **Status:** Design-owner schematic review. Items marked as actions are follow-up checks before final release.
 
-**Review Note:** This checklist records my own schematic review of the BLE-Control design. The ticked items indicate areas I reviewed against the schematic, with follow-up actions captured where further Altium, BOM, footprint, layout, or bring-up checks are required.
+**Review Note:** This checklist records my  schematic review of the BLE-Control design. The ticked items indicate areas I reviewed against the schematic, with follow-up actions captured where further Altium, BOM, footprint, layout, or bring-up checks are required.
 
 ---
 
