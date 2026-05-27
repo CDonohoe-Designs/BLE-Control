@@ -3,7 +3,7 @@
 **Project:** BLE-Control Wearable  
 **Review Type:** Schematic Design Review  
 **Review Basis:** Uploaded schematic PDF + individual Altium `.SchDoc` files + `.PcbDoc` file  
-**Reviewer:** Caoilte Donohoe / ChatGPT support review  
+**Reviewer:** Caoilte Donohoe 
 **Date:** 2026-05-27  
 **Status:** First-pass engineering review. Final sign-off still requires Altium compile/ERC, BOM, library, footprint and manufacturer checks.
 
