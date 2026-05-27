@@ -6,7 +6,7 @@ Review Stage: **Schematic Freeze before PCB Layout**
 Tool: **Altium Designer AD25**  
 Reviewer:  
 Date:  
-Revision:  
+Revision:  A0 (EVT)
 
 ---
 
@@ -40,214 +40,256 @@ IEC 60601 / IEC 61000 references, if used, are for **design-awareness only**: lo
 
 ---
 
-# 1. Project Documentation
+# 1. Documentation & Architecture
 
-- [x] Project title is correct.
-- [x] Sheet titles are correct.
-- [x] Sheet numbers are correct.
-- [x] Revision is correct.
-- [x] Design is clearly described as a non-medical wearable prototype.
-- [x] Updated schematic PDF has been exported.
-
----
-
-# 2. Compile, Net Naming and Schematic Hygiene
-
-- [x] Project compiles with no errors.
-- [x] Remaining warnings are understood and documented.
-- [x] No duplicate net names.
-- [x] No off-grid ports.
-- [x] No unintended one-pin nets.
-- [x] Power rails use Power Ports.
-- [x] Inter-sheet signals use Ports / Off-Sheet Connectors.
-- [x] Main power nets are consistent: VIN_CHG, VBAT_PROT, VBATT_RAW, +3V3_SYS, 3V3_SENS.
-- [x] Main signal nets are consistent: I2C_SENS_SCL, I2C_SENS_SDA, SENS_EN, BTN1, LED_STAT_N.
-- [x] Removed/old nets are gone or clearly marked obsolete.
+- [ ] Schematic hierarchy is logical and easy to navigate
+- [ ] Functional blocks are clearly separated
+- [ ] Design intent notes are included where appropriate
+- [ ] Sheet titles and references are consistent
+- [ ] No duplicated or ambiguous functionality
+- [ ] Interfaces between sheets are clearly defined
+- [ ] External interfaces are documented
 
 ---
 
-# 3. Power, USB-C and Charger
+# 2. Power Architecture
 
-## Design snapshot
+## Power Tree
 
-USB-C provides low-voltage input power. The MCP73833 charges a single-cell Li-Po battery. The TPS7A02 generates the always-on +3V3_SYS rail. The TPS22910A generates the switched 3V3_SENS rail.
+- [ ] Power architecture is clearly defined
+- [ ] All supply rails have identified sources
+- [ ] Rail sequencing requirements reviewed
+- [ ] Voltage levels are appropriate for all devices
+- [ ] No missing power connections
 
-## Checks
+## Protection
 
-- [x] USB-C connector pinout is checked.
-- [x] CC1 and CC2 have correct Rd pull-downs.
-- [x] USB-C VBUS has input protection: TVS, PPTC/fuse, and filtering as required.
-- [x] USB_VBUS and VIN_CHG are clearly separated.
-- [x] MCP73833 input connects to VIN_CHG.
-- [x] MCP73833 battery output connects to VBAT_PROT.
-- [x] MCP73833 charge-current setting is documented.
-- [x] MCP73833 THERM connection is defined.
-- [x] MCP73833 STAT/PG outputs are test/debug only unless level-shifted.
-- [x] Battery connector polarity and net naming are clear.
-- [x] Reverse-protection PFET path is checked.
-- [x] TPS7A02 input/output/enable connections are correct.
-- [x] No unintended short exists between VIN_CHG, VBAT_PROT, and +3V3_SYS.
-- [x] Power test points exist for bring-up.
+- [ ] Reverse polarity protection reviewed
+- [ ] Overcurrent protection reviewed
+- [ ] ESD protection included where required
+- [ ] Input protection suitable for intended environment
+- [ ] Battery protection strategy reviewed
 
----
+## Regulation
 
-# 4. MCU, Clocks and Debug
-
-## Design snapshot
-
-STM32WB55 provides BLE, USB FS, I2C sensor control, GPIO, debug and system control.
-
-## Checks
-
-- [x] All MCU power pins connect to the correct rail.
-- [x] MCU decoupling is present on each supply domain.
-- [x] Bulk capacitance is present near the MCU.
-- [x] VBAT pin treatment is intentional and safe.
-- [x] HSE/LSE crystal circuits are checked.
-- [x] NRST circuit has defined reset behaviour.
-- [x] BOOT0 has a defined default state.
-- [x] SWDIO, SWCLK, NRST, VTREF and GND are connected to the debug connector.
-- [x] SWD/Tag-Connect is documented as service/debug only.
-- [x] Unused MCU pins are documented or handled in firmware.
+- [ ] Regulator selection appropriate
+- [ ] Input/output capacitor requirements checked
+- [ ] Enable pins configured correctly
+- [ ] Startup behaviour reviewed
+- [ ] Power dissipation considered
 
 ---
 
-# 5. Sensor Power and I2C Bus
+# 3. Battery & Charging
 
-## Design snapshot
-
-Sensors are powered from a switched 3V3_SENS rail. The sensor rail is enabled by SENS_EN. TMP117 and BMI270 share the I2C_SENS_SCL / I2C_SENS_SDA bus.
-
-## Checks
-
-- [x] TPS22910A input is +3V3_SYS.
-- [x] TPS22910A output is 3V3_SENS.
-- [x] SENS_EN has a defined default state.
-- [x] Sensors remain off during MCU reset unless intentionally enabled.
-- [x] 3V3_SENS has suitable local capacitance.
-- [x] I2C pull-ups connect to 3V3_SENS, not +3V3_SYS.
-- [x] I2C sheet ports are bidirectional.
-- [x] Series resistors are included near the MCU if used.
-- [x] I2C bus can be verified with a firmware scan.
+- [ ] Battery charging architecture reviewed
+- [ ] Charger configuration verified
+- [ ] Charge current appropriate
+- [ ] Battery connector reviewed
+- [ ] NTC / temperature monitoring reviewed
+- [ ] Battery test points provided
+- [ ] Charger status signals reviewed
+- [ ] Fault conditions considered
 
 ---
 
-# 6. TMP117 Temperature Sensor
+# 4. MCU Review
 
-## Design snapshot
+## General
 
-TMP117 is used as an engineering temperature sensor on the switched sensor rail.
+- [ ] MCU selection appropriate
+- [ ] Supply pins connected correctly
+- [ ] Decoupling strategy implemented
+- [ ] Reset circuit reviewed
+- [ ] Boot configuration reviewed
 
-## Checks
+## Clocking
 
-- [x] TMP117 V+ connects to 3V3_SENS.
-- [x] TMP117 SCL/SDA connect to the sensor I2C bus.
-- [x] TMP117 address strap is defined.
-- [x] Decoupling capacitor is present.
+- [ ] High-speed clock reviewed
+- [ ] Low-speed clock reviewed
+- [ ] Crystal loading network reviewed
+- [ ] Startup recommendations checked
 
----
+## Debug
 
-# 7. BMI270 IMU
-
-## Design snapshot
-
-BMI270 is used as an engineering motion/IMU sensor on the switched sensor rail.
-
-## Checks
-
-- [x] BMI270 VDD and VDDIO connect to 3V3_SENS.
-- [x] BMI270 SCL/SDA pins connect to the sensor I2C bus.
-- [x] I2C mode strap pins are defined.
-- [x] I2C address strap is defined.
-- [x] Decoupling capacitors are present.
----
-
-# 8. Button and LED
-
-## Design snapshot
-
-The board has one user button and one status LED for basic interaction and bring-up.
-
-## Checks
-
-- [x] Button net is clearly named.
-- [x] Button has a defined default state.
-- [x] Button pull-up/pull-down is on the correct rail.
-- [x] Button has series resistance, filtering, and ESD protection if user-accessible.
-- [x] LED net is clearly named.
-- [x] LED current-limit resistor is fitted.
-- [x] LED polarity and active state are documented.
-- [x] Button and LED can be tested in firmware.
+- [ ] Programming interface included
+- [ ] Debug interface accessible
+- [ ] Debug signals clearly identified
+- [ ] Recovery strategy available
 
 ---
 
-# 9. BLE RF Section
+# 5. USB Interface
 
-## Design snapshot
+## USB-C
 
-STM32WB55 RF output feeds an RF matching/filter/ESD path and 2.4 GHz BLE antenna.
+- [ ] USB-C configuration reviewed
+- [ ] CC configuration reviewed
+- [ ] Connector orientation handled correctly
+- [ ] USB operating mode confirmed
 
-## Checks
+## Protection
 
-- [x] RF pin connects to the matching network.
-- [x] Pi-match / tuning footprints are present.
-- [x] RF filter footprint is correct.
-- [x] RF ESD footprint is included.
-- [x] Antenna part number and footprint are correct.
-- [x] Antenna keepout is documented.
-- [x] 50 ohm CPWG requirement is documented.
-- [x] Solid L2 GND under RF path is planned.
-- [x] RF via stitching / via fence is planned.
-- [x] RF match parts are marked DNP/tuneable if required.
----
+- [ ] USB ESD protection included
+- [ ] Common mode filtering reviewed
+- [ ] Surge protection reviewed
+- [ ] VBUS protection reviewed
 
-# 10. DFT / Bring-Up Access
+## Data Path
 
-- [x] GND test point exists.
-- [x] VIN_CHG test point exists.
-- [x] VBAT_PROT test point exists.
-- [x] +3V3_SYS test point exists.
-- [x] 3V3_SENS test point exists.
-- [x] Charger status test points exist.
-- [x] SWD programming access exists.
-- [x] I2C bus can be probed or verified in firmware.
-- [x] Button and LED can be tested in firmware.
-- [x] BLE advertising can be tested after programming.
-- [x] Test points are accessible and outside antenna keepout.
+- [ ] Differential pair architecture reviewed
+- [ ] Series termination reviewed
+- [ ] Signal routing intent documented
 
 ---
 
-# 11. BOM, Libraries and Footprints
+# 6. RF / BLE Review
 
-- [x] Every schematic symbol has a footprint.
-- [x] Main IC footprints match exact packages.
-- [x] USB-C connector footprint matches the selected part.
-- [x] Battery connector footprint matches the selected part.
-- [x] SWD/Tag-Connect footprint is correct.
-- [x] Antenna footprint matches datasheet.
-- [x] Passive package sizes are practical for assembly.
-- [x] DNP/tuning parts are clearly marked.
-- [x] Manufacturer part numbers are added where useful.
+## RF Architecture
+
+- [ ] RF signal path clearly defined
+- [ ] Antenna selection reviewed
+- [ ] RF matching network included
+- [ ] RF design follows vendor recommendations
+
+## RF Protection
+
+- [ ] RF ESD protection included
+- [ ] RF protection placement considered
+
+## RF Layout Requirements
+
+- [ ] Controlled impedance requirements documented
+- [ ] RF keepout requirements documented
+- [ ] Via fence requirements documented
+- [ ] Grounding strategy documented
+- [ ] Antenna placement requirements documented
+
+## Regulatory
+
+- [ ] RF compliance requirements identified
+- [ ] EMC requirements identified
+- [ ] Radiated emissions strategy considered
+- [ ] Immunity strategy considered
+
 ---
-# 12. Ready for PCB Layout
 
-- [x] Schematic compiles cleanly.
-- [x] Schematic checklist is complete.
-- [x] Updated schematic PDF is exported.
-- [x] Placement strategy is defined.
-- [x] RF keepout strategy is defined.
-- [x] Test access strategy is defined.
-- [x] Ready to update PCB from schematic.
-- [x] Ready to begin placement review.
+# 7. Sensors & Interfaces
+
+## I²C
+
+- [ ] Bus architecture reviewed
+- [ ] Pull-up strategy reviewed
+- [ ] Address conflicts checked
+- [ ] Bus voltage compatibility verified
+
+## Sensors
+
+- [ ] Sensor power requirements reviewed
+- [ ] Sensor enable strategy reviewed
+- [ ] Interrupt handling reviewed
+- [ ] Startup conditions reviewed
+
 ---
 
-# Sign-Off
+# 8. User Interface
 
-Reviewer:  Caoilte Donohoe
+## Buttons
 
-Decision:
+- [ ] Button default states defined
+- [ ] Debounce strategy reviewed
+- [ ] ESD protection included
+- [ ] Fault behaviour considered
 
-- [x] Approved for PCB layout
-- [ ] Approved with minor actions
-- [ ] Rework required
+## LEDs
+
+- [ ] LED current limiting reviewed
+- [ ] LED drive method reviewed
+- [ ] Default states reviewed
+
+---
+
+# 9. EMC / ESD Review
+
+## EMC
+
+- [ ] EMC strategy documented
+- [ ] Noise-sensitive circuits identified
+- [ ] Switching current paths considered
+- [ ] Grounding philosophy documented
+- [ ] Filtering strategy reviewed
+
+## ESD
+
+- [ ] External interfaces protected
+- [ ] Human-accessible interfaces protected
+- [ ] RF interface protected
+- [ ] USB interface protected
+
+---
+
+# 10. Grounding Strategy
+
+- [ ] Grounding philosophy documented
+- [ ] Analog and digital returns reviewed
+- [ ] RF grounding reviewed
+- [ ] Shielding requirements identified
+- [ ] Chassis/functional ground considerations reviewed
+- [ ] No unintended ground loops identified
+
+---
+
+# 11. Testability (DFT)
+
+## Bring-Up
+
+- [ ] Power rail test points available
+- [ ] Ground test points available
+- [ ] Debug access available
+- [ ] Key signals accessible
+
+## Production
+
+- [ ] Functional test strategy considered
+- [ ] Programming method defined
+- [ ] Manufacturing test access reviewed
+- [ ] Critical measurements identified
+
+---
+
+# 12. Reliability & Robustness
+
+- [ ] Safe startup behaviour reviewed
+- [ ] Safe shutdown behaviour reviewed
+- [ ] Fault conditions reviewed
+- [ ] Brownout conditions reviewed
+- [ ] Recovery behaviour reviewed
+- [ ] Watchdog strategy considered
+
+---
+
+# 13. Manufacturing Readiness
+
+- [ ] Components available from approved suppliers
+- [ ] Lifecycle status reviewed
+- [ ] Footprints verified
+- [ ] Assembly risks identified
+- [ ] Special manufacturing requirements identified
+
+---
+
+# 14. Review Outcome
+
+## Major Issues
+
+- [ ]
+
+## Minor Issues
+
+- [ ]
+
+## Recommendations
+
+- [ ]
+
 
