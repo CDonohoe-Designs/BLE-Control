@@ -10,42 +10,46 @@ My focus was on the complete embedded hardware architecture, including power man
   <img src="./BLE_Control_PCB.PNG" alt="BLE-Control PCB 3D render" width="750">
 </p>
 
----
+## Design Files
 
-## Project Overview
+**[View Complete Schematic (PDF)](Docs/Schematic/BLE_Control_Schematic.pdf)**
 
-BLE-Control brings together three main functional areas:
+**[Altium Design Files](Hardware/Altium/)**
 
-**Power & Charging → STM32WB55 / BLE → Sensors & I/O**
-
-The design was developed around low-power battery operation, with separate system and switched sensor power domains. The sensor rail can be disabled by the MCU when measurements are not required, reducing unnecessary power consumption.
-
-The STM32WB55 provides the main embedded processing and Bluetooth Low Energy functionality, while the sensor subsystem provides motion, temperature and environmental measurements.
+**[STM32CubeIDE Firmware](Firmware/)**
 
 ---
 
 ## Design Highlights
 
-* STM32WB55 MCU with integrated Bluetooth Low Energy
-* USB-C power and charging interface
-* Li-Po battery charging and power-path management
-* Low-quiescent-current 3.3 V system supply
-* MCU-controlled sensor power rail
-* BMI270 inertial measurement unit
-* TMP117 precision temperature sensor
-* SHTC3 humidity and temperature sensor
-* BLE antenna matching network
-* USB protection and ESD components
-* Tag-Connect SWD programming/debug interface
-* 4-layer PCB designed in Altium Designer
-* STM32CubeIDE development environment
-* Hardware bring-up and test planning
+- STM32WB55 MCU with integrated Bluetooth Low Energy
+- USB-C power and charging interface
+- Li-Po battery charging and power-path management
+- Low-quiescent-current 3.3 V system supply
+- MCU-controlled sensor power rail
+- BMI270 inertial measurement unit
+- TMP117 precision temperature sensor
+- SHTC3 humidity and temperature sensor
+- BLE antenna matching network
+- USB protection and ESD components
+- Tag-Connect SWD programming/debug interface
+- 4-layer PCB designed in Altium Designer
+- STM32CubeIDE development environment
+- Hardware bring-up and verification planning
 
 ---
 
-# System Architecture
+# System Overview
 
-BLE-Control contains three main engineering domains.
+BLE-Control contains three main functional areas:
+
+**Power & Charging → STM32WB55 / BLE → Sensors & I/O**
+
+The architecture was developed around battery operation and low-power control. The main system rail remains available to the STM32WB55, while the sensor rail can be switched by the MCU when measurements are required.
+
+This allows the sensors to be powered down when they are not being used rather than operating continuously.
+
+---
 
 ## 1. Power / Charging / USB-C
 
@@ -53,20 +57,19 @@ The power architecture is designed around USB-C input and Li-Po battery operatio
 
 Key components include:
 
-* **BQ21061** battery charger and power-path controller
-* Reverse-battery protection
-* **TPS7A02-3.3** low-quiescent-current regulator for `+3V3_SYS`
-* **TPS22910A** load switch providing the gated `3V3_SENS` sensor rail
-* USB-C input protection
+- **BQ21061** battery charger and power-path controller
+- Reverse-battery protection
+- **TPS7A02-3.3** low-quiescent-current regulator for `+3V3_SYS`
+- **TPS22910A** load switch providing the gated `3V3_SENS` sensor rail
 
-The USB interface includes:
+The USB-C interface includes:
 
-* PPTC protection
-* VBUS TVS protection
-* CC-line ESD protection
-* USBLC6 protection
-* Common-mode choke
-* Shield bleed network
+- PPTC protection
+- VBUS TVS protection
+- CC-line ESD protection
+- USBLC6 protection
+- Common-mode choke
+- Shield bleed network
 
 The separate `3V3_SENS` rail allows the MCU to remove power from the sensors when they are not required.
 
@@ -78,17 +81,17 @@ The design is based on the **STM32WB55**, combining the main embedded processor 
 
 The MCU section includes:
 
-* STM32WB55 dual-core wireless MCU
-* Bluetooth Low Energy
-* USB Full Speed
-* 32 MHz HSE
-* 32.768 kHz LSE
-* STM32WB internal SMPS support
-* RF matching network
-* Chip antenna
-* SWD programming/debug through Tag-Connect
+- STM32WB55 dual-core wireless MCU
+- Bluetooth Low Energy
+- USB Full Speed
+- 32 MHz HSE
+- 32.768 kHz LSE
+- STM32WB internal SMPS support
+- RF matching network
+- Chip antenna
+- SWD programming/debug through Tag-Connect
 
-The RF output is routed through the external matching/filter network before reaching the antenna.
+The RF output is routed through the external matching network before reaching the antenna.
 
 ---
 
@@ -96,18 +99,18 @@ The RF output is routed through the external matching/filter network before reac
 
 The sensor subsystem includes:
 
-* **BMI270** — inertial measurement unit
-* **TMP117** — precision temperature sensor
-* **SHTC3** — humidity and temperature sensor
+- **BMI270** — inertial measurement unit
+- **TMP117** — precision temperature sensor
+- **SHTC3** — humidity and temperature sensor
 
 The sensors operate from the switched `3V3_SENS` rail and communicate with the STM32WB55 over I²C.
 
 Additional I/O includes:
 
-* User button
-* LED status indication
-* Debug/programming interface
-* Test points for hardware bring-up
+- User button
+- LED status indication
+- Debug/programming interface
+- Hardware test points
 
 ---
 
@@ -115,7 +118,7 @@ Additional I/O includes:
 
 Power management was an important part of the design.
 
-The basic power path is:
+The main power path is:
 
 **USB-C / Li-Po → BQ21061 → TPS7A02 → +3V3_SYS**
 
@@ -125,7 +128,7 @@ with a separately controlled sensor supply:
 
 This allows the STM32WB55 to remain operational while the sensor subsystem is powered down when it is not needed.
 
-The design therefore combines battery charging, system regulation and load switching rather than powering all circuitry continuously from a single rail.
+The architecture therefore combines battery charging, power-path management, low-quiescent-current regulation and load switching rather than powering all circuitry continuously from a single rail.
 
 ---
 
@@ -135,91 +138,79 @@ I developed the PCB in **Altium Designer 25** as a compact 4-layer embedded desi
 
 The layout work considered:
 
-* Power-path placement
-* Charger and regulator current loops
-* STM32WB55 decoupling
-* RF component placement
-* Antenna region
-* USB differential routing
-* ESD return paths
-* Sensor placement
-* Ground return paths
-* Programming/debug access
-* Test-point accessibility
+- Power-path placement
+- Charger and regulator current loops
+- STM32WB55 decoupling
+- RF component placement
+- Antenna region
+- USB differential routing
+- ESD return paths
+- Sensor placement
+- Ground return paths
+- Programming/debug access
+- Test-point accessibility
 
-The PCB layout and schematic source are included in the repository for further inspection.
+The objective was to keep the power, RF, digital and sensor functions organised while maintaining a compact board footprint.
+
+The complete schematic and Altium design files are available from the links near the top of this README.
 
 ---
 
-# Hardware
+# Embedded Development
 
-→ **[`Hardware/Altium/`](Hardware/Altium/)**
+The firmware development environment is based around **STM32CubeIDE** and the STM32WB55 platform.
 
-The hardware directory contains the Altium design material, including:
+The firmware area provides the basis for:
 
-* Project files
-* PCB layout
-* Output configuration
-* Supporting component/library information
+- Board bring-up
+- GPIO control
+- Sensor power control
+- I²C sensor communication
+- BLE development
+- Programming and debugging
 
-### Schematic
+The STM32WB architecture separates the application processor from the wireless coprocessor, providing the foundation for BLE operation while the main MCU handles the application and sensor functions.
 
-→ **[View the complete schematic (PDF)](Docs/Schematic/BLE_Control_Schematic.pdf)**
----
-
-# Firmware
-
-→ **[`Firmware/`](Firmware/)**
-
-The firmware area contains STM32WB55 development material based around **STM32CubeIDE**.
-
-The embedded development environment provides the basis for:
-
-* Board bring-up
-* GPIO control
-* Sensor power control
-* I²C sensor communication
-* BLE development
-* Debugging and programming
+→ **[View STM32CubeIDE Firmware](Firmware/)**
 
 ---
 
 # Hardware Bring-Up Strategy
 
-I developed the following staged bring-up approach for the board.
+I developed a staged bring-up approach so the major subsystems can be verified independently before operating the complete system.
 
 ## 1. Verify Power Path and Rails
 
 Power the board from USB-C or a current-limited bench supply and verify:
 
-* `VBUS`
-* `VBAT_RAW`
-* `VBAT_PROT`
-* `PMID`
-* `+3V3_SYS`
+- `VBUS`
+- `VBAT_RAW`
+- `VBAT_PROT`
+- `PMID`
+- `+3V3_SYS`
 
-Check startup behaviour, current consumption, rail stability and ripple before programming the MCU.
+Check startup behaviour, current consumption, rail stability and ripple before progressing to MCU bring-up.
 
 ## 2. STM32WB55 Bring-Up
 
 Program the STM32WB55 through the Tag-Connect SWD interface.
 
-Initial firmware can be kept deliberately simple to establish:
+Initial firmware can establish:
 
-* MCU programming
-* Clock operation
-* GPIO
-* LED control
-* Basic debugging
+- MCU programming
+- Clock operation
+- GPIO
+- LED control
+- Basic debugging
 
 ## 3. Charger Verification
 
 Verify BQ21061 operation including:
 
-* USB attachment
-* Battery charging
-* Charge-state transitions
-* Interrupt/status behaviour
+- USB attachment
+- Battery charging
+- Charge-state transitions
+- Interrupt/status behaviour
 
 ## 4. Sensor Rail Bring-Up
 
@@ -227,9 +218,9 @@ Assert `SENS_EN` and verify operation of the TPS22910A switched sensor supply.
 
 Confirm `3V3_SENS` and establish I²C communication with:
 
-* TMP117
-* BMI270
-* SHTC3
+- TMP117
+- BMI270
+- SHTC3
 
 ## 5. Power Measurements
 
@@ -237,22 +228,22 @@ Measure the main power rails under representative operating conditions.
 
 Areas of interest include:
 
-* Startup behaviour
-* Regulator ripple
-* Sensor rail switching
-* Active current
-* Low-power current
+- Startup behaviour
+- Regulator ripple
+- Sensor rail switching
+- Active current
+- Low-power current
 
 ## 6. BLE / RF Bring-Up
 
 Once the basic digital and power systems are operational, bring up the BLE interface and evaluate:
 
-* BLE advertising
-* Connection stability
-* RSSI
-* Packet Error Rate
-* Antenna matching
-* RF performance across representative orientations and distances
+- BLE advertising
+- Connection stability
+- RSSI
+- Packet Error Rate
+- Antenna matching
+- RF performance across representative orientations and distances
 
 ---
 
@@ -260,105 +251,100 @@ Once the basic digital and power systems are operational, bring up the BLE inter
 
 The design includes provision for structured bench verification rather than relying only on schematic and PCB review.
 
-Areas I would verify during bring-up include:
-
 ### Power
 
-* USB-C input behaviour
-* Battery charging
-* System rail regulation
-* Sensor rail switching
-* Startup/inrush
-* Ripple
-* Current consumption
+- USB-C input behaviour
+- Battery charging
+- System rail regulation
+- Sensor rail switching
+- Startup/inrush
+- Ripple
+- Current consumption
 
 ### Digital
 
-* STM32WB55 programming
-* Clock operation
-* Reset behaviour
-* GPIO
-* I²C communications
-* Sensor identification and data acquisition
+- STM32WB55 programming
+- Clock operation
+- Reset behaviour
+- GPIO
+- I²C communications
+- Sensor identification and data acquisition
 
 ### BLE / RF
 
-* Advertising and connection
-* RSSI
-* Packet Error Rate
-* Antenna matching
-* Harmonic behaviour
+- Advertising and connection
+- RSSI
+- Packet Error Rate
+- Antenna matching
+- RF behaviour
 
 ### Robustness
 
-* USB ESD behaviour
-* Power cycling
-* Brownout behaviour
-* Repeated sensor power cycling
-* Extended operation
+- USB ESD behaviour
+- Power cycling
+- Brownout behaviour
+- Repeated sensor power cycling
+- Extended operation
 
 ---
 
 # Project Status
 
-The repository documents the hardware architecture, schematic, PCB design and supporting embedded-development material for BLE-Control.
+This repository documents the hardware architecture, schematic, PCB design and supporting embedded-development material for BLE-Control.
 
-The project should be regarded as a **development and portfolio platform rather than a qualified production product**. Hardware bring-up, RF characterisation and extended verification remain separate from the design work documented here.
+The project is presented as a **development and portfolio platform rather than a qualified production product**. Hardware bring-up, RF characterisation and extended verification are treated separately from the completed design work documented here.
 
 ---
 
-# Quick Navigation
+# Repository Navigation
 
-### Hardware Design
+### Schematic
 
-→ **[`Hardware/Altium/`](Hardware/Altium/)**
+**[Complete Schematic — PDF](Docs/Schematic/BLE_Control_Schematic.pdf)**
 
-Altium schematic, PCB and supporting hardware-design material.
+### Altium Hardware Design
 
-### Firmware
+**[Hardware/Altium](Hardware/Altium/)**
 
-→ **[`Firmware/`](Firmware/)**
+Includes the Altium project, schematic source, PCB layout and supporting design material.
 
-STM32CubeIDE project and embedded-development material.
+### STM32CubeIDE
+
+**[Firmware](Firmware/)**
+
+Contains the STM32WB55 embedded-development material.
 
 ### Documentation
 
-→ **[`Docs/`](Docs/)**
+**[Docs](Docs/)**
 
-Design notes, schematic information, BOM and supporting engineering documentation.
+Contains design notes, BOM information and supporting engineering documentation.
 
 ---
 
 # Tools Used
 
 **Hardware Design**
-
-* Altium Designer 25
+- Altium Designer 25
 
 **Embedded Development**
-
-* STM32CubeIDE
-* STM32CubeProgrammer
-* STM32CubeMonitor-RF
+- STM32CubeIDE
 
 **Analysis**
-
-* LTspice
-* Python
+- LTspice
+- Python
 
 **Development**
-
-* Git / GitHub
+- Git / GitHub
 
 ---
 
 # What This Project Demonstrates
 
-BLE-Control demonstrates my approach to developing a compact battery-powered embedded product that combines:
+BLE-Control demonstrates my approach to developing a compact battery-powered embedded product combining:
 
 **power management + embedded hardware + BLE + sensors + PCB design + hardware/firmware integration**
 
-The emphasis is on designing the individual subsystems as parts of a complete product architecture: managing battery power, controlling sensor consumption, integrating the STM32WB55 and BLE radio, providing practical debugging access and planning the hardware bring-up needed to move from PCB design to a working embedded system.
-
+The emphasis is on treating the individual circuits as parts of a complete system: managing battery power, controlling sensor consumption, integrating the STM32WB55 and BLE radio, providing practical programming/debug access, and planning the hardware bring-up needed to move from PCB design towards a working embedded platform.
 
 
