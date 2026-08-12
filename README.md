@@ -164,7 +164,7 @@ The hardware directory contains the Altium design material, including:
 
 ### Schematic
 
-**[View the complete schematic (PDF)](Docs/Schematic/BLE_Control_Schematic.pdf)**
+→ **[View the complete schematic (PDF)](Docs/Schematic/BLE_Control_Schematic.pdf)**
 ---
 
 # Firmware
