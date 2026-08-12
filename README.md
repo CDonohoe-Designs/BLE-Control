@@ -158,11 +158,13 @@ The PCB layout and schematic source are included in the repository for further i
 The hardware directory contains the Altium design material, including:
 
 * Project files
-* Schematic
 * PCB layout
 * Output configuration
 * Supporting component/library information
 
+### Schematic
+
+**[View the complete schematic (PDF)](Docs/Schematic/BLE_Control_Schematic.pdf)**
 ---
 
 # Firmware
