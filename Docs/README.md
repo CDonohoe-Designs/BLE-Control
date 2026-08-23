@@ -1,18 +1,18 @@
 # BLE-Control — Documentation Index (`/Docs`)
 
-This folder is the **documentation hub** for the BLE-Control wearable controller.  
-It’s structured to look and feel like a lightweight **Design History File / Technical File**:
+This folder contains the supporting engineering documentation for the **BLE-Control low-power BLE sensor platform**.
 
-- Schematic & architecture
-- Medical-style BoM & change control
-- IEC 60601-1 / 60601-1-2 alignment
-- ISO 14971 risk artefacts
-- Battery pack documentation
-- Bring-up, test and EMC notes
+The repository is organised as a practical portfolio / development record rather than a formal regulated-product technical file.
 
-> Design-for-compliance only — not a certified medical device.
+## Contents
 
----
+- **Battery/** — battery pack requirements and interface notes
+- **BoM/** — bill of materials and component information
+- **Datasheets/** — manufacturer references and datasheet links
+- **PCB/** — PCB-related notes and images
+- **Reviews/** — schematic/design review checklists and follow-up actions
+- **Schematic/** — exported schematic PDF
 
+The documentation supports the hardware design, bring-up planning and verification work described in the main repository README.
 
-
+> **Status:** engineering R&D / portfolio project. Not a certified or qualified medical device.
