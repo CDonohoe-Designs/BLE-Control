@@ -29,8 +29,6 @@ I designed BLE-Control as a compact **low-power BLE wearable controller** that b
 - **[Firmware area](Firmware/)**
 - **[PCB render](BLE_Control_PCB.PNG)**
 
-> **Current status:** the repository documents the hardware architecture, schematic/design work and planned bring-up approach. It is presented as an engineering portfolio project rather than a certified product design.
-
 ---
 
 ## ✔ Work Completed (More to do!)
