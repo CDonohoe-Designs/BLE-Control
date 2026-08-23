@@ -8,6 +8,31 @@ BLE-Control is a compact, low-power wearable controller built around the STM32WB
   <img src="./BLE_Control_PCB.PNG" alt="BLE Control PCB 3D render" width="750">
 </p>
 
+## 2-Minute Engineering Review
+
+I designed BLE-Control as a compact **low-power BLE wearable controller** that brings together power-path design, RF integration, USB-C protection, sensors and embedded bring-up considerations on one platform.
+
+### Engineering focus
+
+- **BLE embedded platform** — STM32WB55 dual-core MCU/radio architecture with SWD programming and BLE bring-up path
+- **Power architecture** — BQ21061 charger/power path, low-noise 3.3 V regulation and a switchable sensor rail
+- **USB-C robustness** — PPTC, TVS, ESD protection, common-mode filtering and controlled shield treatment
+- **RF design intent** — STM32WB55 RF output, differential filtering, π-match provision, chip antenna and controlled RF routing strategy
+- **Sensor integration** — TMP117, BMI270 and SHTC3 on a gated low-power domain
+- **Bring-up planning** — staged verification of power, programming, charger, sensors, SMPS and RF performance
+- **Design-for-test / EMC thinking** — test points, interface protection, return paths and pre-compliance checks considered during the hardware design
+
+### Quick review
+
+- **[Hardware / Altium source](Hardware/Altium/)**
+- **[Documentation index](Docs/README.md)**
+- **[Firmware area](Firmware/)**
+- **[PCB render](BLE_Control_PCB.PNG)**
+
+> **Current status:** the repository documents the hardware architecture, schematic/design work and planned bring-up approach. It is presented as an engineering portfolio project rather than a certified product design.
+
+---
+
 ## ✔ Work Completed (More to do!)
 
 ## Project status
